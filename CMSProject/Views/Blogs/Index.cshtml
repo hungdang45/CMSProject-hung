@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CMSProject.Models.Blog>
+
+@{
+   
+    Layout = "~/Views/Shared/admin1.cshtml";
+}
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BlogTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BlogContent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            <a href="/Blogs/Details/@item.BlogID" style="color:blue;">@item.BlogTitle</a>
+            @*@Html.DisplayFor(modelItem => item.BlogTitle)*@
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.BlogContent)*@
+         @Html.Raw(item.BlogContent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.BlogID }) |
+            @*@Html.ActionLink("Details", "Details", new { id = item.BlogID }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.BlogID })
+        </td>
+    </tr>
+    }
+
+</table>

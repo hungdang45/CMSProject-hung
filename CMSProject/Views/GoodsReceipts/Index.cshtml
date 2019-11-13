@@ -1,0 +1,82 @@
+﻿@model IEnumerable<CMSProject.Models.GoodsReceipt>
+
+@{
+    //ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/admin1.cshtml";
+}
+
+@*<h2>Index</h2>*@
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<a href='@Url.Action("Create", "GoodsReceipts")' class="btn btn-primary" style="float:right;margin-right:22px;">Tạo mới phiếu nhập</a><br>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GoodsReceiptName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Creator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier.SupplierName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GoodsReceiptName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Creator)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>*@
+        <td>
+            @if (item.Status == 1)
+            {
+                <text>Đã thanh toán</text>
+            }
+            @if (item.Status == 2)
+            {
+                <text>Chưa thanh toán</text>
+            }
+            else
+            {
+                if (item.Status == 3)
+                {
+                    <text>Đang nhập hàng</text>
+                }
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.GoodsReceiptID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.GoodsReceiptID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.GoodsReceiptID })
+        </td>
+    </tr>
+}
+
+</table>

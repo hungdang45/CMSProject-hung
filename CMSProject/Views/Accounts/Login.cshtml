@@ -1,0 +1,54 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-image: url('../../Image/bg.jpg') !important;
+            background-size: cover;
+        }
+
+        .formLogin {
+            height: 350px;
+            width: 500px;
+            margin: 174px auto;
+            background-color: white;
+            box-shadow:2px 2px 50px #808080;
+        }
+        .inForm {
+            width: 450px;
+            height: 150px;
+            margin: 1px auto;
+        }
+        .lg{
+            text-align:center;
+            padding-top:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="formLogin">
+        <div class="lg">
+            <img src="~/Content/admin1/images/logo.JPG" style="width:100px; height:100px; border-radius:200px;" />
+        </div>
+        <form action="/Accounts/Login" class="inForm" method="post">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="UserName" class="form-control" placeholder="UserName">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="Password" class="form-control" placeholder="Password">
+            </div>
+            <div class="modal-footer">
+                <button type="submit" style="width:100%;height:100%;" class="btn btn-success btn-flat m-b-30 m-t-30">Đăng nhập</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
