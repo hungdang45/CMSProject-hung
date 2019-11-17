@@ -74,7 +74,7 @@
           <Key>
             <PropertyRef Name="GoodsReceiptDetailID" />
           </Key>
-          <Property Name="GoodsReceiptDetailID" Type="int" Nullable="false" />
+          <Property Name="GoodsReceiptDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GoodsReceiptID" Type="int" />
           <Property Name="Quantity" Type="int" />
           <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" />
@@ -1666,7 +1666,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <EntitySet Name="OrderDetails" EntityType="CMSModel.OrderDetail" />
           <EntitySet Name="Orders" EntityType="CMSModel.Order" />
           <EntitySet Name="GoodsReceipts" EntityType="CMSModel.GoodsReceipt" />
-          <EntitySet Name="GoodsReceiptDetails" EntityType="CMSModel.GoodsReceiptDetail" />
           <AssociationSet Name="FK_Orders_Customer1" Association="CMSModel.FK_Orders_Customer1">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Order" EntitySet="Orders" />
@@ -1674,10 +1673,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <AssociationSet Name="FK_GoodsReceipt_Supplier" Association="CMSModel.FK_GoodsReceipt_Supplier">
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GoodsReceiptDetail_GoodsReceipt" Association="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt">
-            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
-            <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Orders" Association="CMSModel.FK_OrderDetails_Orders">
             <End Role="Order" EntitySet="Orders" />
@@ -1688,13 +1683,18 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_GoodsReceiptDetail_Product" Association="CMSModel.FK_GoodsReceiptDetail_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_Product_Supplier" Association="CMSModel.FK_Product_Supplier">
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <EntitySet Name="GoodsReceiptDetails" EntityType="CMSModel.GoodsReceiptDetail" />
+          <AssociationSet Name="FK_GoodsReceiptDetail_GoodsReceipt" Association="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt">
+            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
+            <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsReceiptDetail_Product" Association="CMSModel.FK_GoodsReceiptDetail_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -1759,19 +1759,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <NavigationProperty Name="Supplier" Relationship="CMSModel.FK_GoodsReceipt_Supplier" FromRole="GoodsReceipt" ToRole="Supplier" />
           <NavigationProperty Name="GoodsReceiptDetails" Relationship="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt" FromRole="GoodsReceipt" ToRole="GoodsReceiptDetail" />
         </EntityType>
-        <EntityType Name="GoodsReceiptDetail">
-          <Key>
-            <PropertyRef Name="GoodsReceiptDetailID" />
-          </Key>
-          <Property Name="GoodsReceiptDetailID" Type="Int32" Nullable="false" />
-          <Property Name="GoodsReceiptID" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ProductID" Type="Int32" />
-          <NavigationProperty Name="GoodsReceipt" Relationship="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt" FromRole="GoodsReceiptDetail" ToRole="GoodsReceipt" />
-          <NavigationProperty Name="Product" Relationship="CMSModel.FK_GoodsReceiptDetail_Product" FromRole="GoodsReceiptDetail" ToRole="Product" />
-        </EntityType>
         <Association Name="FK_Orders_Customer1">
           <End Type="CMSModel.Customer" Role="Customer" Multiplicity="0..1" />
           <End Type="CMSModel.Order" Role="Order" Multiplicity="*" />
@@ -1793,18 +1780,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Principal>
             <Dependent Role="GoodsReceipt">
               <PropertyRef Name="SupplierID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsReceiptDetail_GoodsReceipt">
-          <End Type="CMSModel.GoodsReceipt" Role="GoodsReceipt" Multiplicity="0..1" />
-          <End Type="CMSModel.GoodsReceiptDetail" Role="GoodsReceiptDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoodsReceipt">
-              <PropertyRef Name="GoodsReceiptID" />
-            </Principal>
-            <Dependent Role="GoodsReceiptDetail">
-              <PropertyRef Name="GoodsReceiptID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1843,8 +1818,8 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <Property Name="CategoryID" Type="Int32" />
           <Property Name="DateCreated" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Category" Relationship="CMSModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="GoodsReceiptDetails" Relationship="CMSModel.FK_GoodsReceiptDetail_Product" FromRole="Product" ToRole="GoodsReceiptDetail" />
           <NavigationProperty Name="Supplier" Relationship="CMSModel.FK_Product_Supplier" FromRole="Product" ToRole="Supplier" />
+          <NavigationProperty Name="GoodsReceiptDetails" Relationship="CMSModel.FK_GoodsReceiptDetail_Product" FromRole="Product" ToRole="GoodsReceiptDetail" />
         </EntityType>
         <Association Name="FK_Product_Category">
           <End Type="CMSModel.Category" Role="Category" Multiplicity="0..1" />
@@ -1858,18 +1833,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GoodsReceiptDetail_Product">
-          <End Type="CMSModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="CMSModel.GoodsReceiptDetail" Role="GoodsReceiptDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="GoodsReceiptDetail">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Product_Supplier">
           <End Type="CMSModel.Supplier" Role="Supplier" Multiplicity="0..1" />
           <End Type="CMSModel.Product" Role="Product" Multiplicity="*" />
@@ -1879,6 +1842,43 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GoodsReceiptDetail">
+          <Key>
+            <PropertyRef Name="GoodsReceiptDetailID" />
+          </Key>
+          <Property Name="GoodsReceiptDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsReceiptID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="GoodsReceipt" Relationship="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt" FromRole="GoodsReceiptDetail" ToRole="GoodsReceipt" />
+          <NavigationProperty Name="Product" Relationship="CMSModel.FK_GoodsReceiptDetail_Product" FromRole="GoodsReceiptDetail" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_GoodsReceiptDetail_GoodsReceipt">
+          <End Type="CMSModel.GoodsReceipt" Role="GoodsReceipt" Multiplicity="0..1" />
+          <End Type="CMSModel.GoodsReceiptDetail" Role="GoodsReceiptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsReceipt">
+              <PropertyRef Name="GoodsReceiptID" />
+            </Principal>
+            <Dependent Role="GoodsReceiptDetail">
+              <PropertyRef Name="GoodsReceiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsReceiptDetail_Product">
+          <End Type="CMSModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="CMSModel.GoodsReceiptDetail" Role="GoodsReceiptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="GoodsReceiptDetail">
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2242,18 +2242,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GoodsReceiptDetails">
-            <EntityTypeMapping TypeName="CMSModel.GoodsReceiptDetail">
-              <MappingFragment StoreEntitySet="GoodsReceiptDetail">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
-                <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="CMSModel.Product">
               <MappingFragment StoreEntitySet="Product">
@@ -2275,6 +2263,18 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
                 <ScalarProperty Name="Brand" ColumnName="Brand" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodsReceiptDetails">
+            <EntityTypeMapping TypeName="CMSModel.GoodsReceiptDetail">
+              <MappingFragment StoreEntitySet="GoodsReceiptDetail">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
+                <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

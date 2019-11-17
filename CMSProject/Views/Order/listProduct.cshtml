@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<CMSProject.Models.Product>
 
 <style>
-    .pro {
-        text-align: center;
-        border:1px solid #808080;
-        height:300px;
+        .pro {
+            text-align: center;
+            border:1px solid #808080;
+            height:300px;
+        }
+        .pro:hover{
+            box-shadow:2px 2px 10px red;
+        }
+    .col-md-4{
+        display:inline-block !important;
+        margin:-2px !important;
     }
-    .pro:hover{
-        box-shadow:2px 2px 10px red;
-    }
-</style>
-
-@foreach(var item in Model)
+    </style>
+@foreach (var item in Model)
 {
     <div class="col-md-4 pro">
         <img src="data:image;base64,@System.Convert.ToBase64String(item.ImageUpload)" alt="" style="width:100%; height:150px;" />
@@ -22,7 +25,7 @@
         <div class="modal-footer" style="text-align:center;">
             <form action="/Order/CreateProduct/@item.ProductID" method="post">
                 <input type="hidden" name="ordId" value="@ViewBag.IdO" />
-                <button type="submit" class="btn btn-success">Add</button>
+                <button type="submit" class="btn btn-success">Thêm vào</button>
             </form>
         </div>
     </div>

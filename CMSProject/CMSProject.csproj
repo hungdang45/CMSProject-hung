@@ -48,16 +48,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CKFinder">
+    <Reference Include="CKFinder, Version=2.6.0.2792, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\source\repos\CMSProject\CMSProject\Scripts\ckfinder\bin\Debug\CKFinder.dll</HintPath>
     </Reference>
-    <Reference Include="CKFinder_FileEditor">
+    <Reference Include="CKFinder_FileEditor, Version=2.1.0.1132, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\source\repos\CMSProject\CMSProject\Scripts\ckfinder\bin\Debug\CKFinder_FileEditor.dll</HintPath>
     </Reference>
-    <Reference Include="CKFinder_ImageResize">
+    <Reference Include="CKFinder_ImageResize, Version=2.1.0.1132, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\source\repos\CMSProject\CMSProject\Scripts\ckfinder\bin\Debug\CKFinder_ImageResize.dll</HintPath>
     </Reference>
-    <Reference Include="CKFinder_Watermark">
+    <Reference Include="CKFinder_Watermark, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\source\repos\CMSProject\CMSProject\Scripts\ckfinder\bin\Debug\CKFinder_Watermark.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -200,7 +204,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Client\Controllers\ListProductsController.cs" />
+    <Compile Include="Client\Controllers\ListBlogsController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Configuration\AppConfigurations.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -268,6 +273,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata\Carts.cs" />
+    <Compile Include="Models\Metadata\Storage.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>CMS.tt</DependentUpon>
     </Compile>
@@ -466,13 +472,11 @@
     <Content Include="Content\admin1\images\avatar\4.jpg" />
     <Content Include="Content\admin1\images\avatar\5.jpg" />
     <Content Include="Content\admin1\images\avatar\6.jpg" />
-    <Content Include="Content\admin1\images\logo.JPG" />
     <Content Include="Content\admin1\images\logo.png" />
     <Content Include="Content\admin1\images\logo2.png" />
     <Content Include="Content\admin1\images\placeholder.png" />
     <Content Include="Content\admin1\images\twitter_corner_black.png" />
     <Content Include="Content\admin1\images\twitter_corner_blue.png" />
-    <Content Include="Content\admin1\images\user.jpg" />
     <Content Include="Content\admin1\index.html" />
     <Content Include="Content\admin1\maps-gmap.html" />
     <Content Include="Content\admin1\maps-vector.html" />
@@ -5640,14 +5644,6 @@
     <Content Include="Scripts\ckfinder\skins\v1\skin.js" />
     <Content Include="Scripts\ckfinder\skins\v1\uipanel.css" />
     <Content Include="Scripts\ckfinder\translations.txt" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
     <EntityDeploy Include="Models\CMS.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CMS.Designer.cs</LastGenOutput>
@@ -6367,8 +6363,19 @@
     <Content Include="Content\admin1\vendors\themify-icons\fonts\themify.ttf" />
     <Content Include="Content\admin1\vendors\themify-icons\fonts\themify.woff" />
     <Content Include="Content\admin1\vendors\themify-icons\README.md" />
+    <None Include=".bin\node.cmd" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -6486,15 +6493,6 @@
     <Content Include="Views\Shared\customer.cshtml" />
     <Content Include="Views\Shared\admin.cshtml" />
     <Content Include="Views\Shared\admin1.cshtml" />
-    <Content Include="Scripts\umd\popper.min.js.map" />
-    <Content Include="Scripts\umd\popper.js.map" />
-    <Content Include="Scripts\umd\popper-utils.min.js.map" />
-    <Content Include="Scripts\umd\popper-utils.js.map" />
-    <Content Include="Scripts\README.md" />
-    <Content Include="Scripts\popper.min.js.map" />
-    <Content Include="Scripts\popper.js.map" />
-    <Content Include="Scripts\popper-utils.min.js.map" />
-    <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Carts\Checkout.cshtml" />
     <Content Include="Views\Shared\Contact.cshtml" />
     <Content Include="Views\Home\Registration.cshtml" />
@@ -6516,7 +6514,7 @@
     <Content Include="Views\Checkout\AddressAndPayment.cshtml" />
     <Content Include="Views\Products\Index1.cshtml" />
     <Content Include="Views\Products\_Index.cshtml" />
-    <Content Include="Views\ListProducts\Index.cshtml" />
+    <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\Delete.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
@@ -6532,6 +6530,19 @@
     <Content Include="Views\GoodsReceipts\Details.cshtml" />
     <Content Include="Views\GoodsReceipts\Edit.cshtml" />
     <Content Include="Views\GoodsReceipts\Index.cshtml" />
+    <Content Include="Views\GoodsReceipts\AddGoodsReceipt.cshtml" />
+    <Content Include="Views\GoodsReceipts\LstPro.cshtml" />
+    <Content Include="Views\GoodsReceipts\LstGoodsReceipt.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Clients\BlogIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -6539,6 +6550,7 @@
     <Folder Include="Content\customer\img\blog\latest-post\" />
     <Folder Include="Content\customer\img\product\blog\latest-post\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\ListBlogs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -6548,7 +6560,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Content\admin1\vendors\popper.js\packages\popper\index.d.ts" />
+    <TypeScriptCompile Include="Content\admin1\vendors\popper.js\packages\popper\src\index.d.ts" />
+    <TypeScriptCompile Include="Content\admin1\vendors\popper.js\packages\tooltip\index.d.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <PropertyGroup>

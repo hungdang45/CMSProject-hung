@@ -1,9 +1,14 @@
 ﻿@model IEnumerable<CMSProject.Models.Carts>
 
 <style>
+
+    table {
+        border: 1px solid black;
+    }
+
     th {
         text-align: center;
-        background-color: green;
+        background-color: #4e73df;
         color: white;
     }
 
@@ -11,14 +16,15 @@
         text-align: center;
     }
 </style>
-
 <table class="table table-bordered">
     <tr>
         <th>Tên sản phẩm</th>
         <th>Số lượng</th>
+        <th>Đơn giá</th>
         <th>Thành tiền</th>
         <th></th>
     </tr>
+    <tr> </tr>
     @foreach (var item in Model)
     {
         <tr>
@@ -26,10 +32,11 @@
             <td>
                 <form action="/Order/EditQuantity/@item.ProductID" method="post">
                     <input type="hidden" name="IdOr" value="@item.OrderID" />
-                    <input type="number" name="Quantitied" min="1" value="@item.Quantity" />
-                    <button type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                    <input type="number" style="width:40px;" name="Quantitied" min="1" value="@item.Quantity" />
+                    <button type="submit"><i class="fa fa-save" aria-hidden="true"></i></button>
                 </form>
             </td>
+            <td>@item.UnitPrice.ToString("#,###") VND/sản phẩm</td>
             <td>@item.Total.ToString("#,###") VND</td>
             <td>
                 <form action="/Order/RemoveProduct/@item.ProductID" method="post">
@@ -39,4 +46,5 @@
             </td>
         </tr>
     }
+   
 </table>

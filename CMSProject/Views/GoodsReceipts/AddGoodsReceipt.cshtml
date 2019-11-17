@@ -1,0 +1,37 @@
+﻿@model CMSProject.Models.GoodsReceipt
+@{
+    ViewBag.Title = "AddGoodsReceipt";
+    Layout = "~/Views/Shared/admin.cshtml";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="border:1px solid #808080;height:500px; margin-top:20px;overflow:auto;">
+            @Html.Action("LstPro", "GoodsReceipts")
+        </div>
+        <div class="col-md-6" style="border:1px solid #808080;height:500px; margin-top:20px;overflow:auto;">
+            @Html.Action("LstGoodsReceipt", "GoodsReceipts")
+        </div>
+    </div>
+    <div class="modal-footer">
+        <table>
+            <tr>
+                <th>Tổng tiền: </th>
+                <th style="color:red;">@ViewBag.totalGoodsReceiptDetail.ToString("#,###") VND</th>
+                <td>
+                    <button onclick="LuuVao(@Model.GoodsReceiptID)" class="btn btn-primary">Lưu phiếu</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    function LuuVao(id) {
+        var f = confirm("Lưu vào kho?");
+        if (f == true) {
+            window.location.href = "/GoodsReceipts/SaveGoodsReceiptToDb/" + id;
+        }
+    }
+</script>

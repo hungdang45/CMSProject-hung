@@ -5,17 +5,19 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
 <!--<![endif]-->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Trang Quản Trị</title>
     <meta name="description" content="Trang Quản Trị">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     @*<link rel="apple-touch-icon" href="apple-icon.png">
         <link rel="shortcut icon" href="favicon.ico">*@
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-reboot.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-reboot.min.css" rel="stylesheet" />
     @*<link rel="stylesheet" href="~/Content/admin1/vendors/bootstrap/dist/css/bootstrap.min.css">*@
     <link rel="stylesheet" href="~/Content/admin1/vendors/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/Content/admin1/vendors/themify-icons/css/themify-icons.css">
@@ -23,29 +25,23 @@
     <link rel="stylesheet" href="~/Content/admin1/vendors/selectFX/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="~/Content/admin1/vendors/jqvmap/dist/jqvmap.min.css">
     <link rel="stylesheet" href="~/Content/admin1/assets/css/style.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
     <link href="~/Content/PagedList.css" rel="stylesheet" />
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-    @*<link rel="icon" href="~/favicon2.ico" />*@
-
+    <link rel="icon" href="~/favicon2.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
 
 </head>
-
 <body>
     <!-- Left Panel -->
-
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
-
             <div class="navbar-header">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="./"><img src="~/Content/admin1/images/logo.jpg" width="100" height="50" alt="Logo"></a>
                 <a class="navbar-brand hidden" href="./"><img src="~/Content/admin1/images/logo.jpg" alt="Logo"></a>
-
             </div>
-
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
@@ -118,7 +114,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Nhà phân phối  </a>
                         <ul class="sub-menu children dropdown-menu">
@@ -134,7 +129,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <h3 class="menu-title">Khách hàng</h3><!-- /.menu-title -->
                     @*<li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
@@ -145,9 +139,9 @@
                             </ul>
                         </li>*@
                     <li>
-                        <i class="menu-icon fa fa-th">
-                            <a href="/danh-sach-khach-hang" )" class="elements">Danh sách khách hàng </a>
-                        </i>
+                        <a href="/danh-sach-khach-hang" )" class="elements">
+                            <i class="menu-icon fa fa-th"></i>Danh sách khách hàng
+                        </a>
                     </li>
                     <li>
                         <a href="/danh-sach-feedback" )" class="elements">
@@ -162,7 +156,6 @@
                                 <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
                             </ul>
                         </li>*@
-
                     @*<li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
                             <ul class="sub-menu children dropdown-menu">
@@ -185,14 +178,10 @@
     </aside><!-- /#left-panel -->
     <!-- Left Panel -->
     <!-- Right Panel -->
-
     <div id="right-panel" class="right-panel">
-
         <!-- Header-->
         <header id="header" class="header">
-
             <div class="header-menu">
-
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
@@ -203,7 +192,6 @@
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
-
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
@@ -225,7 +213,6 @@
                                 </a>
                             </div>
                         </div>
-
                         <div class="dropdown for-message">
                             @*<button class="btn btn-secondary dropdown-toggle" type="button"
                                         id="message"
@@ -271,7 +258,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -281,14 +267,11 @@
                             @*<a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
 
                                 <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>*@
-
                             @*<a class="nav-link" href="#"><i class="fa fa-cog"></i> Tài khoản</a>*@
                             <a class="nav-link" href="@Url.Action("Index", "Accounts")"></i> Tài khoản</a>
                             <a class="nav-link" href="@Url.Action("Login", "Accounts")"><i class="fa fa-power-off"></i> Đăng xuất</a>
-
                         </div>
                     </div>
-
                     @*<div class="language-select dropdown" id="language-select">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
                                 <i class="flag-icon flag-icon-us"></i>
@@ -308,13 +291,10 @@
                                 </div>
                             </div>
                         </div>*@
-
                 </div>
             </div>
-
         </header><!-- /header -->
         <!-- Header-->
-
         <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
@@ -335,12 +315,9 @@
                     </div>
                 </div>*@
         </div>
-
         <div class="content mt-3">
             @RenderBody()
-
         </div>
-
 
         @*<div class="content mt-3">
                 <div class="animated fadeIn">
@@ -380,22 +357,24 @@
                 </div><!-- .animated -->
             </div><!-- .content -->*@
 
-
     </div><!-- /#right-panel -->
     <!-- Right Panel -->
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    @*<script src="~/Content/admin1/vendors/jquery/dist/jquery.min.js"></script>*@
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    @*<script src="~/Content/admin1/vendors/jqvmap/dist/jquery.vmap.min.js"></script>*@
-    @*<script src="~/Content/admin1/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <script src="~/Content/admin1/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>*@
-    @*<script src="~/Content/admin1/vendors/popper.js/dist/umd/popper.min.js"></script>*@
-    @*<script src="~/Content/admin1/vendors/bootstrap/dist/js/bootstrap.min.js"></script>*@
-    @*<script src="~/Content/admin1/assets/js/main.js"></script>*@
-    @*<script src="~/Content/admin1/vendors/chart.js/dist/Chart.bundle.min.js"></script>*@
-    @*<script src="~/Content/admin1/assets/js/dashboard.js"></script>*@
-    @*<script src="~/Content/admin1/assets/js/widgets.js"></script>*@
-
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+    <script src="~/Content/admin1/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Content/admin1/vendors/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Content/admin1/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="~/Content/admin1/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script src="~/Content/admin1/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="~/Content/admin1/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/Content/admin1/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/Content/admin1/assets/js/main.js"></script>
+    <script src="~/Content/admin1/vendors/chart.js/dist/Chart.bundle.min.js"></script>
+    @*<script src="~/Content/admin1/assets/js/dashboard.js"></script>
+        <script src="~/Content/admin1/assets/js/widgets.js"></script>*@
 
     <script type="text/javascript">
         $(function () {
@@ -413,7 +392,6 @@
             });
         });
     </script>
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
     <script type="text/javascript">
         $(function () {
             // Document.ready -> link up remove event handler
@@ -435,5 +413,4 @@
     <script src="~/Scripts/ckfinder/ckfinder.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
-
 </html>

@@ -180,6 +180,17 @@ namespace CMSProject
             url: "chi-tiet-don-hang",
             defaults: new { controller = "OrderDetails", action = "Index", id = UrlParameter.Optional }
         );
+            //Goodsreceipt
+            routes.MapRoute(
+            name: "IndexGoodsReceipts",
+            url: "danh-sach-phieu-nhap-hang",
+            defaults: new { controller = "GoodsReceipts", action = "Index", id = UrlParameter.Optional }
+        );
+            routes.MapRoute(
+      name: "CreateGoodsReceipts",
+      url: "tao-phieu-moi",
+      defaults: new { controller = "GoodsReceipts", action = "Create", id = UrlParameter.Optional }
+  );
             //customer
             routes.MapRoute(
             name: "IndexCustomers",

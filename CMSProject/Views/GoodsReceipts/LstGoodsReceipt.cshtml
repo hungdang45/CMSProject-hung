@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CMSProject.Models.Storage>
+
+<style>
+    .table-bordered > tr > th {
+        background-color: #4e73df;
+        color: white;
+    }
+</style>
+<table class="table table-bordered">
+    <tr>
+        <th>Sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Giá nhập</th>
+        <th>Thành tiền</th>
+        <th></th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+                @item.ProductName
+            </td>
+            <form action="/GoodsReceipts/updateQuantityAndUnitPrice/@item.ProductID" method="post">
+                <input type="hidden" name="idGoodsReceipt" value="@item.GoodsReceiptID" />
+                <td>
+                    <input type="number" name="quantitied" value="@item.Quantity" min="1" style="width:50px;" />
+                </td>
+                <td>
+                    <input type="number" name="unitPriced" value="@item.UnitPrice" min="0" style="width:80px;" />
+                    <button type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                </td>
+            </form>
+            <td>
+                @item.Total.ToString("#,###") VND
+            </td>
+            <td>
+                <form action="/GoodsReceipts/RemoveProduct/@item.ProductID" method="post">
+                    <input type="hidden" name="idGoodsReceipt" value="@item.GoodsReceiptID" />
+                    <button class="btn btn-danger">X</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

@@ -14,10 +14,8 @@ namespace CMSProject.Models
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
-    public partial class Blog
+    
+public partial class Blog
 {
 
     public int BlogID { get; set; }
@@ -25,8 +23,7 @@ using System;
     public string BlogTitle { get; set; }
 
     public Nullable<int> CategoryID { get; set; }
-     [AllowHtml]
-     [DataType(DataType.MultilineText)]
+
     public string BlogContent { get; set; }
 
     public string Author { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CMSProject.Models.Supplier>
 @{
     //ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/admin1.cshtml";
+    Layout = "~/Views/Shared/admin.cshtml";
 }
 <h2>Index</h2>
 
@@ -53,7 +53,7 @@
                 @Html.ActionLink("Details", "Details", new { id = item.SupplierID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.SupplierID })
                 @*<a href="/GoodsReceipts/Index/@item.SupplierID" class="btn btn-danger">Phiếu nhập hàng</a>*@
-                <a href="/GoodsReceipts/Index/@item.SupplierID" class="btn btn-danger">Phiếu nhập hàng</a>
+                <a href="#" class="btn btn-danger">Phiếu nhập hàng</a>
             </td>
         </tr>
     }
