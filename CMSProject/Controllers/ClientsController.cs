@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CMSProject.Models;
@@ -48,6 +49,20 @@ namespace CMSProject.Client.Controllers
         {
             var lstBlog = db.Blogs.ToList();
             return View(lstBlog);
+        }
+
+        public ActionResult BlogDetail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Blog blog = db.Blogs.Find(id);
+            if (blog == null)
+            {
+                return HttpNotFound();
+            }
+            return View(blog);
         }
     }
 }

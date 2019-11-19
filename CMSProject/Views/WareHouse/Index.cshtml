@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CMSProject.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/admin.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Mã sản phẩm</th>
+        <th>Sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Đơn vị tính</th>
+        <th>Trạng thái</th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.ProductCode</td>
+            <td>@item.ProductName</td>
+            <td>@item.Quantity</td>
+            <td>@item.Unit</td>
+            <td>
+                @if(item.Quantity > 0)
+                {
+                    <text>Còn hàng</text>
+                }
+                else
+                {
+                    <text>Hết hàng</text>
+                }
+            </td>
+        </tr>
+    }
+</table>

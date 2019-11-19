@@ -136,6 +136,26 @@ namespace CMSProject.Controllers
         {
             Order order = db.Orders.Find(id);
             TempData["IdOrder"] = id;
+            if (Session["Carts"] == null)
+            {
+                lstCarts = new List<Carts>();
+            }
+            else
+            {
+                lstCarts = Session["Carts"] as List<Carts>;
+            }
+            var listCart = lstCarts.Where(n => n.OrderID == id).ToList();
+            if (listCart.Count > 0)
+            {
+                TempData["totalCart"] = listCart.Sum(n => n.Total);
+            }
+            else
+            {
+                TempData["totalCart"] = 0;
+            }
+
+            ViewBag.Error = TempData["ErrorQuantity"];
+            ViewBag.totalCart = TempData["totalCart"];
             return View(order);
         }
         [HttpPost]
@@ -174,10 +194,22 @@ namespace CMSProject.Controllers
             {
                 lstCarts = Session["Carts"] as List<Carts>;
             }
-            if (lstCarts != null)
+            var listCart = lstCarts.Where(n => n.OrderID == IdOr).ToList();
+            if (listCart != null)
             {
-                lstCarts.Where(n => n.ProductID == id).FirstOrDefault().Quantity = Quantitied;
-                lstCarts.Where(n => n.ProductID == id).FirstOrDefault().Total = lstCarts.Where(n => n.ProductID == id).FirstOrDefault().UnitPrice * Quantitied;
+                var product = db.Products.Where(n => n.ProductID == id).ToList();
+                foreach (var pro in product)
+                {
+                    if (Quantitied <= pro.Quantity)
+                    {
+                        listCart.Where(n => n.ProductID == id).FirstOrDefault().Quantity = Quantitied;
+                        listCart.Where(n => n.ProductID == id).FirstOrDefault().Total = lstCarts.Where(n => n.ProductID == id).FirstOrDefault().UnitPrice * Quantitied;
+                    }
+                    else
+                    {
+                        TempData["ErrorQuantity"] = "Rất tiếc, số lượng mà bạn cần không đủ so với trong kho của chúng tôi! Vui lòng nhập lại.";
+                    }
+                }
             }
             else
             {
@@ -238,16 +270,39 @@ namespace CMSProject.Controllers
             var lstCartting = lstCarts.Where(n => n.OrderID == id).ToList();
             foreach(var item in lstCartting)
             {
+                var product = db.Products.Where(n => n.ProductID == item.ProductID).ToList();
                 OrderDetail orderDetail = new OrderDetail();
-                orderDetail.OrderID = item.OrderID;
-                orderDetail.ProductID = item.ProductID;
-                orderDetail.ProductName = item.ProductName;
-                orderDetail.Quantity = item.Quantity;
-                orderDetail.UnitPrice = item.UnitPrice;
-                orderDetail.Total = item.Total;
-                db.OrderDetails.Add(orderDetail);
-                db.SaveChanges();
+                foreach (var pro in product)
+                {
+                    if (item.Quantity <= pro.Quantity)
+                    {
+                        orderDetail.OrderID = item.OrderID;
+                        orderDetail.ProductID = item.ProductID;
+                        orderDetail.ProductName = item.ProductName;
+                        orderDetail.Quantity = item.Quantity;
+                        orderDetail.UnitPrice = item.UnitPrice;
+                        orderDetail.Total = item.Total;
+                        db.OrderDetails.Add(orderDetail);
+                        db.SaveChanges();
+                        //Cập nhật lại số lượng khi xác nhận mua
+                        pro.Quantity -= item.Quantity;
+                        db.Entry(pro).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
             }
+            if (lstCartting.Count > 0)
+            {
+                TempData["totalCart"] = lstCartting.Sum(n => n.Total);
+            }
+            else
+            {
+                TempData["totalCart"] = 0;
+            }
+            var order = db.Orders.Where(n => n.OrderID == id).FirstOrDefault();
+            order.Total = Convert.ToDecimal(TempData["totalCart"]);
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

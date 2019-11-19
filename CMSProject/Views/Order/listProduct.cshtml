@@ -21,7 +21,7 @@
         <p>
             <strong>@item.ProductName</strong>
         </p>
-        <p style="color:red;">@item.Price.ToString("#,###") VND/Product</p>
+        <p style="color:red;">@item.Price.Value.ToString("#,###") VND/@item.Unit</p>
         <div class="modal-footer" style="text-align:center;">
             <form action="/Order/CreateProduct/@item.ProductID" method="post">
                 <input type="hidden" name="ordId" value="@ViewBag.IdO" />

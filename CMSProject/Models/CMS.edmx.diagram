@@ -33,11 +33,10 @@
         <AssociationConnector Association="CMSModel.FK_Orders_Customer1" />
         <AssociationConnector Association="CMSModel.FK_GoodsReceipt_Supplier" />
         <AssociationConnector Association="CMSModel.FK_OrderDetails_Orders" />
-        <EntityTypeShape EntityType="CMSModel.Product" Width="1.5" PointX="6" PointY="7.25" />
-        <AssociationConnector Association="CMSModel.FK_Product_Category" />
-        <AssociationConnector Association="CMSModel.FK_Product_Supplier" />
         <EntityTypeShape EntityType="CMSModel.GoodsReceiptDetail" Width="1.5" PointX="11.25" PointY="17" />
         <AssociationConnector Association="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt" />
+        <EntityTypeShape EntityType="CMSModel.Product" Width="1.5" PointX="3" PointY="18.625" />
+        <AssociationConnector Association="CMSModel.FK_Product_Category" />
         <AssociationConnector Association="CMSModel.FK_GoodsReceiptDetail_Product" />
       </Diagram>
     </edmx:Diagrams>

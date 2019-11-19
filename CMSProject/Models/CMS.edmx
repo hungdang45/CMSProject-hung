@@ -129,23 +129,21 @@
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Brand" Type="nvarchar" MaxLength="50" />
-          <Property Name="Size" Type="nvarchar" MaxLength="50" />
-          <Property Name="Description" Type="nvarchar" MaxLength="80" />
-          <Property Name="InputPrice" Type="float" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
-          <Property Name="InventoryID" Type="int" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
-          <Property Name="Height" Type="nvarchar" MaxLength="50" />
-          <Property Name="Material" Type="nvarchar" MaxLength="50" />
-          <Property Name="ProductImage" Type="image" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Brand" Type="nvarchar" MaxLength="255" />
+          <Property Name="Size" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProductCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="tinyint" />
           <Property Name="ImageUpload" Type="varbinary(max)" />
-          <Property Name="SupplierID" Type="int" />
-          <Property Name="Color" Type="nvarchar" MaxLength="50" />
           <Property Name="CategoryID" Type="int" />
-          <Property Name="DateCreated" Type="date" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="255" />
+          <Property Name="Quantity" Type="int" />
         </EntityType>
         <EntityType Name="Receipt">
           <Key>
@@ -437,18 +435,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Supplier">
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supplier">
-              <PropertyRef Name="SupplierID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -972,10 +958,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK_Product_Supplier" Association="Self.FK_Product_Supplier">
-            <End Role="Supplier" EntitySet="Supplier" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
           <AssociationSet Name="FK_Receipt_Customer" Association="Self.FK_Receipt_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Receipt" EntitySet="Receipt" />
@@ -1081,7 +1063,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Byte" />
           <NavigationProperty Name="GoodsReceipts" Relationship="CMSModel.FK_GoodsReceipt_Supplier" FromRole="Supplier" ToRole="GoodsReceipt" />
-          <NavigationProperty Name="Products" Relationship="CMSModel.FK_Product_Supplier" FromRole="Supplier" ToRole="Product" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1678,19 +1659,15 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
-          <EntitySet Name="Products" EntityType="CMSModel.Product" />
-          <AssociationSet Name="FK_Product_Category" Association="CMSModel.FK_Product_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Supplier" Association="CMSModel.FK_Product_Supplier">
-            <End Role="Supplier" EntitySet="Suppliers" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
           <EntitySet Name="GoodsReceiptDetails" EntityType="CMSModel.GoodsReceiptDetail" />
           <AssociationSet Name="FK_GoodsReceiptDetail_GoodsReceipt" Association="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt">
             <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
             <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
+          </AssociationSet>
+          <EntitySet Name="Products" EntityType="CMSModel.Product" />
+          <AssociationSet Name="FK_Product_Category" Association="CMSModel.FK_Product_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_GoodsReceiptDetail_Product" Association="CMSModel.FK_GoodsReceiptDetail_Product">
             <End Role="Product" EntitySet="Products" />
@@ -1795,56 +1772,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Brand" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="InputPrice" Type="Double" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InventoryID" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Height" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Material" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProductImage" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="ImageUpload" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="SupplierID" Type="Int32" />
-          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryID" Type="Int32" />
-          <Property Name="DateCreated" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Category" Relationship="CMSModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="Supplier" Relationship="CMSModel.FK_Product_Supplier" FromRole="Product" ToRole="Supplier" />
-          <NavigationProperty Name="GoodsReceiptDetails" Relationship="CMSModel.FK_GoodsReceiptDetail_Product" FromRole="Product" ToRole="GoodsReceiptDetail" />
-        </EntityType>
-        <Association Name="FK_Product_Category">
-          <End Type="CMSModel.Category" Role="Category" Multiplicity="0..1" />
-          <End Type="CMSModel.Product" Role="Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Supplier">
-          <End Type="CMSModel.Supplier" Role="Supplier" Multiplicity="0..1" />
-          <End Type="CMSModel.Product" Role="Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supplier">
-              <PropertyRef Name="SupplierID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="SupplierID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="GoodsReceiptDetail">
           <Key>
             <PropertyRef Name="GoodsReceiptDetailID" />
@@ -1867,6 +1794,41 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Principal>
             <Dependent Role="GoodsReceiptDetail">
               <PropertyRef Name="GoodsReceiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Brand" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="ImageUpload" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="CMSModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="GoodsReceiptDetails" Relationship="CMSModel.FK_GoodsReceiptDetail_Product" FromRole="Product" ToRole="GoodsReceiptDetail" />
+        </EntityType>
+        <Association Name="FK_Product_Category">
+          <End Type="CMSModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="CMSModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2242,30 +2204,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="CMSModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="Color" ColumnName="Color" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="ImageUpload" ColumnName="ImageUpload" />
-                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
-                <ScalarProperty Name="Material" ColumnName="Material" />
-                <ScalarProperty Name="Height" ColumnName="Height" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
-                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="InputPrice" ColumnName="InputPrice" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="GoodsReceiptDetails">
             <EntityTypeMapping TypeName="CMSModel.GoodsReceiptDetail">
               <MappingFragment StoreEntitySet="GoodsReceiptDetail">
@@ -2275,6 +2213,28 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
                 <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="CMSModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ImageUpload" ColumnName="ImageUpload" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

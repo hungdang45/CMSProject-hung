@@ -229,7 +229,7 @@ namespace CMSProject.Controllers
 
         //Cập nhật số lượng và đơn giá
         [HttpPost]
-        public ActionResult updateQuantityAndUnitPrice(int id, int? idGoodsReceipt, int quantitied, int unitPriced)
+        public ActionResult updateQuantityAndUnitPrice(int id, int? idGoodsReceipt, int quantitied, int Priced, int unitPriced)
         {
             if (Session["Storage"] == null)
             {
@@ -244,6 +244,7 @@ namespace CMSProject.Controllers
             {
                 lstGoodsReceipt.Where(n => n.ProductID == id).FirstOrDefault().Quantity = quantitied;
                 lstGoodsReceipt.Where(n => n.ProductID == id).FirstOrDefault().UnitPrice = unitPriced;
+                lstGoodsReceipt.Where(n => n.ProductID == id).FirstOrDefault().Price = Priced;
                 lstGoodsReceipt.Where(n => n.ProductID == id).FirstOrDefault().Total = quantitied * unitPriced;
             }
             else
@@ -263,7 +264,7 @@ namespace CMSProject.Controllers
             {
                 LstStorage = Session["Storage"] as List<Storage>;
             }
-            if(LstStorage != null)
+            if (LstStorage != null)
             {
                 var pro = LstStorage.Where(n => n.ProductID == id).FirstOrDefault();
                 LstStorage.Remove(pro);
@@ -280,7 +281,7 @@ namespace CMSProject.Controllers
                 LstStorage = Session["Storage"] as List<Storage>;
             }
             var lstGoodsReceipt = LstStorage.Where(n => n.GoodsReceiptID == id).ToList();
-            foreach(var item in lstGoodsReceipt)
+            foreach (var item in lstGoodsReceipt)
             {
                 GoodsReceiptDetail goodsReceiptDetail = new GoodsReceiptDetail();
                 goodsReceiptDetail.GoodsReceiptID = item.GoodsReceiptID;
@@ -289,6 +290,13 @@ namespace CMSProject.Controllers
                 goodsReceiptDetail.UnitPrice = item.UnitPrice;
                 goodsReceiptDetail.Total = item.Total;
                 db.GoodsReceiptDetails.Add(goodsReceiptDetail);
+                db.SaveChanges();
+                //Cập nhật số lượng và giá bán cho product
+                var pro = db.Products.Where(n => n.ProductID == item.ProductID).FirstOrDefault();
+                pro.UpdateBy = "Hung Dang";
+                pro.Quantity += item.Quantity;
+                pro.Price = item.Price;
+                db.Entry(pro).State = EntityState.Modified;
                 db.SaveChanges();
             }
             if (lstGoodsReceipt.Count > 0)

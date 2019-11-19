@@ -4,6 +4,17 @@
     Layout = "~/Views/Shared/admin.cshtml";
 }
 
+@if (ViewBag.Error != null)
+{
+    <div class="modal-content" style="width:500px;margin:0px auto;">
+        <div class="modal-header">
+            <h2><strong>Error:</strong></h2>
+        </div>
+        <div class="modal-body">
+            <p style="color:red;">@ViewBag.Error</p>
+        </div>
+    </div>
+}
 <div class="col-md-12">
     <div class="modal-header">
         <h2>Thông tin khách hàng</h2>
@@ -64,7 +75,27 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" onclick="save(@Model.OrderID)" style="margin-top:15px;margin-right:24px;" class="btn btn-success">Đặt hàng</button>
+            <table>
+                <tr>
+                    <th>
+                        Tổng tiền:
+                    </th>
+                    <th style="color:red;">
+                        @if (ViewBag.totalCart > 0)
+                        {
+                            @ViewBag.totalCart.ToString("#,###")
+                        }
+                        else
+                        {
+                            <text>0</text>
+                        }
+                        VND
+                    </th>
+                    <td>
+                        <button type="submit" onclick="save(@Model.OrderID)" style="margin-top:15px;margin-right:24px;" class="btn btn-success">Đặt hàng</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

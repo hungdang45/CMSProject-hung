@@ -216,6 +216,7 @@
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
+    <Compile Include="Controllers\GoodsReceiptDetailsController.cs" />
     <Compile Include="Controllers\GoodsReceiptsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Controllers\PromotionsController.cs" />
     <Compile Include="Controllers\ReceiptsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
+    <Compile Include="Controllers\WareHouseController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -6470,11 +6472,6 @@
     <Content Include="Views\OrderReports\Details.cshtml" />
     <Content Include="Views\OrderReports\Edit.cshtml" />
     <Content Include="Views\OrderReports\Index.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Promotions\Create.cshtml" />
     <Content Include="Views\Promotions\Delete.cshtml" />
     <Content Include="Views\Promotions\Details.cshtml" />
@@ -6510,10 +6507,7 @@
     <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Views\Checkout\CreateCustomerOrder.cshtml" />
     <Content Include="Views\Checkout\Complete.cshtml" />
-    <Content Include="Views\Products\Inventory.cshtml" />
     <Content Include="Views\Checkout\AddressAndPayment.cshtml" />
-    <Content Include="Views\Products\Index1.cshtml" />
-    <Content Include="Views\Products\_Index.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\Delete.cshtml" />
@@ -6543,6 +6537,18 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Clients\BlogIndex.cshtml" />
+    <Content Include="Views\Clients\BlogDetail.cshtml" />
+    <Content Include="Views\GoodsReceiptDetails\Create.cshtml" />
+    <Content Include="Views\GoodsReceiptDetails\Delete.cshtml" />
+    <Content Include="Views\GoodsReceiptDetails\Details.cshtml" />
+    <Content Include="Views\GoodsReceiptDetails\Edit.cshtml" />
+    <Content Include="Views\GoodsReceiptDetails\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\WareHouse\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

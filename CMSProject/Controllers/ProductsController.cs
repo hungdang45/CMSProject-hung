@@ -17,55 +17,22 @@ namespace CMSProject.Controllers
         private CMSEntities db = new CMSEntities();
 
         // GET: Products
-
-        //Original code
         public ActionResult Index()
         {
+            //var products = db.Products.Include(p => p.Category);
+            //return View(products.ToList());
+
             if (Session["ID"] == null)
             {
                 return RedirectToAction("Login", "Accounts");
             }
-            var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
+            var products = db.Products;
             return View(products.ToList());
-
         }
         public ActionResult Index1()
         {
             return View();
         }
-        public PartialViewResult _Index(int? page)
-        {
-            int pageNumber = page ?? 1;
-            int pageSize = 10;
-            var model = db.Products.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize);
-            return PartialView(model);
-        }
-
-        //public ActionResult Index(int? productid)
-        //{
-        //    int productPageNumber = (productid ?? 1);
-            
-        //    var viewModel = new CMSEntities();
-        //    viewModel.Products = db.Products
-        //       .Include(i => i.ProductID)               
-        //       .OrderBy(i => i.ProductID).ToPagedList(instructPageNumber, 5);
-
-        //    if (productid != null)
-        //    {
-        //        ViewBag.productid = productid.Value;
-        //        viewModel.Courses = viewModel.Instructors.Where(
-        //            i => i.ID == id.Value).Single().Courses.ToPagedList(CoursePageNumber, 5);
-        //    }
-
-        //    if (courseID != null)
-        //    {
-        //        ViewBag.CourseID = courseID.Value;
-        //        viewModel.Enrollments = viewModel.Courses.Where(
-        //            x => x.CourseID == courseID).Single().Enrollments.ToPagedList(EnrollmentPageNumber, 5);
-        //    }
-
-        //    return View(viewModel);
-        //}
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
@@ -82,24 +49,33 @@ namespace CMSProject.Controllers
             return View(product);
         }
 
+        public PartialViewResult _Index(int? page)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var model = db.Products.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize);
+            return PartialView(model);
+        }
+
         // GET: Products/Create
         public ActionResult Create()
         {
+            //ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
+            //return View();
+
             var viewModel = new Product { DateCreated = DateTime.Now };
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "SupplierName");
+           
             return View(viewModel);
         }
 
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-       
         [ValidateInput(false)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,Brand,Size,Description,InputPrice,Price,ProductCode,Status,Height,Material,ProductImage,ImageUpload,SupplierID,Color,CategoryID,DateCreated")] Product product, HttpPostedFileBase file, FormCollection formValues)
+        public ActionResult Create([Bind(Include = "ProductID,ProductName,Brand,Size,Description,Price,ProductCode,Status,ImageUpload,CategoryID,DateCreated,DateUpdated,CreatedBy,UpdateBy,Unit,Quantity")] Product product, HttpPostedFileBase file, FormCollection formValues)
         {
             //if (ModelState.IsValid)
             //{
@@ -109,22 +85,20 @@ namespace CMSProject.Controllers
             //}
 
             //ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            //ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "SupplierName", product.SupplierID);
             //return View(product);
-
             //Modified code
             var temp = formValues["editor"];
             byte[] bytes;
-            
+
 
             CMSEntities entities = new CMSEntities();
-            //try
-            //{
+            try
+            {
                 using (BinaryReader br = new BinaryReader(file.InputStream))
                 {
                     bytes = br.ReadBytes(file.ContentLength);
                 }
-               
+
                 entities.Products.Add(new Product
                 {
                     ProductID = product.ProductID,
@@ -133,18 +107,23 @@ namespace CMSProject.Controllers
                     Brand = product.Brand,
                     Size = product.Size,
                     Description = temp,
-                    InputPrice=product.InputPrice,
+                   
                     Price = product.Price,
-                    Supplier=product.Supplier,
-                    Color = product.Color,                   
+                   
+                  
                     Status = product.Status,
-                    Height = product.Height,       
-                    DateCreated=product.DateCreated,
-                    Material = product.Material,
-                    ImageUpload = bytes
-               
+                  
+                    DateCreated = /*product.DateCreated*/ DateTime.Now,
+                    DateUpdated = /*product.DateCreated*/ DateTime.Now,
+                    CreatedBy = /*product.CreatedBy*/ "admin",
+                    UpdateBy = /*product.UpdateBy*/ "admin",
+                    Unit = product.Unit,
+                    CategoryID = product.CategoryID,
+                    ImageUpload = bytes,
+                    Quantity = /*product.Quantity*/ 0
 
-            });
+
+                });
                 entities.SaveChanges();
 
                 if (file != null && file.ContentLength > 0)
@@ -162,7 +141,7 @@ namespace CMSProject.Controllers
                 file.InputStream.Read(product.ImageUpload, 0, file.ContentLength);
                 if (ModelState.IsValid)
                 {
-                    
+
                     //db.Entry(product).State = EntityState.Modified;
                     //Original add product code
                     //db.Products.Add(product);
@@ -170,10 +149,10 @@ namespace CMSProject.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-            //}
-            //catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "SupplierName", product.SupplierID);
+            
             return View(product);
         }
 
@@ -190,7 +169,6 @@ namespace CMSProject.Controllers
                 return HttpNotFound();
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "SupplierName", product.SupplierID);
             return View(product);
         }
 
@@ -199,100 +177,15 @@ namespace CMSProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,Brand,Size,Description,InputPrice,Price,ProductCode,Status,Height,Material,ProductImage,ImageUpload,SupplierID,Color,CategoryID,DateCreated")] Product product, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "ProductID,ProductName,Brand,Size,Description,Price,ProductCode,Status,ImageUpload,CategoryID,DateCreated,DateUpdated,CreatedBy,UpdateBy,Unit,Quantity")] Product product)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(product).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-
-            //modifiy code 
-            byte[] bytes;
-            try
+            if (ModelState.IsValid)
             {
-                using (BinaryReader br = new BinaryReader(file.InputStream))
-                {
-                    bytes = br.ReadBytes(file.ContentLength);
-                }
-
-                //orginal code, revert in case error
-                if (ModelState.IsValid)
-                {
-                    //modify code , delete when error
-
-                    //end modify 
-                    if (file != null)
-                    {
-                        file.SaveAs(HttpContext.Server.MapPath("~/Content/Uploads/") + file.FileName);
-                        product.ImageUpload = bytes;
-                    }
-                    db.Entry(product).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-
-            }
-            catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
-
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "SupplierName", product.SupplierID);
-            return View(product);
-        }
-
-        public ActionResult Inventory(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "SupplierName", product.SupplierID);
-            return View(product);
-        }
-
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Inventory([Bind(Include = "ProductID,ProductName,ProductCode,Price,Quantity,ImageUpload")] Product product, HttpPostedFileBase file)
-        {
-            byte[] bytes;
-            try
-            {
-                using (BinaryReader br = new BinaryReader(file.InputStream))
-                {
-                    bytes = br.ReadBytes(file.ContentLength);
-                }
-
-                //orginal code, revert in case error
-                if (ModelState.IsValid)
-                {
-                    //modify code , delete when error
-
-                    //end modify 
-                    if (file != null)
-                    {
-                        file.SaveAs(HttpContext.Server.MapPath("~/Content/Uploads/") + file.FileName);
-                        product.ImageUpload = bytes;
-                    }
-                    db.Entry(product).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-
-            }
-            catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
-
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "SupplierName", product.SupplierID);
             return View(product);
         }
 
@@ -308,19 +201,7 @@ namespace CMSProject.Controllers
             {
                 return HttpNotFound();
             }
-            db.Products.Remove(product);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-            //return View(product);
-        }
-
-
-        public ActionResult RemoveProduct(int id)
-        {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return View(product);
         }
 
         // POST: Products/Delete/5

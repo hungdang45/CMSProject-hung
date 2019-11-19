@@ -37,37 +37,31 @@ public partial class Product
 
     public string Description { get; set; }
 
-    public Nullable<double> InputPrice { get; set; }
-
-    public decimal Price { get; set; }
+    public Nullable<decimal> Price { get; set; }
 
     public string ProductCode { get; set; }
 
-    public Nullable<int> InventoryID { get; set; }
-
-    public string Status { get; set; }
-
-    public string Height { get; set; }
-
-    public string Material { get; set; }
-
-    public byte[] ProductImage { get; set; }
+    public Nullable<byte> Status { get; set; }
 
     public byte[] ImageUpload { get; set; }
-
-    public Nullable<int> SupplierID { get; set; }
-
-    public string Color { get; set; }
 
     public Nullable<int> CategoryID { get; set; }
 
     public Nullable<System.DateTime> DateCreated { get; set; }
 
+    public Nullable<System.DateTime> DateUpdated { get; set; }
+
+    public string CreatedBy { get; set; }
+
+    public string UpdateBy { get; set; }
+
+    public string Unit { get; set; }
+
+    public Nullable<int> Quantity { get; set; }
+
 
 
     public virtual Category Category { get; set; }
-
-    public virtual Supplier Supplier { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 

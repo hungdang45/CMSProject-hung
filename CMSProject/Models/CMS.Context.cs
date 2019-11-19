@@ -79,9 +79,9 @@ public partial class CMSEntities : DbContext
 
     public virtual DbSet<GoodsReceipt> GoodsReceipts { get; set; }
 
-    public virtual DbSet<Product> Products { get; set; }
-
     public virtual DbSet<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
+
+    public virtual DbSet<Product> Products { get; set; }
 
 
     public virtual int aspnet_AnyDataInTables(Nullable<int> tablesToCheck)
