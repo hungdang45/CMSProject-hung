@@ -16,7 +16,7 @@ namespace CMSProject.Controllers
     public class CustomersController : Controller
     {
         private CMSEntities db = new CMSEntities();
-
+        List<OrderClients> lstOrderClients = new List<OrderClients>();
         // GET: Customers
         public ActionResult Index()
         {
@@ -250,7 +250,22 @@ namespace CMSProject.Controllers
                         else
                         {
                             Session["Customers"] = v.CustomerName;
-                            return RedirectToAction("Index", "Home");
+                            Session["CustomerID"] = v.CustomerID;
+                            Session["CustomerEmails"] = v.Email;
+                            Session["CustomerPhone"] = v.Phone;
+                            Session["CustomerAddress"] = v.Address;
+
+                            //Khi đăng nhập vào thì sẽ tạo luôn 1 cái order tạm
+                            OrderClients order = new OrderClients();
+                            order.OrderID = Convert.ToInt32(Session["CustomerID"]);
+                            order.CustomerID= Convert.ToInt32(Session["CustomerID"]);
+                            order.CustomerName = Session["Customers"].ToString();
+                            order.CustomerEmail = Session["CustomerEmails"].ToString();
+                            order.Phone = Session["CustomerPhone"].ToString();
+                            order.ShipAddress = Session["CustomerAddress"].ToString();
+                            lstOrderClients.Add(order);
+                            Session["Order"] = lstOrderClients;
+                            return RedirectToAction("Index", "Clients");
                         }
                     }
                     else

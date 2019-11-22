@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CMSProject.Models.Carts>
+
+@{
+    Layout = null;
+}
+<table class="table table-bordered">
+    <tr>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.ProductName
+            </td>
+            <td>
+                <form action="/Clients/UpdateQuantity/@item.ProductID" method="post">
+                    <input type="hidden" name="idOrd" value="@item.OrderID" />
+                    <input type="number" min="1" style="width:50px" name="quantitied" value="@item.Quantity" />
+                    <button>Update</button>
+                </form>
+            </td>
+            <td>
+                @item.UnitPrice.ToString("#,###") VND
+            </td>
+            <td>@item.Total.ToString("#,###") VND</td>
+            <td>
+                <form action="/Clients/RemoveProductInCart/@item.ProductID" method="post">
+                    <input type="hidden" name="idOrd" value="@item.OrderID" />
+                    <button type="submit" class="btn btn-danger">X</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

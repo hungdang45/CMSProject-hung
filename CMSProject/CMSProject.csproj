@@ -275,6 +275,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata\Carts.cs" />
+    <Compile Include="Models\Metadata\OrderClients.cs" />
     <Compile Include="Models\Metadata\Storage.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>CMS.tt</DependentUpon>
@@ -6549,6 +6550,8 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\WareHouse\Index.cshtml" />
+    <Content Include="Views\Clients\ClientCartIndex.cshtml" />
+    <Content Include="Views\Clients\_ListCartClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
