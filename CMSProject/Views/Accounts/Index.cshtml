@@ -5,11 +5,13 @@
     Layout = "~/Views/Shared/admin.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
+
+    @*<p>
+        <a href="/Products/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    </p>*@
 <table class="table">
     <tr>
         <th>
@@ -52,9 +54,9 @@
             }
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AccountID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AccountID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AccountID })
+            @Html.ActionLink(" ", "Edit", new { id=item.AccountID }, new { @class = "btn btn-warning fa fa-pencil" }) 
+            @*@Html.ActionLink("Details", "Details", new { id=item.AccountID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AccountID })*@
         </td>
     </tr>
 }

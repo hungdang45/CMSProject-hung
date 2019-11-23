@@ -35,7 +35,7 @@ namespace CMSProject.Controllers
             }
             List<GoodsReceiptDetail> lstGoodsReceiptDetail = new List<GoodsReceiptDetail>();
             ViewBag.lstGoodsReceiptDetail = db.GoodsReceiptDetails.Where(x => x.GoodsReceiptID == id).ToList();
-            return View();
+            return View(lstGoodsReceiptDetail);
             //return View(goodsReceiptDetail);
         }
 

@@ -29,7 +29,8 @@ namespace CMSProject.Controllers
 
         // GET: GoodsReceipts/Details/5
         public ActionResult Details(int? id)
-        {
+        {           
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -40,6 +41,8 @@ namespace CMSProject.Controllers
             {
                 return HttpNotFound();
             }
+           
+            ViewBag.lstGoodsReceiptDetail = db.GoodsReceiptDetails.Where(x => x.GoodsReceiptID == id).ToList();
             return View(goodsReceipt);
         }
 
@@ -293,7 +296,7 @@ namespace CMSProject.Controllers
                 db.SaveChanges();
                 //Cập nhật số lượng và giá bán cho product
                 var pro = db.Products.Where(n => n.ProductID == item.ProductID).FirstOrDefault();
-                pro.UpdateBy = "Hung Dang";
+                pro.UpdateBy = Session["AdminName"].ToString();
                 pro.Quantity += item.Quantity;
                 pro.Price = item.Price;
                 db.Entry(pro).State = EntityState.Modified;

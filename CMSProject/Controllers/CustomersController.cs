@@ -269,7 +269,7 @@ namespace CMSProject.Controllers
                             order.ShipAddress = Session["CustomerAddress"].ToString();
                             lstOrderClients.Add(order);
                             Session["Order"] = lstOrderClients;
-                            return RedirectToAction("Index", "Clients");
+                            return RedirectToAction("ProductIndex", "Clients");
                         }
                     }
                     else

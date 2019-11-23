@@ -65,7 +65,7 @@ namespace CMSProject.Controllers
 
             var viewModel = new Product { DateCreated = DateTime.Now };
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-           
+
             return View(viewModel);
         }
 
@@ -107,12 +107,12 @@ namespace CMSProject.Controllers
                     Brand = product.Brand,
                     Size = product.Size,
                     Description = temp,
-                   
-                    Price = product.Price,
-                   
-                  
+
+                    Price = 0,
+
+
                     Status = product.Status,
-                  
+
                     DateCreated = /*product.DateCreated*/ DateTime.Now,
                     DateUpdated = /*product.DateCreated*/ DateTime.Now,
                     CreatedBy = /*product.CreatedBy*/ "admin",
@@ -152,7 +152,7 @@ namespace CMSProject.Controllers
             }
             catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
-            
+
             return View(product);
         }
 
@@ -179,14 +179,26 @@ namespace CMSProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProductID,ProductName,Brand,Size,Description,Price,ProductCode,Status,ImageUpload,CategoryID,DateCreated,DateUpdated,CreatedBy,UpdateBy,Unit,Quantity")] Product product, HttpPostedFileBase file)
         {
-            //if (ModelState.IsValid)
+            //if (file != null && file.ContentLength > 0)
             //{
-            //    db.Entry(product).State = EntityState.Modified;
+            //    // extract only the fielname
+            //    var fileName = Path.GetFileName(file.FileName);
+            //    // store the file inside ~/App_Data/uploads folder
+            //    product.ImageUpload = new byte[file.ContentLength];
+            //    file.InputStream.Read(product.ImageUpload, 0, file.ContentLength);
+            //    var path = Path.Combine(Server.MapPath("~/Content/Uploads/"), fileName);
+            //    file.SaveAs(path);
+            //}
+            //// Converting to bytes.               
+            //product.ImageUpload = new byte[file.ContentLength];
+            //file.InputStream.Read(product.ImageUpload, 0, file.ContentLength);
+            //product.UpdateBy = "Dung";
+            //product.DateUpdated = DateTime.Now;
+            //db.Entry(product).State = EntityState.Modified;
             //    db.SaveChanges();
             //    return RedirectToAction("Index");
-            //}
-            Product prod = new Product();
-            prod.DateUpdated = DateTime.Now;
+            //Product prod = new Product();
+            //prod.DateUpdated = DateTime.Now;
 
             byte[] bytes;
             try
@@ -199,7 +211,7 @@ namespace CMSProject.Controllers
                 //orginal code, revert in case error
                 if (ModelState.IsValid)
                 {
-                    
+
                     //modify code , delete when error
 
                     //end modify 
@@ -208,8 +220,9 @@ namespace CMSProject.Controllers
                         file.SaveAs(HttpContext.Server.MapPath("~/Content/Uploads/") + file.FileName);
                         product.ImageUpload = bytes;
                     }
-                    db.Products.Add(prod);
 
+                    product.UpdateBy = Session["AdminName"].ToString();
+                    product.DateUpdated = DateTime.Now;
                     db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");

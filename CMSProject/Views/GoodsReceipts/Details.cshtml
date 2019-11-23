@@ -11,6 +11,7 @@
     @*<h4>GoodsReceipt</h4>*@
     <hr />
     <dl class="dl-horizontal">
+        
         <dt>
             @Html.DisplayNameFor(model => model.GoodsReceiptName)
         </dt>
@@ -61,6 +62,27 @@
 
     </dl>
 </div>
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>          
+            <th>Total</th>
+         
+        </tr>
+        @foreach (var item in ViewBag.lstGoodsReceiptDetail)
+        {
+        <tr>
+            <td>@item.Product.ProductName</td>
+            <td>@item.Quantity </td>
+            <td>@item.UnitPrice</td>
+            <td>@item.Total</td>
+        </tr>
+        }
+    </table>
+</div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.GoodsReceiptID }) |
     @Html.ActionLink("Back to List", "Index")

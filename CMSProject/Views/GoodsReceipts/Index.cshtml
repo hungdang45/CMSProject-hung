@@ -12,7 +12,12 @@
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-<a href='@Url.Action("Create", "GoodsReceipts")' class="btn btn-primary" style="float:right;margin-right:22px;">Tạo mới phiếu nhập</a><br>
+@*<a href='@Url.Action("Create", "GoodsReceipts")' class="btn btn-primary" style="float:right;margin-right:22px;">Tạo mới phiếu nhập</a><br>*@
+
+<p>
+    <a href="/GoodsReceipts/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+</p>
+
 <table class="table">
     <tr>
         <th>
@@ -83,9 +88,14 @@
                 VND
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.GoodsReceiptID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.GoodsReceiptID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.GoodsReceiptID }) |
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.GoodsReceiptID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.GoodsReceiptID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.GoodsReceiptID }) |*@
+
+
+                @Html.ActionLink("  ", "Edit", new { id = item.GoodsReceiptID }, new { @class = "btn btn-warning fa fa-pencil" })
+                @Html.ActionLink("  ", "Details", new { id = item.GoodsReceiptID }, new { @class = "btn btn-info fa fa-info-circle" })
+                @*@Html.ActionLink("  ", "Delete", new { id = item.GoodsReceiptID }, new { @class = "btn btn-danger fa fa-times" })*@
                 @if (item.Total == null)
                 {
                     <a href="/GoodsReceipts/AddGoodsReceipt/@item.GoodsReceiptID" class="btn btn-danger">Thêm vào</a>

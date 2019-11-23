@@ -203,6 +203,18 @@ namespace CMSProject
             url: "bao-cao-don-hang",
             defaults: new { controller = "OrderReports", action = "Index", id = UrlParameter.Optional }
         );
+            //Accounts
+            routes.MapRoute(
+            name: "Accounts",
+            url: "tai-khoan",
+            defaults: new { controller = "Accounts", action = "Index", id = UrlParameter.Optional }
+        );
+            //Login
+            routes.MapRoute(
+            name: "AccountsLogin",
+            url: "dang-nhap",
+            defaults: new { controller = "Login", action = "Accounts", id = UrlParameter.Optional }
+        );           
             //original code
             routes.MapRoute(
                 name: "Default",

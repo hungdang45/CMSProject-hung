@@ -70,7 +70,7 @@ namespace CMSProject.Client.Controllers
                     lstCarts.Add(c);
                 }
                 Session["Cart"] = lstCarts;
-                return RedirectToAction("Index");
+                return RedirectToAction("ProductIndex");
             }
         }
 
@@ -79,7 +79,7 @@ namespace CMSProject.Client.Controllers
         {
             if (Session["CustomerID"] == null)
             {
-                return RedirectToAction("login");
+                return RedirectToAction("Login","Customers");
             }
             else
             {
@@ -170,11 +170,11 @@ namespace CMSProject.Client.Controllers
         }
 
         public ActionResult ProductDetail(int? id)
-        {           
-            var product = db.Products.Where(x => x.ProductID == id);
+        {
+            var product = db.Products.Where(n => n.ProductID == id).FirstOrDefault();
             if (product == null)
             {
-                return HttpNotFound();
+               return RedirectToAction("ProductIndex");
             }
             return View(product);
         }
@@ -307,7 +307,7 @@ namespace CMSProject.Client.Controllers
             ord.Total = Convert.ToDecimal(TempData["TotalOrder"]);
             db.Entry(ord).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ProductIndex");
         }
     }
 }
