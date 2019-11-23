@@ -17,15 +17,15 @@ namespace CMSProject.Client.Controllers
         // GET: ListProducts
         public ActionResult ProductIndex()
         {
-            if(Session["CustomerID"] != null)
+            if (Session["CustomerID"] != null)
             {
                 ViewBag.IdOrd = Int32.Parse(Session["CustomerID"].ToString());
             }
             ViewBag.lstCategories = db.Categories.ToList();
-            var lstPro = db.Products.Where(n=>n.Status==1).ToList();
+            var lstPro = db.Products.Where(n => n.Status == 1).ToList();
             return View(lstPro);
         }
-        
+
         //Thêm sản phẩm vào giỏ hàng
         [HttpPost]
         public ActionResult AddToCartClient(int id, int? IdOrderClient)
@@ -79,7 +79,7 @@ namespace CMSProject.Client.Controllers
         {
             if (Session["CustomerID"] == null)
             {
-                return RedirectToAction("Login","Customers");
+                return RedirectToAction("Login", "Customers");
             }
             else
             {
@@ -139,12 +139,12 @@ namespace CMSProject.Client.Controllers
 
         public ActionResult BlogDetail(int? id)
         {
-          
+
             //if (id == null)
             //{
             //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             //}
-            
+
             var blog = db.Blogs.Where(x => x.BlogID == id);
             if (blog == null)
             {
@@ -174,7 +174,7 @@ namespace CMSProject.Client.Controllers
             var product = db.Products.Where(n => n.ProductID == id).FirstOrDefault();
             if (product == null)
             {
-               return RedirectToAction("ProductIndex");
+                return RedirectToAction("ProductIndex");
             }
             return View(product);
         }
@@ -267,9 +267,9 @@ namespace CMSProject.Client.Controllers
             {
                 var product = db.Products.Where(n => n.ProductID == c.ProductID).ToList();
                 OrderDetail orderDetail = new OrderDetail();
-                foreach(var pro in product)
+                foreach (var pro in product)
                 {
-                    if(c.Quantity <= pro.Quantity)
+                    if (c.Quantity <= pro.Quantity)
                     {
                         orderDetail.ProductID = c.ProductID;
                         orderDetail.OrderID = idOrderMax;
@@ -309,5 +309,76 @@ namespace CMSProject.Client.Controllers
             db.SaveChanges();
             return RedirectToAction("ProductIndex");
         }
+
+        //Feedback từ khách hàng
+        public ActionResult ClientFeedback()
+        {
+            ViewBag.messageSuccess = TempData["ViewBag.messageSuccess"];
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ClientFeedback(Feedback feedback)
+        {
+            if (Session["CustomerID"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+            else
+            {
+                feedback.CustomerID = Convert.ToInt32(Session["CustomerID"]);
+                feedback.DateCreated = DateTime.Now;
+                db.Feedbacks.Add(feedback);
+                db.SaveChanges();
+                TempData["ViewBag.messageSuccess"] = "Gửi đi thành công!";
+                return RedirectToAction("ClientFeedback");
+            }
+        }
+
+        //Xem trang cá nhân
+        public ActionResult ClientDetail(int? id)
+        {
+            var client = db.Customers.Find(id);
+            return View(client);
+        }
+
+        //Chỉnh sửa tài khoản
+        public ActionResult ClientEdit(int id)
+        {
+            if (Session["CustomerID"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+            else
+            {
+                var dataClient = db.Customers.Find(id);
+                return View(dataClient);
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ClientEdit(Customer customer)
+        {
+            if (Session["CustomerID"] == null)
+            {
+                return RedirectToAction("Login", "Customers");
+            }
+            else
+            {
+                customer.Password = Crypto.Hash(customer.Password);
+                int idClient = Int32.Parse(Session["CustomerID"].ToString());
+                db.Entry(customer).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ClientDetail/" + idClient);
+            }
+        }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
     }
 }

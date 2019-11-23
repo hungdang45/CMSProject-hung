@@ -12,22 +12,28 @@
 namespace CMSProject.Models
 {
 
-using System;
+    using System;
     using System.Collections.Generic;
-    
-public partial class Feedback
-{
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
-    public int FeedbackID { get; set; }
+    public partial class Feedback
+    {
 
-    public Nullable<int> CustomerID { get; set; }
+        public int FeedbackID { get; set; }
 
-    public string FeedbackContent { get; set; }
+        public Nullable<int> CustomerID { get; set; }
+        [AllowHtml]
+        [DataType(DataType.MultilineText)]
+
+        public string FeedbackContent { get; set; }
+
+        public Nullable<System.DateTime> DateCreated { get; set; }
 
 
 
-    public virtual Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
 
-}
+    }
 
 }

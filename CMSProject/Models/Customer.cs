@@ -22,11 +22,11 @@ public partial class Customer
     public Customer()
     {
 
-        this.Feedbacks = new HashSet<Feedback>();
-
         this.Receipts = new HashSet<Receipt>();
 
         this.Orders = new HashSet<Order>();
+
+        this.Feedbacks = new HashSet<Feedback>();
 
     }
 
@@ -55,15 +55,15 @@ public partial class Customer
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<Feedback> Feedbacks { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
     public virtual ICollection<Receipt> Receipts { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<Order> Orders { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<Feedback> Feedbacks { get; set; }
 
 }
 

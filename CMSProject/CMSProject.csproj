@@ -6554,6 +6554,10 @@
     <Content Include="Views\Clients\_ListCartClient.cshtml" />
     <Content Include="Views\Clients\ProductDetail.cshtml" />
     <Content Include="Views\Clients\CustomerDetail.cshtml" />
+    <Content Include="Views\Clients\ClientFeedback.cshtml" />
+    <Content Include="Views\Clients\ClientDetail.cshtml" />
+    <Content Include="Views\Clients\ClientEdit.cshtml" />
+    <Content Include="Views\Clients\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

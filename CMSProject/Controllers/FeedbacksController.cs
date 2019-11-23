@@ -28,7 +28,8 @@ namespace CMSProject.Controllers
                 int checkRoles = Convert.ToInt32(Session["Roles"]);
                 if (checkRoles == 1)
                 {
-                    return View(db.Feedbacks.ToList());
+                    var lstFeedback = db.Feedbacks.OrderByDescending(n => n.FeedbackID);
+                    return View(lstFeedback.ToList());
                 }
                 else
                 {

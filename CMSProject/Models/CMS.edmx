@@ -56,7 +56,8 @@
           </Key>
           <Property Name="FeedbackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerID" Type="int" />
-          <Property Name="FeedbackContent" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FeedbackContent" Type="ntext" />
+          <Property Name="DateCreated" Type="datetime" />
         </EntityType>
         <EntityType Name="GoodsReceipt">
           <Key>
@@ -1014,18 +1015,9 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsEmailVerified" Type="Boolean" />
           <Property Name="ActivationCode" Type="Guid" />
-          <NavigationProperty Name="Feedbacks" Relationship="Self.FK_Feedback_Customer" FromRole="Customer" ToRole="Feedback" />
           <NavigationProperty Name="Receipts" Relationship="Self.FK_Receipt_Customer" FromRole="Customer" ToRole="Receipt" />
           <NavigationProperty Name="Orders" Relationship="CMSModel.FK_Orders_Customer1" FromRole="Customer" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Feedback">
-          <Key>
-            <PropertyRef Name="FeedbackID" />
-          </Key>
-          <Property Name="FeedbackID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="Int32" />
-          <Property Name="FeedbackContent" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Feedback_Customer" FromRole="Feedback" ToRole="Customer" />
+          <NavigationProperty Name="Feedbacks" Relationship="CMSModel.FK_Feedback_Customer" FromRole="Customer" ToRole="Feedback" />
         </EntityType>
         <EntityType Name="OrderReport">
           <Key>
@@ -1227,18 +1219,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Feedback_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Feedback">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Receipt_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="Receipt" Type="Self.Receipt" Multiplicity="*" />
@@ -1256,7 +1236,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <EntitySet Name="Blogs" EntityType="Self.Blog" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
           <EntitySet Name="OrderReports" EntityType="Self.OrderReport" />
           <EntitySet Name="Receipts" EntityType="Self.Receipt" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
@@ -1274,10 +1253,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <AssociationSet Name="FK_Blog_Category" Association="Self.FK_Blog_Category">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Blog" EntitySet="Blogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Feedback_Customer" Association="Self.FK_Feedback_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Feedback" EntitySet="Feedbacks" />
           </AssociationSet>
           <AssociationSet Name="FK_Receipt_Customer" Association="Self.FK_Receipt_Customer">
             <End Role="Customer" EntitySet="Customers" />
@@ -1673,6 +1648,11 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             <End Role="Product" EntitySet="Products" />
             <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
           </AssociationSet>
+          <EntitySet Name="Feedbacks" EntityType="CMSModel.Feedback" />
+          <AssociationSet Name="FK_Feedback_Customer" Association="CMSModel.FK_Feedback_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1844,6 +1824,28 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="FeedbackID" />
+          </Key>
+          <Property Name="FeedbackID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="FeedbackContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="CMSModel.FK_Feedback_Customer" FromRole="Feedback" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_Feedback_Customer">
+          <End Type="CMSModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="CMSModel.Feedback" Role="Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1896,15 +1898,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
                 <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Feedbacks">
-            <EntityTypeMapping TypeName="CMSModel.Feedback">
-              <MappingFragment StoreEntitySet="Feedback">
-                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2235,6 +2228,16 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
                 <ScalarProperty Name="Brand" ColumnName="Brand" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="CMSModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
