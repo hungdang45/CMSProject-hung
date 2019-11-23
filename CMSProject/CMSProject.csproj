@@ -6509,7 +6509,7 @@
     <Content Include="Views\Checkout\CreateCustomerOrder.cshtml" />
     <Content Include="Views\Checkout\Complete.cshtml" />
     <Content Include="Views\Checkout\AddressAndPayment.cshtml" />
-    <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Clients\ProductIndex.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Order\Delete.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
@@ -6552,6 +6552,8 @@
     <Content Include="Views\WareHouse\Index.cshtml" />
     <Content Include="Views\Clients\ClientCartIndex.cshtml" />
     <Content Include="Views\Clients\_ListCartClient.cshtml" />
+    <Content Include="Views\Clients\ProductDetail.cshtml" />
+    <Content Include="Views\Clients\CustomerDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

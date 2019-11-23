@@ -11,11 +11,15 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        <a href="/Products/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
     </p>
+
+
+
     <table class="table">
         <tr>
             <th>
@@ -63,7 +67,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
-            <th></th>
+            <th>Tùy chọn</th>
         </tr>
 
         @foreach (var item in Model)
@@ -128,9 +132,13 @@
                     @Html.DisplayFor(modelItem => item.Category.CategoryName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+
+                    @*@Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.ProductID }, new { @class = "fa fa-pencil" }) |*@
+
+                
+                    @Html.ActionLink("  ", "Edit", new { id = item.ProductID }, new { @class = "btn btn-warning fa fa-pencil" }) 
+                    @Html.ActionLink("  ", "Details", new { id = item.ProductID }, new { @class = "btn btn-info fa fa-info-circle" }) 
+                    @Html.ActionLink("  ", "Delete", new { id = item.ProductID }, new { @class = "btn btn-danger fa fa-times" })
                 </td>
             </tr>
         }

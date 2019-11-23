@@ -61,7 +61,8 @@
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }) |
+                <div class="glyphicon glyphicon-pencil">  @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID })</div>
+               |
                 @Html.ActionLink("Details", "Details", new { id = item.CustomerID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID })
             </td>

@@ -130,51 +130,55 @@ namespace CMSProject.Controllers
         {
             bool Status = false;
             string message = "";
-           
-            //
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    #region 
+                    //Email is already Exist 
+                    var isExist = IsEmailExist(customer.Email);
+                    if (isExist)
+                    {
+                        ModelState.AddModelError("EmailExist", "Email already exist");
+                        return View(customer);
+                    }
+                    #endregion
+
+                    #region 
+                    //Generate Activation Code 
+                    customer.ActivationCode = Guid.NewGuid();
+                    #endregion
+
+
+                    customer.Password = Crypto.Hash(customer.Password);
+
+
+                    customer.IsEmailVerified = false;
+
+                    #region Save to Database
+                    using (CMSEntities db = new CMSEntities())
+                    {
+                        db.Customers.Add(customer);
+                        db.SaveChanges();
+
+                        //Send Email to User
+                        //SendVerificationLinkEmail(user.EmailID, user.ActivationCode.ToString());
+                        //message = "Registration successfully done. Account activation link " +
+                        //    " has been sent to your email id:" + user.EmailID;
+                        //Status = true;
+                    }
+                    #endregion
+                }
+                else
+                {
+                    message = "Invalid Request";
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.InnerException); }
+                //
             // Model Validation 
-            if (ModelState.IsValid)
-            {
-
-                #region 
-                //Email is already Exist 
-                var isExist = IsEmailExist(customer.Email);
-                if (isExist)
-                {
-                    ModelState.AddModelError("EmailExist", "Email already exist");
-                    return View(customer);
-                }
-                #endregion
-
-                #region 
-                //Generate Activation Code 
-                customer.ActivationCode = Guid.NewGuid();
-                #endregion
-
-               
-                customer.Password = Crypto.Hash(customer.Password);
-              
-               
-                customer.IsEmailVerified = false;
-
-                #region Save to Database
-                using (CMSEntities db = new CMSEntities())
-                {
-                    db.Customers.Add(customer);
-                    db.SaveChanges();
-
-                    //Send Email to User
-                    //SendVerificationLinkEmail(user.EmailID, user.ActivationCode.ToString());
-                    //message = "Registration successfully done. Account activation link " +
-                    //    " has been sent to your email id:" + user.EmailID;
-                    //Status = true;
-                }
-                #endregion
-            }
-            else
-            {
-                message = "Invalid Request";
-            }
+          
 
             ViewBag.Message = message;
             ViewBag.Status = Status;

@@ -177,14 +177,47 @@ namespace CMSProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,Brand,Size,Description,Price,ProductCode,Status,ImageUpload,CategoryID,DateCreated,DateUpdated,CreatedBy,UpdateBy,Unit,Quantity")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,ProductName,Brand,Size,Description,Price,ProductCode,Status,ImageUpload,CategoryID,DateCreated,DateUpdated,CreatedBy,UpdateBy,Unit,Quantity")] Product product, HttpPostedFileBase file)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(product).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            Product prod = new Product();
+            prod.DateUpdated = DateTime.Now;
+
+            byte[] bytes;
+            try
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                using (BinaryReader br = new BinaryReader(file.InputStream))
+                {
+                    bytes = br.ReadBytes(file.ContentLength);
+                }
+
+                //orginal code, revert in case error
+                if (ModelState.IsValid)
+                {
+                    
+                    //modify code , delete when error
+
+                    //end modify 
+                    if (file != null)
+                    {
+                        file.SaveAs(HttpContext.Server.MapPath("~/Content/Uploads/") + file.FileName);
+                        product.ImageUpload = bytes;
+                    }
+                    db.Products.Add(prod);
+
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
             }
+            catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
+
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             return View(product);
         }

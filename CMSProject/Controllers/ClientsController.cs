@@ -15,7 +15,7 @@ namespace CMSProject.Client.Controllers
         private CMSEntities db = new CMSEntities();
         List<OrderClients> lstOrderClients = new List<OrderClients>();
         // GET: ListProducts
-        public ActionResult Index()
+        public ActionResult ProductIndex()
         {
             if(Session["CustomerID"] != null)
             {
@@ -139,16 +139,44 @@ namespace CMSProject.Client.Controllers
 
         public ActionResult BlogDetail(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Blog blog = db.Blogs.Find(id);
+          
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            
+            var blog = db.Blogs.Where(x => x.BlogID == id);
             if (blog == null)
             {
                 return HttpNotFound();
             }
             return View(blog);
+        }
+
+        public ActionResult CustomerDetail(int? id)
+        {
+
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+
+            var customer = db.Customers.Where(x => x.CustomerID == id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(customer);
+        }
+
+        public ActionResult ProductDetail(int? id)
+        {           
+            var product = db.Products.Where(x => x.ProductID == id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
         }
 
         //Xóa sản phẩm trong giỏ hàng

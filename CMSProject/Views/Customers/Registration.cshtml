@@ -1,6 +1,9 @@
 ﻿@model CMSProject.Models.Customer
 
-
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/customer.cshtml";
+}
 
 @using (Html.BeginForm()) 
 {
@@ -68,12 +71,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <div class="fa fa-user">
+                <input type="submit" value="Đăng kí" class="btn btn-default" />
+                      </div>
             </div>
         </div>
     </div>
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
