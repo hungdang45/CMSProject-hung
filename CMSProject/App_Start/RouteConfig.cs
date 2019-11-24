@@ -213,7 +213,7 @@ namespace CMSProject
             routes.MapRoute(
             name: "AccountsLogin",
             url: "dang-nhap",
-            defaults: new { controller = "Login", action = "Accounts", id = UrlParameter.Optional }
+            defaults: new { controller = "Accounts", action = "Login", id = UrlParameter.Optional }
         );           
             //original code
             routes.MapRoute(

@@ -38,6 +38,32 @@
     @*<link rel="stylesheet" href="css/style.css">*@
     <link rel="stylesheet" href="~/Content/customer/css/style.css">
 
+
+    <style>
+        .footer_part {
+            border: double;
+            border-block-end-style: inherit;
+            border-block-start-color: inherit;
+            border-style: solid;
+            background-color: #ecfdff;
+            text-align-last: auto;
+            transition: 0.3s all;
+            -webkit-text-emphasis-style: double-circle;
+        }
+        .list-unstyled {
+            font-size: 140%;
+            
+        }
+        .single_footer_part {
+            height: 220px;
+            width:350px;
+            
+        }
+        .left_widgets p_filter_widgets {
+            border: 1px solid red;
+        }
+
+    </style>
 </head>
 <body>
     <!--::header part start::-->
@@ -100,8 +126,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/Clients/Contact">Liên hệ</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="/Clients/ClientCartIndex/@Session["CustomerID"]" class="nav-link"><i class="fas fa-cart-plus"></i></a>
+                                <li class="nav-item">                                    
+                                    <a href="/Clients/ClientCartIndex/@Session["CustomerID"]" class="nav-link">Giỏ hàng
+                                    <i class="fas fa-cart-plus"></i>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -579,16 +607,16 @@
 
     <!--::footer_part start::-->
     <footer class="footer_part">
-        <div class="container">
+        <div class="container" border-bottom: double;>
             <div class="row justify-content-around">
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Liên hệ</h4>
+                        <h4 >Liên hệ</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Số 9 Nguyễn Xiển - Hạ Đình - Thanh Xuân - Hà Nội</a></li>
-                            <li><a href="">0971.958.991 - 0243.200.9829</a></li>
-                            <li><a href="">vatlieuxdhoathinh@gmail.com</a></li>
-                           
+                            <li><a class="fa fa-home" href="">Hạ Đình - Thanh Xuân - Hà Nội</a></li>
+                            <li><a class="fa fa-phone" href=""> 0971.958.991 - 0243.200.9829</a></li>
+                            <li><a class="fa fa-mail-bulk" href=""> vatlieuxd@gmail.com</a></li>
+
                         </ul>
                     </div>
                 </div>
@@ -596,10 +624,10 @@
                     <div class="single_footer_part">
                         <h4>Chính sách</h4>
                         <ul class="list-unstyled">
-                            <li><a href="">Chính sách bảo hành</a></li>
-                            <li><a href="">Chính sách đổi hàng</a></li>
-                            <li><a href="">Chính sách trả hàng</a></li>
-                            <li><a href="">Chính sách bảo mật</a></li>
+                            <li><a class="fa fa-file-text-o" href="">Chính sách bảo hành</a></li>
+                            <li><a  class="fa fa-file-text-o" href="">Chính sách đổi hàng</a></li>
+                            <li><a class="fa fa-file-text-o" href="">Chính sách trả hàng</a></li>
+                            <li><a class="fa fa-file-text-o" href="">Chính sách bảo mật</a></li>
                         </ul>
                     </div>
                 </div>

@@ -17,9 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.UserName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Password)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Roles)
         </th>
@@ -34,11 +34,22 @@
         <td>
             @Html.DisplayFor(modelItem => item.UserName)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Password)
-        </td>
+        </td>*@
         <td>
-            @Html.DisplayFor(modelItem => item.Roles)
+            @*@Html.DisplayFor(modelItem => item.Roles)*@
+            @if (item.Roles == 1)
+            {
+                <text>Admin</text>
+            }
+            else
+            {
+                if (item.Status == 2)
+                {
+                    <text>Nhân viên</text>
+                }
+            }
         </td>
         <td>
             @if (item.Status == 1)

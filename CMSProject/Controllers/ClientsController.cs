@@ -110,6 +110,7 @@ namespace CMSProject.Client.Controllers
                 }
                 ViewBag.totalCart = TempData["TotalCart"];
                 ViewBag.Error = TempData["ErrorQuantity"];
+                ViewBag.messageSuccess = TempData["MessageSuccess"];
                 OrderClients order = lstOrderClients.Find(n => n.OrderID == id);
                 return View(order);
             }
@@ -226,7 +227,14 @@ namespace CMSProject.Client.Controllers
             return RedirectToAction("ClientCartIndex/" + idOrder);
         }
 
+
+        //public ActionResult SaveToOrder()
+        //{
+        //    ViewBag.messageSuccess = TempData["ViewBag.messageSuccess"];
+        //    return View("ProductIndex");
+        //}
         //Lưu lại Order và OrderDetail
+        //Them viewbag message success  
         public ActionResult SaveToOrder(int? id)
         {
             if (Session["Cart"] == null)
@@ -287,6 +295,7 @@ namespace CMSProject.Client.Controllers
                         //Tiến hành xóa sản phẩm đã đặt rồi ở trong giỏ hàng
                         Carts removeCart = listCart.Where(n => n.ProductID == c.ProductID).FirstOrDefault();
                         lstCarts.Remove(removeCart);
+                        TempData["MessageSuccess"] = "Ban da dat hang thanh cong";
                     }
                     else
                     {
@@ -307,7 +316,9 @@ namespace CMSProject.Client.Controllers
             ord.Total = Convert.ToDecimal(TempData["TotalOrder"]);
             db.Entry(ord).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("ProductIndex");
+            ViewBag.messageSuccess = TempData["ViewBag.messageSuccess"];
+            //return RedirectToAction("ProductIndex");
+            return RedirectToAction("ClientCartIndex/"+id);
         }
 
         //Feedback từ khách hàng

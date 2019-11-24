@@ -4,6 +4,13 @@
     Layout = "~/Views/Shared/customer.cshtml";
 }
 
+<style>
+    .left_widgets p_filter_widgets {
+        border: 1px solid red;
+    }
+</style>
+
+
 @*@foreach (var item in Model)
     {
         <div class="col-md-4">
@@ -28,7 +35,7 @@
                 <div class="left_sidebar_area">
                     <aside class="left_widgets p_filter_widgets">
                         <div class="l_w_title">
-                            <h3>Browse Categories</h3>
+                            <h3>Browse Categories</h3><hr>
                         </div>
                         <div class="widgets_inner">
                             <ul class="list">
@@ -41,10 +48,12 @@
                             </ul>
                         </div>
                     </aside>
+                    <hr>
                     <aside class="left_widgets p_filter_widgets">
                         <div class="l_w_title">
                             <h3>Brand filters</h3>
                         </div>
+                        <hr>
                         <div class="widgets_inner">
                             <ul class="list">
                                 @foreach (var item in Model)
@@ -52,11 +61,13 @@
                                     <li>
                                         <a href="#">@item.Brand</a>
                                     </li>
+
                                 }
 
                             </ul>
 
                         </div>
+
                     </aside>
 
                 </div>

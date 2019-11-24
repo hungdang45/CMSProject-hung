@@ -12,7 +12,6 @@
         background-color:green;
     }
 </style>
-<h2>ClientFeedback</h2>
 
 @if(ViewBag.messageSuccess != null)
 {
@@ -24,7 +23,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Feedback</h4>
+        <h4>Phản hồi của khách hàng</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
