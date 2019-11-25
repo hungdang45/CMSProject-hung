@@ -16,6 +16,22 @@ namespace CMSProject.Controllers
     {
         private CMSEntities db = new CMSEntities();
 
+        
+
+        public PartialViewResult GetPaging(int? page)
+        {
+            List<Product> lstproduct = new List<Product>();
+            lstproduct = db.Products.ToList();
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return PartialView("_PartialViewProduct", lstproduct.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult PagedIndex()
+        {
+            return View();
+        }
+
         // GET: Products
         public ActionResult Index()
         {

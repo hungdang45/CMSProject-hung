@@ -6558,6 +6558,11 @@
     <Content Include="Views\Clients\ClientDetail.cshtml" />
     <Content Include="Views\Clients\ClientEdit.cshtml" />
     <Content Include="Views\Clients\Contact.cshtml" />
+    <Content Include="Views\Products\ProductPaging.cshtml" />
+    <Content Include="Views\Products\_PartialViewProduct.cshtml" />
+    <Content Include="Views\Products\PagedIndex.cshtml" />
+    <Content Include="Views\Clients\_PartialViewProduct.cshtml" />
+    <Content Include="Views\Clients\ProductPagedIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

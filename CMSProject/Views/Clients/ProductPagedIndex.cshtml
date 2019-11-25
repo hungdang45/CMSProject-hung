@@ -1,0 +1,12 @@
+﻿@model PagedList.IPagedList<CMSProject.Models.Product>
+@using PagedList.Mvc
+
+@{
+
+    Layout = "~/Views/Shared/customer.cshtml";
+}
+
+<div id="product_area">
+    @{Html.RenderAction("GetPaging", "Clients", new { Page = 1 }); }
+</div>
+

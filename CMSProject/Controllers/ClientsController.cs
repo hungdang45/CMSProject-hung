@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CMSProject.Models;
+using PagedList;
 
 namespace CMSProject.Client.Controllers
 {
@@ -15,6 +16,21 @@ namespace CMSProject.Client.Controllers
         private CMSEntities db = new CMSEntities();
         List<OrderClients> lstOrderClients = new List<OrderClients>();
         // GET: ListProducts
+
+        public PartialViewResult GetPaging(int? page)
+        {
+            List<Product> lstproduct = new List<Product>();
+            lstproduct = db.Products.ToList();
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return PartialView("_PartialViewProduct", lstproduct.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult ProductPagedIndex()
+        {
+            return View();
+        }
+
         public ActionResult ProductIndex()
         {
             if (Session["CustomerID"] != null)
