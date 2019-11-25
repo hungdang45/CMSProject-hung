@@ -19,15 +19,20 @@ namespace CMSProject.Client.Controllers
 
         public PartialViewResult GetPaging(int? page)
         {
+            if (Session["CustomerID"] != null)
+            {
+                ViewBag.IdOrd = Int32.Parse(Session["CustomerID"].ToString());
+            }
             List<Product> lstproduct = new List<Product>();
             lstproduct = db.Products.ToList();
-            int pageSize = 3;
+            int pageSize = 6;
             int pageNumber = (page ?? 1);
-            return PartialView("_PartialViewProduct", lstproduct.ToPagedList(pageNumber, pageSize));
+            return PartialView("GetPaging", lstproduct.Where(n=>n.Status==1).ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult ProductPagedIndex()
         {
+            ViewBag.lstCategories = db.Categories.ToList();
             return View();
         }
 

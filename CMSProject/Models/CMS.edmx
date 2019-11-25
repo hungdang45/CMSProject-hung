@@ -813,6 +813,10 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spud_DoanhThuSPTheoThang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Thang" Type="int" Mode="In" />
+          <Parameter Name="Nam" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="CMSModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
@@ -1653,6 +1657,10 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Feedback" EntitySet="Feedbacks" />
           </AssociationSet>
+          <FunctionImport Name="spud_DoanhThuSPTheoThang" ReturnType="Collection(CMSModel.spud_DoanhThuSPTheoThang_Result)">
+            <Parameter Name="Thang" Mode="In" Type="Int32" />
+            <Parameter Name="Nam" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1846,6 +1854,15 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="spud_DoanhThuSPTheoThang_Result">
+          <Property Type="String" Name="NamThang" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="productName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="productID" Nullable="false" />
+          <Property Type="Int32" Name="TongSLN" Nullable="true" />
+          <Property Type="Int32" Name="TongSlX" Nullable="true" />
+          <Property Type="Decimal" Name="TongTriGiaNhap" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="TongTriGiaXuat" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2241,6 +2258,19 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spud_DoanhThuSPTheoThang" FunctionName="CMSModel.Store.spud_DoanhThuSPTheoThang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CMSModel.spud_DoanhThuSPTheoThang_Result">
+                <ScalarProperty Name="NamThang" ColumnName="NamThang" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="TongSLN" ColumnName="TongSLN" />
+                <ScalarProperty Name="TongSlX" ColumnName="TongSlX" />
+                <ScalarProperty Name="TongTriGiaNhap" ColumnName="TongTriGiaNhap" />
+                <ScalarProperty Name="TongTriGiaXuat" ColumnName="TongTriGiaXuat" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

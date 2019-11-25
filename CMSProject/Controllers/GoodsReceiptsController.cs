@@ -96,13 +96,13 @@ namespace CMSProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "GoodsReceiptID,SupplierID,GoodsReceiptName,AddedDate,Creator,Status,Total")] GoodsReceipt goodsReceipt)
         {
-            int idSupplier = Int32.Parse(TempData["idSupplier"].ToString());
+            //int idSupplier = Int32.Parse(TempData["idSupplier"].ToString());
             if (ModelState.IsValid)
             {
                 goodsReceipt.AddedDate = DateTime.Now;
                 db.Entry(goodsReceipt).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index/" + idSupplier);
+                return RedirectToAction("Index");
             }
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "SupplierName", goodsReceipt.SupplierID);
             return View(goodsReceipt);

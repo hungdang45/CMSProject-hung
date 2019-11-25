@@ -1657,6 +1657,23 @@ public partial class CMSEntities : DbContext
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
     }
 
+
+    public virtual ObjectResult<spud_DoanhThuSPTheoThang_Result> spud_DoanhThuSPTheoThang(Nullable<int> thang, Nullable<int> nam)
+    {
+
+        var thangParameter = thang.HasValue ?
+            new ObjectParameter("Thang", thang) :
+            new ObjectParameter("Thang", typeof(int));
+
+
+        var namParameter = nam.HasValue ?
+            new ObjectParameter("Nam", nam) :
+            new ObjectParameter("Nam", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spud_DoanhThuSPTheoThang_Result>("spud_DoanhThuSPTheoThang", thangParameter, namParameter);
+    }
+
 }
 
 }

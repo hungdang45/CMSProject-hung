@@ -4,7 +4,7 @@
     
     Layout = "~/Views/Shared/admin.cshtml";
 }
-<h2>Index</h2>
+@*<h2>Index</h2>*@
 
 <table class="table">
     <tr>
@@ -32,9 +32,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.DateCreated)
         </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Details", "Details", new { id = item.FeedbackID })
-        </td>
+        </td>*@
     </tr>
     }
 

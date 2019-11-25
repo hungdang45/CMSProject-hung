@@ -1,0 +1,129 @@
+﻿@model IEnumerable<CMSProject.Models.spud_DoanhThuSPTheoThang_Result>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/admin.cshtml";
+    decimal tongNhap = 0;
+    decimal tongXuat = 0;
+    int thang = ViewBag.Thang == null ? 0 : ViewBag.Thang;
+    int nam = ViewBag.Nam == null ? 0 : ViewBag.Nam;
+    int DropNam = DateTime.Now.Year;
+}
+
+<h2>Index</h2>
+
+
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <label>Chon thang:</label>
+        <select name="Thang" id="Thang">
+            <option>--Chon thang--</option>
+            <script>
+            for (i = 1; i <= 12; i++) {
+                if(i==@thang)
+                    document.write(" <option value=" + i + " selected >" + i + "</option>");
+                else
+                    document.write(" <option value=" + i + " >" + i + "</option>");
+            }
+            </script>
+        </select>
+        <label>Chon nam:</label>
+        <select name="Nam" id="Nam">
+            <option>--Chon nam--</option>
+            <script>
+            for (i = @DropNam; i > 2010; i--) {
+                if(i==@nam)
+                    document.write(" <option value=" + i + " selected >" + i + "</option>");
+                else
+                    document.write(" <option value=" + i + ">" + i + "</option>");
+            }
+            </script>
+        </select>
+
+        <input type="submit" name="ThongKe" value="Thống Kê" />
+    }
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Sản phẩm
+                </th>
+                <th>
+                    Năm tháng
+                </th>
+                <th>
+                    Tổng số lượng nhập
+                </th>
+                <th>
+                    Tổng số lượng xuất
+                </th>
+                <th>
+                    Tổng trị giá nhập
+                </th>
+                <th>
+                    Tổng trị giá xuất
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                tongNhap += item.TongTriGiaNhap.HasValue ? item.TongTriGiaNhap.Value : 0;
+                tongXuat += item.TongTriGiaXuat.HasValue ? item.TongTriGiaXuat.Value : 0;
+
+                <tr>
+                    <td>
+                        @item.productName
+                    </td>
+                    <td>
+                        @item.NamThang
+                    </td>
+                    <td>
+                        @item.TongSLN
+                    </td>
+                    <td>
+                        @item.TongSlX
+                    </td>
+                    <td>
+                        @item.TongTriGiaNhap.Value.ToString("#,###") VND
+                    </td>
+                    <td>
+                        @if (item.TongTriGiaXuat > 0)
+                        {
+                            @item.TongTriGiaXuat.Value.ToString("#,###")
+                        }
+                        else
+                        {
+                            <text>0</text>
+                        }
+                        VND
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Tổng:</th>
+                <th>@if (tongNhap > 0)
+                {
+                    @tongNhap.ToString("#,###")
+                }
+                else
+                {
+                    <text>0</text>
+                }
+                VND</th>
+                <th>@if (tongXuat > 0) {
+                    @tongXuat.ToString("#,###")
+                }
+                else {
+                    <text>0</text>
+                } VND</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

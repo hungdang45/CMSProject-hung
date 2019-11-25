@@ -218,6 +218,7 @@
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\GoodsReceiptDetailsController.cs" />
     <Compile Include="Controllers\GoodsReceiptsController.cs" />
+    <Compile Include="Controllers\GrossController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -296,6 +297,9 @@
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\ShoppingCartRemoveViewModel.cs" />
     <Compile Include="Models\ShoppingCartViewModel.cs" />
+    <Compile Include="Models\spud_DoanhThuSPTheoThang_Result.cs">
+      <DependentUpon>CMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>CMS.tt</DependentUpon>
     </Compile>
@@ -6561,8 +6565,9 @@
     <Content Include="Views\Products\ProductPaging.cshtml" />
     <Content Include="Views\Products\_PartialViewProduct.cshtml" />
     <Content Include="Views\Products\PagedIndex.cshtml" />
-    <Content Include="Views\Clients\_PartialViewProduct.cshtml" />
+    <Content Include="Views\Clients\GetPaging.cshtml" />
     <Content Include="Views\Clients\ProductPagedIndex.cshtml" />
+    <Content Include="Views\Gross\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

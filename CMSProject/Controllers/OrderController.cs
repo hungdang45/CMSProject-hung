@@ -180,11 +180,11 @@ namespace CMSProject.Controllers
             c.Total = c.Quantity * c.UnitPrice;
             lstCarts.Add(c);
             Session["Carts"] = lstCarts;
-            return RedirectToAction("/CreateProduct/"+IdOrd);
+            return RedirectToAction("/CreateProduct/" + IdOrd);
         }
 
         [HttpPost]
-        public ActionResult EditQuantity(int id,int Quantitied, int? IdOr)
+        public ActionResult EditQuantity(int id, int Quantitied, int? IdOr)
         {
             if (Session["Carts"] == null)
             {
@@ -217,11 +217,11 @@ namespace CMSProject.Controllers
             }
             int idOpr = IdOr.Value;
             Session["Carts"] = lstCarts;
-            return RedirectToAction("/CreateProduct/"+idOpr);
+            return RedirectToAction("/CreateProduct/" + idOpr);
         }
 
         [HttpPost]
-        public ActionResult RemoveProduct(int id,int? IdOr)
+        public ActionResult RemoveProduct(int id, int? IdOr)
         {
             if (Session["Carts"] == null)
             {
@@ -257,7 +257,7 @@ namespace CMSProject.Controllers
                 lstCarts = Session["Carts"] as List<Carts>;
             }
             int idO = Int32.Parse(TempData["IdOrder"].ToString());
-            var dataLstPro = lstCarts.Where(n=>n.OrderID==idO).ToList();
+            var dataLstPro = lstCarts.Where(n => n.OrderID == idO).ToList();
             return View(dataLstPro);
         }
 
@@ -268,7 +268,7 @@ namespace CMSProject.Controllers
                 lstCarts = Session["Carts"] as List<Carts>;
             }
             var lstCartting = lstCarts.Where(n => n.OrderID == id).ToList();
-            foreach(var item in lstCartting)
+            foreach (var item in lstCartting)
             {
                 var product = db.Products.Where(n => n.ProductID == item.ProductID).ToList();
                 OrderDetail orderDetail = new OrderDetail();
@@ -301,6 +301,19 @@ namespace CMSProject.Controllers
             }
             var order = db.Orders.Where(n => n.OrderID == id).FirstOrDefault();
             order.Total = Convert.ToDecimal(TempData["totalCart"]);
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //Đã thanh toán
+        [HttpPost]
+        public ActionResult DaThanhToan(int? id)
+        {
+            var order = db.Orders.Where(n => n.OrderID == id).FirstOrDefault();
+            order.Receiver= Session["AdminName"].ToString();
+            order.PayDate = DateTime.Now;
+            order.Status = 3;
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
