@@ -11,22 +11,7 @@
 </style>
 
 
-@*@foreach (var item in Model)
-    {
-        <div class="col-md-4">
-            <div class="single_product_item">
-                <img src="data:image;base64,@System.Convert.ToBase64String(item.ImageUpload)" style="width:100%;height:200px;" alt="">
-                <div class="single_product_text">
-                    <h4>@item.ProductName</h4>
-                    <h3>@item.Price</h3>
-                    <form action="/Order/CreateProduct/@item.ProductID" method="post">
-                        <input type="hidden" name="ordId" value="@ViewBag.IdO" />
-                        <button type="submit" class="btn btn-success">Thêm vào</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    }*@
+
 
 <section class="cat_product_area section_padding">
     <div class="container">
@@ -37,29 +22,36 @@
                         <div class="l_w_title">
                             <h3>Browse Categories</h3><hr>
                         </div>
-                        <div class="widgets_inner">
+                        <div class="widgets_inner" style="height:300px; overflow-y:scroll;">
                             <ul class="list">
+                                <li>
+                                    <a href="/Clients/ProductIndex">Tat ca san pham</a>
+                                </li>
                                 @foreach (var lstC in ViewBag.lstCategories)
                                 {
                                     <li>
-                                        <a href="#">@lstC.CategoryName</a>
+                                        <form action="/Clients/ProductIndex/@lstC.CategoryID" method="post">
+                                            <a href="/Clients/ProductIndex/@lstC.CategoryID">@lstC.CategoryName</a>
+                                        </form>
                                     </li>
                                 }
                             </ul>
                         </div>
                     </aside>
                     <hr>
-                    <aside class="left_widgets p_filter_widgets">
+                    @*<aside class="left_widgets p_filter_widgets">
                         <div class="l_w_title">
                             <h3>Brand filters</h3>
                         </div>
                         <hr>
-                        <div class="widgets_inner">
+                        <div class="widgets_inner" style="height:300px; overflow-y:scroll;">
                             <ul class="list">
-                                @foreach (var item in Model)
+                                @foreach (var item in ViewBag.lstBrand)
                                 {
                                     <li>
-                                        <a href="#">@item.Brand</a>
+                                        <form action="/Clients/ProductIndex/@item.Brand" method="post">
+                                            <a href="#">@item.Brand</a>
+                                        </form>
                                     </li>
 
                                 }
@@ -68,15 +60,15 @@
 
                         </div>
 
-                    </aside>
+                    </aside>*@
 
                 </div>
             </div>
             <div class="col-lg-9">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="product_top_bar d-flex justify-content-between align-items-center">
-                            <div class="single_product_menu">
+                    <div class="col-lg-8">
+                        @*<div class="product_top_bar d-flex justify-content-between align-items-center">*@
+                            @*<div class="single_product_menu">
                                 <p><span>10000 </span> Prodict Found</p>
                             </div>
                             <div class="single_product_menu d-flex">
@@ -96,10 +88,10 @@
                                         <li>3</li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="single_product_menu d-flex">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="search"
+                                    <input type="text" class="form-control" placeholder="search ..."
                                            aria-describedby="inputGroupPrepend">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroupPrepend">
@@ -108,62 +100,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @*</div>*@
                     </div>
                 </div>
-                <div class="row align-items-center latest_product_inner">
-                    @foreach (var item in Model)
-                    {
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="single_product_item">
-                                <img src="data:image;base64,@System.Convert.ToBase64String(item.ImageUpload)" style="width:100%;height:250px;" alt="">
-                                <div class="single_product_text">
-                                    <a href="/Clients/ProductDetail/@item.ProductID"> <h4>@item.ProductName</h4></a>
-                                   
-                                    <h3>@item.Price.Value.ToString("#,###") VND/@item.Unit</h3>
-                                    <p>
-                                        @if (item.Quantity > 0)
-                                        {
-                                            <a href="#" class="add_cart">
-                                                <form action="/Clients/AddToCartClient/@item.ProductID" method="post">
-                                                    <input type="hidden" name="IdOrderClient" value="@ViewBag.IdOrd" />
-                                                    <button type="submit" class="btn btn-danger">+ add to cart</button>
-                                                </form>
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a href="#" class="add_cart">Hết hàng</a>
-                                        }
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                <div id="table-view">
+                    @{
+                        Html.RenderAction("_ProductIndex", new { page = 1 });
                     }
-                    @*<div class="col-lg-12">
-                            <div class="pageination">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <i class="ti-angle-double-left"></i>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <i class="ti-angle-double-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>*@
                 </div>
             </div>
         </div>

@@ -1,0 +1,9 @@
+﻿@model IEnumerable<CMSProject.Models.Product>
+@{
+    ViewBag.Title = "Index1";
+    Layout = "~/Views/Shared/admin.cshtml";
+}
+
+<div id="table-view">
+    @{ Html.RenderAction("_Index", new { page = 1 });}
+</div>

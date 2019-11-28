@@ -6568,6 +6568,12 @@
     <Content Include="Views\Clients\GetPaging.cshtml" />
     <Content Include="Views\Clients\ProductPagedIndex.cshtml" />
     <Content Include="Views\Gross\Index.cshtml" />
+    <Content Include="Views\Products\_Index.cshtml" />
+    <Content Include="Views\Products\Index1.cshtml" />
+    <Content Include="Views\Clients\Index1.cshtml" />
+    <Content Include="Views\Clients\_Index.cshtml" />
+    <Content Include="Views\Clients\_ProductIndex.cshtml" />
+    <Content Include="Views\Clients\HienThiDonHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

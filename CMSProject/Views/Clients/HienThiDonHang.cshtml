@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CMSProject.Models.OrderDetail>
+@{
+    ViewBag.Title = "HienThiDonHang";
+    Layout = "~/Views/Shared/customer.cshtml";
+}
+
+<div class="modal-header">
+    <h2>Don hang</h2>
+</div>
+<div class="modal-body">
+    <table class="table table-bordered">
+        <tr>
+            <th>Ma san pham</th>
+            <th>Ngay mua</th>
+            <th>San pham</th>
+            <th>So luong</th>
+            <th>Tong tien</th>
+            <th>Trang thai</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Product.ProductCode
+                </td>
+                <td>
+                    @item.Order.CreateDate.Value.ToString("dd/MM/yyyy HH:mm")
+                </td>
+                <td>
+                    @item.ProductName
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @item.Total
+                </td>
+                <td>
+                    @if (item.Order.Status == 3)
+                    {
+                        <text>Da giao hang</text>
+                    }
+                    else
+                    {
+                        <text>Dang cho giao hang</text>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

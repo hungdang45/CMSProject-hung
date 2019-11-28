@@ -17,18 +17,18 @@ namespace CMSProject.Client.Controllers
         List<OrderClients> lstOrderClients = new List<OrderClients>();
         // GET: ListProducts
 
-        public PartialViewResult GetPaging(int? page)
-        {
-            if (Session["CustomerID"] != null)
-            {
-                ViewBag.IdOrd = Int32.Parse(Session["CustomerID"].ToString());
-            }
-            List<Product> lstproduct = new List<Product>();
-            lstproduct = db.Products.ToList();
-            int pageSize = 6;
-            int pageNumber = (page ?? 1);
-            return PartialView("GetPaging", lstproduct.Where(n=>n.Status==1).ToPagedList(pageNumber, pageSize));
-        }
+        //public PartialViewResult GetPaging(int? page)
+        //{
+        //    if (Session["CustomerID"] != null)
+        //    {
+        //        ViewBag.IdOrd = Int32.Parse(Session["CustomerID"].ToString());
+        //    }
+        //    List<Product> lstproduct = new List<Product>();
+        //    lstproduct = db.Products.ToList();
+        //    int pageSize = 6;
+        //    int pageNumber = (page ?? 1);
+        //    return PartialView("GetPaging", lstproduct.Where(n=>n.Status==1).ToPagedList(pageNumber, pageSize));
+        //}
 
         public ActionResult ProductPagedIndex()
         {
@@ -36,20 +36,55 @@ namespace CMSProject.Client.Controllers
             return View();
         }
 
+        public PartialViewResult _Index(int? page)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var model = db.Products.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize);
+            return PartialView(model);
+        }
+
+        //public ActionResult Index1()
+        //{
+        //    return View();
+        //}
+
         public ActionResult ProductIndex()
+        {
+            ViewBag.lstCategories = db.Categories.ToList();
+            ViewBag.lstBrand = db.Products.Where(n => n.Status == 1).ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ProductIndex(int? id)
+        {
+            ViewBag.lstCategories = db.Categories.ToList();
+            return View();
+        }
+        public PartialViewResult _ProductIndex(int? page, int? id)
         {
             if (Session["CustomerID"] != null)
             {
                 ViewBag.IdOrd = Int32.Parse(Session["CustomerID"].ToString());
             }
-            ViewBag.lstCategories = db.Categories.ToList();
-            var lstPro = db.Products.Where(n => n.Status == 1).ToList();
-            return View(lstPro);
+            int pageNumber = page ?? 1; //mặc định trang đầu tiên là page 1
+            int pageSite = 6; //mặc định 6 san pham trên 1 trang
+            if(id != null)
+            {
+                TempData["model"] = db.Products.Where(n => n.Status == 1 && n.CategoryID == id).OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSite);
+            }
+            else
+            {
+                TempData["model"] = db.Products.Where(n => n.Status == 1).OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSite);
+            }
+            var model = TempData["model"];
+            return PartialView(model);
         }
 
         //Thêm sản phẩm vào giỏ hàng
         [HttpPost]
-        public ActionResult AddToCartClient(int id, int? IdOrderClient)
+        public ActionResult AddToCartClient(int id, int? IdOrderClient, int? insertQuantited)
         {
             if (Session["CustomerID"] == null)
             {
@@ -72,7 +107,14 @@ namespace CMSProject.Client.Controllers
                         if (carts.ProductID == id)
                         {
                             flag = true;
-                            carts.Quantity += 1;
+                            if (insertQuantited == null)
+                            {
+                                carts.Quantity += 1;
+                            }
+                            else
+                            {
+                                carts.Quantity += insertQuantited.Value;
+                            }
                             carts.Total = carts.UnitPrice * carts.Quantity;
                             break;
                         }
@@ -85,7 +127,14 @@ namespace CMSProject.Client.Controllers
                     c.ProductID = id;
                     c.OrderID = idOrder;
                     c.ProductName = product.ProductName;
-                    c.Quantity = 1;
+                    if(insertQuantited == null)
+                    {
+                        c.Quantity = 1;
+                    }
+                    else
+                    {
+                        c.Quantity = insertQuantited.Value;
+                    }
                     c.UnitPrice = Convert.ToDecimal(product.Price);
                     c.Total = c.UnitPrice * c.Quantity;
                     lstCarts.Add(c);
@@ -193,6 +242,10 @@ namespace CMSProject.Client.Controllers
 
         public ActionResult ProductDetail(int? id)
         {
+            if (Session["CustomerID"] != null)
+            {
+                ViewBag.IdOrd = Int32.Parse(Session["CustomerID"].ToString());
+            }
             var product = db.Products.Where(n => n.ProductID == id).FirstOrDefault();
             if (product == null)
             {
@@ -339,7 +392,7 @@ namespace CMSProject.Client.Controllers
             db.SaveChanges();
             ViewBag.messageSuccess = TempData["ViewBag.messageSuccess"];
             //return RedirectToAction("ProductIndex");
-            return RedirectToAction("ClientCartIndex/"+id);
+            return RedirectToAction("ClientCartIndex/" + id);
         }
 
         //Feedback từ khách hàng
@@ -410,6 +463,13 @@ namespace CMSProject.Client.Controllers
         public ActionResult Contact()
         {
             return View();
+        }
+
+        //Hien thi don hang
+        public ActionResult HienThiDonHang(int id)
+        {
+            var dataOrder = db.OrderDetails.Where(n => n.Order.CustomerID == id).ToList();
+            return View(dataOrder);
         }
 
     }

@@ -40,7 +40,7 @@ namespace CMSProject
             routes.MapRoute(
             name: "IndexProducts",
             url: "danh-sach-san-pham",
-            defaults: new { controller = "Products", action = "Index", id = UrlParameter.Optional }
+            defaults: new { controller = "Products", action = "Index1", id = UrlParameter.Optional }
         );
             routes.MapRoute(
            name: "CreateProducts",

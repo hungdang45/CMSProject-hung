@@ -18,37 +18,56 @@ namespace CMSProject.Controllers
 
         
 
-        public PartialViewResult GetPaging(int? page)
+        //public PartialViewResult GetPaging(int? page)
+        //{
+        //    List<Product> lstproduct = new List<Product>();
+        //    lstproduct = db.Products.ToList();
+        //    int pageSize = 3;
+        //    int pageNumber = (page ?? 1);
+        //    return PartialView("_PartialViewProduct", lstproduct.ToPagedList(pageNumber, pageSize));
+        //}
+
+        //public ActionResult PagedIndex()
+        //{
+        //    return View();
+        //}
+
+
+        //public ActionResult Index1()
+        //{
+        //    return View();
+        //}
+        public PartialViewResult _Index(int? page)
         {
-            List<Product> lstproduct = new List<Product>();
-            lstproduct = db.Products.ToList();
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-            return PartialView("_PartialViewProduct", lstproduct.ToPagedList(pageNumber, pageSize));
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var model = db.Products.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize);
+            return PartialView(model);
         }
 
-        public ActionResult PagedIndex()
+        public ActionResult Index1()
         {
-            return View();
-        }
-
-        // GET: Products
-        public ActionResult Index()
-        {
-            //var products = db.Products.Include(p => p.Category);
-            //return View(products.ToList());
-
             if (Session["ID"] == null)
             {
                 return RedirectToAction("Login", "Accounts");
             }
-            var products = db.Products;
-            return View(products.ToList());
-        }
-        public ActionResult Index1()
-        {
             return View();
         }
+
+        // GET: Products
+        //public ActionResult Index()
+        //{
+        //    //var products = db.Products.Include(p => p.Category);
+        //    //return View(products.ToList());
+
+        //    if (Session["ID"] == null)
+        //    {
+        //        return RedirectToAction("Login", "Accounts");
+        //    }
+        //    var products = db.Products;
+        //    return View(products.ToList());
+        //}
+  
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
@@ -65,13 +84,7 @@ namespace CMSProject.Controllers
             return View(product);
         }
 
-        public PartialViewResult _Index(int? page)
-        {
-            int pageNumber = page ?? 1;
-            int pageSize = 10;
-            var model = db.Products.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize);
-            return PartialView(model);
-        }
+    
 
         // GET: Products/Create
         public ActionResult Create()
@@ -127,7 +140,7 @@ namespace CMSProject.Controllers
                     Price = 0,
 
 
-                    Status = product.Status,
+                    Status = 1,
 
                     DateCreated = /*product.DateCreated*/ DateTime.Now,
                     DateUpdated = /*product.DateCreated*/ DateTime.Now,
@@ -163,7 +176,7 @@ namespace CMSProject.Controllers
                     //db.Products.Add(product);
                     //await db.SaveChangesAsync();
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index1");
                 }
             }
             catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
@@ -241,7 +254,7 @@ namespace CMSProject.Controllers
                     product.DateUpdated = DateTime.Now;
                     db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index1");
                 }
 
             }
@@ -274,7 +287,7 @@ namespace CMSProject.Controllers
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index1");
         }
 
         protected override void Dispose(bool disposing)

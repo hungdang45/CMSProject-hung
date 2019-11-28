@@ -47,7 +47,7 @@
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/Gross/Index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -68,7 +68,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         @*<h6 class="collapse-header">Custom Components:</h6>*@
                         @*<a class="collapse-item" href="buttons.html">Buttons</a>
-                    <a class="collapse-item" href="cards.html">Cards</a>*@
+                            <a class="collapse-item" href="cards.html">Cards</a>*@
                         <a href="/danh-sach-danh-muc" )" class="collapse-item">Quản lí danh mục sản phẩm</a>
                         <a href="/danh-sach-san-pham" )" class="collapse-item">Quản lí sản phẩm</a>
                     </div>
@@ -149,17 +149,17 @@
                 <div id="customer" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         @*<h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>*@
+                            <a class="collapse-item" href="login.html">Login</a>*@
 
                         <a href="/danh-sach-khach-hang" class="collapse-item">Danh sách khách hàng</a>
                         <a href="/Feedbacks/Index" class="collapse-item">Xem Feedback</a>
 
                         @*<a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>*@
+                            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                            <div class="collapse-divider"></div>
+                            <h6 class="collapse-header">Other Pages:</h6>
+                            <a class="collapse-item" href="404.html">404 Page</a>
+                            <a class="collapse-item" href="blank.html">Blank Page</a>*@
                     </div>
                 </div>
             </li>
@@ -198,7 +198,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         @*<h6 class="collapse-header">Custom Components:</h6>*@
                         @*<a class="collapse-item" href="buttons.html">Buttons</a>
-                    <a class="collapse-item" href="cards.html">Cards</a>*@
+                            <a class="collapse-item" href="cards.html">Cards</a>*@
                         <a href="/tai-khoan" )" class="collapse-item">Thông tin tài khoản</a>
                         <a href="/dang-nhap" )" class="collapse-item">Đăng xuất</a>
 
@@ -255,32 +255,35 @@
                                 </form>
                             </div>
                         </li>
-
+                        <li>
+                            <!--Viet xem thong tin ca nhan va chinh sua thong tin ca nhan(Giong ben client)-->
+                            Hello @Session["AdminName"]
+                        </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- Nav Item - User Information -->
                         @*<li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                                <i class="fa fa-user-circle-o"></i>
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                    <i class="fa fa-user-circle-o"></i>
 
-                            </a>
-                          
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                             
-                                    <a class="dropdown-item" href="/Accounts/Details/">
-
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Thông tin tài khoản
-                                    </a>
-                             
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Đăng xuất
                                 </a>
-                            </div>
-                        </li>*@
+
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+
+                                        <a class="dropdown-item" href="/Accounts/Details/">
+
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Thông tin tài khoản
+                                        </a>
+
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Đăng xuất
+                                    </a>
+                                </div>
+                            </li>*@
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
@@ -353,6 +356,7 @@
     <script src="~/Content/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <!-- Page level custom scripts -->
     <script src="~/Content/admin/js/demo/datatables-demo.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>

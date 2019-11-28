@@ -318,5 +318,16 @@ namespace CMSProject.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        //Nhan Ship hang
+        [HttpPost]
+        public ActionResult NhanShipper(int? id)
+        {
+            var order = db.Orders.Where(n => n.OrderID == id).FirstOrDefault();
+            order.Shipper= Session["AdminName"].ToString();
+            order.ShipDate = DateTime.Now;
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,0 +1,90 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+
+@model IPagedList<CMSProject.Models.Product>
+
+
+<div class="row align-items-center latest_product_inner">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-sm-6">
+            <div class="single_product_item">
+                <img src="data:image;base64,@System.Convert.ToBase64String(item.ImageUpload)" style="width:100%;height:250px;" alt="">
+                <div class="single_product_text">
+                    <h4>@item.ProductName</h4>
+                    <h3>@item.Price.Value.ToString("#,###") VND/@item.Unit</h3>
+                    <p>
+                        <a href="#" class="add_cart">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            @if (item.Quantity > 0)
+                                            {
+                                                <form action="/Clients/AddToCartClient/@item.ProductID" method="post">
+                                                    <input type="hidden" name="IdOrderClient" value="@ViewBag.IdOrd" />
+                                                    <button type="submit" class="btn btn-danger">+ add to cart</button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <text>Hết hàng</text>
+                                            }
+                                        </td>
+                                        <td>
+                                            <i><button onclick="DetailProduct(@item.ProductID)" class="btn btn-warning"> <i class="fa fa-eye" aria-hidden="true"></i> </button></i>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </a>
+
+
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="col-lg-12">
+        <div class="pageination">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    @*<li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <i class="ti-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <i class="ti-angle-double-right"></i>
+                            </a>
+                        </li>*@
+
+
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("_ProductIndex", new { page}),
+                        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+                            new AjaxOptions()
+                            {
+                                UpdateTargetId= "table-view"
+                            }
+                            )
+                        )
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script>
+    function DetailProduct(id) {
+        window.location.href = "/Clients/ProductDetail/" + id;
+    }
+</script>

@@ -24,6 +24,8 @@ public partial class Product
 
         this.GoodsReceiptDetails = new HashSet<GoodsReceiptDetail>();
 
+        this.OrderDetails = new HashSet<OrderDetail>();
+
     }
 
 
@@ -66,6 +68,10 @@ public partial class Product
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<GoodsReceiptDetail> GoodsReceiptDetails { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
 }
 

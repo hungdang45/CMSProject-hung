@@ -128,7 +128,7 @@ namespace CMSProject.Controllers
                 Session["ID"] = chkRole.AccountID;
                 Session["AdminName"] = chkRole.UserName;
                 Session["Roles"] = chkRole.Roles;
-                return RedirectToAction("Index", "Products");
+                return RedirectToAction("Index", "Gross");
             }
             return View();
         }

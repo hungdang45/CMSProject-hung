@@ -8,12 +8,13 @@
     int thang = ViewBag.Thang == null ? 0 : ViewBag.Thang;
     int nam = ViewBag.Nam == null ? 0 : ViewBag.Nam;
     int DropNam = DateTime.Now.Year;
+    int TonKho = 0;
 }
 
-<h2>Index</h2>
+<h1 style="margin:0 auto;font-weight:bold;">Thong ke doanh thu theo san pham</h1>
 
 
-<div class="container">
+<div class="container" style="margin-top:20px;">
     @using (Html.BeginForm())
     {
         <label>Chon thang:</label>
@@ -58,6 +59,7 @@
                 <th>
                     Tổng số lượng xuất
                 </th>
+                <th>Ton kho</th>
                 <th>
                     Tổng trị giá nhập
                 </th>
@@ -71,6 +73,7 @@
             {
                 tongNhap += item.TongTriGiaNhap.HasValue ? item.TongTriGiaNhap.Value : 0;
                 tongXuat += item.TongTriGiaXuat.HasValue ? item.TongTriGiaXuat.Value : 0;
+                TonKho = (item.TongSLN - item.TongSlX).HasValue ? (item.TongSLN - item.TongSlX).Value : 0;
 
                 <tr>
                     <td>
@@ -84,6 +87,9 @@
                     </td>
                     <td>
                         @item.TongSlX
+                    </td>
+                    <td>
+                        @TonKho
                     </td>
                     <td>
                         @item.TongTriGiaNhap.Value.ToString("#,###") VND
@@ -104,10 +110,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Tổng:</th>
+                <th colspan="5">Tổng:</th>
                 <th>@if (tongNhap > 0)
                 {
                     @tongNhap.ToString("#,###")
