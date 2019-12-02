@@ -50,6 +50,7 @@ namespace CMSProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                account.Status = 1;
                 db.Accounts.Add(account);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -110,6 +111,7 @@ namespace CMSProject.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Account account = db.Accounts.Find(id);
+
             db.Accounts.Remove(account);
             db.SaveChanges();
             return RedirectToAction("Index");

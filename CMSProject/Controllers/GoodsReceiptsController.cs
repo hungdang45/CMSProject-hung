@@ -63,6 +63,8 @@ namespace CMSProject.Controllers
             CMSEntities db = new CMSEntities();
             if (ModelState.IsValid)
             {
+                goodsReceipt.Creator = Session["AdminName"].ToString();
+                goodsReceipt.Status = 3;
                 goodsReceipt.AddedDate = DateTime.Now;
                 db.GoodsReceipts.Add(goodsReceipt);
                 db.SaveChanges();

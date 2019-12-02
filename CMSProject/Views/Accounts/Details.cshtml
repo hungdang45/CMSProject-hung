@@ -32,15 +32,36 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Roles)
+            @*@Html.DisplayFor(model => model.Roles)*@
+            @if (Model.Roles == 1)
+            {
+                <text>Admin</text>
+            }
+            @if (Model.Roles == 2)
+            {
+                <text>Nhan vien</text>
+            }
+            @if (Model.Roles == 3)
+            {
+                <text>Shipper</text>
+            }
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Status)
+           
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Status)
+            @*@Html.DisplayFor(model => model.Status)*@
+            @if (Model.Status == 1)
+            {
+                <text>Dang hoat dong</text>
+            }
+            @if (Model.Status == 2)
+            {
+                <text>Khong hoat dong</text>
+            }
         </dd>
 
     </dl>

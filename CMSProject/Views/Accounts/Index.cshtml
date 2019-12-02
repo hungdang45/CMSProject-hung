@@ -9,9 +9,9 @@
     @Html.ActionLink("Create New", "Create")
 </p>*@
 
-    @*<p>
-        <a href="/Products/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
-    </p>*@
+    <p>
+        <a href="/Accounts/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    </p>
 <table class="table">
     <tr>
         <th>
@@ -66,10 +66,10 @@
         </td>
         <td>
             @Html.ActionLink(" ", "Edit", new { id=item.AccountID }, new { @class = "btn btn-warning fa fa-pencil" }) 
-            @*@Html.ActionLink("Details", "Details", new { id=item.AccountID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AccountID })*@
+            @Html.ActionLink(" ", "Details", new { id=item.AccountID },new { @class = "btn btn-info fa fa-info-circle"})
+            @Html.ActionLink(" ", "Delete", new { id=item.AccountID }, new { @class = "btn btn-warning fa fa fa-trash" })
         </td>
     </tr>
 }
-
+    
 </table>
