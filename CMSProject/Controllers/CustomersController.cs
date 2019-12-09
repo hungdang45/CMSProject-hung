@@ -123,7 +123,7 @@ namespace CMSProject.Controllers
         {
             return View();
         }
-        //Registration POST action 
+        //Registration POST action
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")] Customer customer)
@@ -161,6 +161,7 @@ namespace CMSProject.Controllers
                     {
                         db.Customers.Add(customer);
                         db.SaveChanges();
+                        return RedirectToAction("Login");
 
                         //Send Email to User
                         //SendVerificationLinkEmail(user.EmailID, user.ActivationCode.ToString());
@@ -176,13 +177,13 @@ namespace CMSProject.Controllers
                 }
             }
             catch (Exception ex) { Console.WriteLine(ex.InnerException); }
-                //
+            //
             // Model Validation 
-          
+
 
             ViewBag.Message = message;
             ViewBag.Status = Status;
-            return RedirectToAction("Login");
+            return View(customer);
         }
         //Verify Account  
 
@@ -228,9 +229,9 @@ namespace CMSProject.Controllers
                 var v = db.Customers.Where(a => a.Email == login.Email).FirstOrDefault();
                 if (v != null)
                 {
-                    if (v.IsEmailVerified ??false)
-                        
-                        {
+                    if (v.IsEmailVerified ?? false)
+
+                    {
                         ViewBag.Message = "Please verify your email first";
                         return View();
                     }
@@ -262,7 +263,7 @@ namespace CMSProject.Controllers
                             //Khi đăng nhập vào thì sẽ tạo luôn 1 cái order tạm
                             OrderClients order = new OrderClients();
                             order.OrderID = Convert.ToInt32(Session["CustomerID"]);
-                            order.CustomerID= Convert.ToInt32(Session["CustomerID"]);
+                            order.CustomerID = Convert.ToInt32(Session["CustomerID"]);
                             order.CustomerName = Session["Customers"].ToString();
                             order.CustomerEmail = Session["CustomerEmails"].ToString();
                             order.Phone = Session["CustomerPhone"].ToString();
@@ -274,24 +275,24 @@ namespace CMSProject.Controllers
                     }
                     else
                     {
-                        message = "Invalid credential provided";
+                        message = "Mật khẩu không đúng, vui lòng nhập lại";
                     }
                 }
                 else
                 {
-                    message = "Invalid credential provided";
+                    message = "Tài khoản này không tồn tại";
                 }
             }
             ViewBag.Message = message;
-            return View();
+            return View(login);
         }
+        
 
         //Logout
-        [Authorize]
         [HttpPost]
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
+            Session.Clear();
             return RedirectToAction("Login", "Customers");
         }
 
@@ -304,8 +305,8 @@ namespace CMSProject.Controllers
                 var v = dc.Customers.Where(a => a.CustomerName == emailID).FirstOrDefault();
                 return v != null;
             }
-        }    
-      
+        }
+
 
         protected override void Dispose(bool disposing)
         {

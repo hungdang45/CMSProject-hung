@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/customer.cshtml";
+    var lstCategories = ViewBag.lstCategories;
 }
 
 <style>
@@ -10,9 +11,6 @@
     }
 </style>
 
-
-
-
 <section class="cat_product_area section_padding">
     <div class="container">
         <div class="row">
@@ -20,90 +18,47 @@
                 <div class="left_sidebar_area">
                     <aside class="left_widgets p_filter_widgets">
                         <div class="l_w_title">
-                            <h3>Browse Categories</h3><hr>
+                            <h3>Danh mục sản phẩm</h3><hr>
                         </div>
                         <div class="widgets_inner" style="height:300px; overflow-y:scroll;">
                             <ul class="list">
                                 <li>
-                                    <a href="/Clients/ProductIndex">Tat ca san pham</a>
+                                    <a href="/Clients/ProductIndex">Tất Cả Sản Phẩm</a>
                                 </li>
-                                @foreach (var lstC in ViewBag.lstCategories)
+                                @foreach (var lstC in lstCategories)
                                 {
                                     <li>
-                                        <form action="/Clients/ProductIndex/@lstC.CategoryID" method="post">
-                                            <a href="/Clients/ProductIndex/@lstC.CategoryID">@lstC.CategoryName</a>
-                                        </form>
+                                        <a href="/Clients/ProductIndex/@lstC.CategoryID">@lstC.CategoryName</a>
                                     </li>
                                 }
                             </ul>
                         </div>
                     </aside>
                     <hr>
-                    @*<aside class="left_widgets p_filter_widgets">
-                        <div class="l_w_title">
-                            <h3>Brand filters</h3>
-                        </div>
-                        <hr>
-                        <div class="widgets_inner" style="height:300px; overflow-y:scroll;">
-                            <ul class="list">
-                                @foreach (var item in ViewBag.lstBrand)
-                                {
-                                    <li>
-                                        <form action="/Clients/ProductIndex/@item.Brand" method="post">
-                                            <a href="#">@item.Brand</a>
-                                        </form>
-                                    </li>
-
-                                }
-
-                            </ul>
-
-                        </div>
-
-                    </aside>*@
 
                 </div>
             </div>
+
+
             <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-lg-8">
-                        @*<div class="product_top_bar d-flex justify-content-between align-items-center">*@
-                            @*<div class="single_product_menu">
-                                <p><span>10000 </span> Prodict Found</p>
-                            </div>
-                            <div class="single_product_menu d-flex">
-                                <h5>short by : </h5>
-                                <select>
-                                    <option data-display="Select">name</option>
-                                    <option value="1">price</option>
-                                    <option value="2">product</option>
-                                </select>
-                            </div>
-                            <div class="single_product_menu d-flex">
-                                <h5>show :</h5>
-                                <div class="top_pageniation">
-                                    <ul>
-                                        <li>1</li>
-                                        <li>2</li>
-                                        <li>3</li>
-                                    </ul>
-                                </div>
-                            </div>*@
-                            <div class="single_product_menu d-flex">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="search ..."
-                                           aria-describedby="inputGroupPrepend">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend">
-                                            <i class="ti-search"></i>
-                                        </span>
-                                    </div>
+                <div class="row search-parent">
+                    <div class="col-lg-8 search-par">
+
+                        <div class="single_product_menu d-flex search-child">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="searchByProductName" placeholder="search ..."
+                                       aria-describedby="inputGroupPrepend">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend">
+                                        <i class="ti-search"></i>
+                                    </span>
                                 </div>
                             </div>
+                        </div>
                         @*</div>*@
                     </div>
                 </div>
-                <div id="table-view">
+                <div id="table-view" class="my-product">
                     @{
                         Html.RenderAction("_ProductIndex", new { page = 1 });
                     }
@@ -112,3 +67,42 @@
         </div>
     </div>
 </section>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.input-group > input').on('keydown', function (e) {
+            let val;
+            let id;
+            let getData = $(this).closest('.input-group').parent('.search-child').parent('.search-par').parent('.search-parent').siblings('.my-product');/*siblings('.page-product').children('.my-product');*/
+            if (event.keyCode == 8) {
+                val = $(this).val();
+                val = val.substr(0, val.length - 1);
+            }
+            else if (event.keyCode >= 8 && event.keyCode <= 90) {
+                val = $(this).val() + String.fromCharCode(event.keyCode);
+            }
+            else {
+                return;
+            }
+
+            val = val.toLowerCase();
+            $.ajax({
+                url: '/Clients/_ProductIndex',
+                type: 'POST',
+                dataType: 'html',
+                data: { page: 1,  pageNumber: 1, pageSite: 12, searchByProductName:val},
+            })
+                .done(function (data) {
+                    getData.html(data);
+                    //console.log("success");
+                })
+                .fail(function () {
+                    //console.log("error");
+                })
+                .always(function () {
+                    //console.log("complete");
+                });
+        })
+    })
+</script>

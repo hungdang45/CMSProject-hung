@@ -1,0 +1,42 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<CMSProject.Models.Product>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Mã sản phẩm</th>
+        <th>Sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Đơn vị tính</th>
+        <th>Trạng thái</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ProductCode</td>
+            <td>@item.ProductName</td>
+            <td>@item.Quantity</td>
+            <td>@item.Unit</td>
+            <td>
+                @if (item.Quantity > 0)
+                {
+                    <text>Còn hàng</text>
+                }
+                else
+                {
+                    <text>Hết hàng</text>
+                }
+            </td>
+        </tr>
+    }
+</table>
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("_Index", new { page }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+        new AjaxOptions()
+        {
+            UpdateTargetId= "table-view"
+        }
+        )
+    )

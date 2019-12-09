@@ -63,7 +63,7 @@ public ActionResult Index()
     // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create([Bind(Include = "CategoryID,CategoryName,Desciption,SubCategory")] Category category)
+    public ActionResult Create([Bind(Include = "CategoryID,CategoryName")] Category category)
     {
         if (ModelState.IsValid)
         {
@@ -95,7 +95,7 @@ public ActionResult Index()
     // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,Desciption,SubCategory")] Category category)
+    public ActionResult Edit([Bind(Include = "CategoryID,CategoryName")] Category category)
     {
         if (ModelState.IsValid)
         {

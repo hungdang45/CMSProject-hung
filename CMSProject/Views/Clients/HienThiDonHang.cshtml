@@ -10,6 +10,7 @@
 <div class="modal-body">
     <table class="table table-bordered">
         <tr>
+            <th>OrderID</th>
             <th>Ma san pham</th>
             <th>Ngay mua</th>
             <th>San pham</th>
@@ -20,6 +21,10 @@
         @foreach (var item in Model)
         {
             <tr>
+                 <td>
+                    @item.OrderID
+                </td>
+               
                 <td>
                     @item.Product.ProductCode
                 </td>
@@ -27,7 +32,7 @@
                     @item.Order.CreateDate.Value.ToString("dd/MM/yyyy HH:mm")
                 </td>
                 <td>
-                    @item.ProductName
+                    @item.Product.ProductName
                 </td>
                 <td>
                     @item.Quantity

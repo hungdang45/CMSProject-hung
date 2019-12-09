@@ -12,64 +12,68 @@
     <p>
         <a href="/Accounts/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
     </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Roles)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>*@
-        <td>
-            @*@Html.DisplayFor(modelItem => item.Roles)*@
-            @if (item.Roles == 1)
+        @foreach (var item in Model)
+        {
+            if (item.UserName != "Admin")
             {
-                <text>Admin</text>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>*@
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.Roles)*@
+                        @if (item.Roles == 1)
+                        {
+                            <text>Admin</text>
+                        }
+                        else
+                        {
+                            if (item.Status == 2)
+                            {
+                                <text>Nhân viên</text>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (item.Status == 1)
+                        {
+                            <text>Dang hoat dong</text>
+                        }
+                        else
+                        {
+                            if (item.Status == 2)
+                            {
+                                <text>khong su dung</text>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new { id = item.AccountID }, new { @class = "btn btn-warning fa fa-pencil" })
+                        @Html.ActionLink(" ", "Details", new { id = item.AccountID }, new { @class = "btn btn-info fa fa-info-circle" })
+                        @Html.ActionLink(" ", "Delete", new { id = item.AccountID }, new { @class = "btn btn-warning fa fa fa-trash" })
+                    </td>
+                </tr>
             }
-            else
-            {
-                if (item.Status == 2)
-                {
-                    <text>Nhân viên</text>
-                }
-            }
-        </td>
-        <td>
-            @if (item.Status == 1)
-            {
-                <text>Dang hoat dong</text>
-            }
-            else
-            {
-                if (item.Status == 2)
-                {
-                    <text>khong su dung</text>
-                }
-            }
-        </td>
-        <td>
-            @Html.ActionLink(" ", "Edit", new { id=item.AccountID }, new { @class = "btn btn-warning fa fa-pencil" }) 
-            @Html.ActionLink(" ", "Details", new { id=item.AccountID },new { @class = "btn btn-info fa fa-info-circle"})
-            @Html.ActionLink(" ", "Delete", new { id=item.AccountID }, new { @class = "btn btn-warning fa fa fa-trash" })
-        </td>
-    </tr>
-}
-    
-</table>
+        }
+
+    </table>

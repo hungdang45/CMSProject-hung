@@ -11,7 +11,13 @@
     int TonKho = 0;
 }
 
-<h1 style="margin:0 auto;font-weight:bold;">Thong ke doanh thu theo san pham</h1>
+<style>
+    .container {
+    max-width: 2000px !important;
+}
+</style>
+
+<h1 style="margin:0 auto;font-weight:bold;">Thống Kê Doanh Thu Theo Sản Phẩm</h1>
 
 
 <div class="container" style="margin-top:20px;">
@@ -59,7 +65,7 @@
                 <th>
                     Tổng số lượng xuất
                 </th>
-                <th>Ton kho</th>
+                <th>Tồn Kho</th>
                 <th>
                     Tổng trị giá nhập
                 </th>
@@ -111,22 +117,28 @@
         <tfoot>
             <tr>
                 <th colspan="5">Tổng:</th>
-                <th>@if (tongNhap > 0)
+                <th>
+                    @if (tongNhap > 0)
+                    {
+                        @tongNhap.ToString("#,###")
+                    }
+                    else
+                    {
+                        <text>0</text>
+                    }
+                VND
+            </th>
+            <th>
+                @if (tongXuat > 0)
                 {
-                    @tongNhap.ToString("#,###")
+                    @tongXuat.ToString("#,###")
                 }
                 else
                 {
                     <text>0</text>
-                }
-                VND</th>
-                <th>@if (tongXuat > 0) {
-                    @tongXuat.ToString("#,###")
-                }
-                else {
-                    <text>0</text>
-                } VND</th>
-            </tr>
-        </tfoot>
-    </table>
+                } VND
+        </th>
+    </tr>
+</tfoot>
+</table>
 </div>

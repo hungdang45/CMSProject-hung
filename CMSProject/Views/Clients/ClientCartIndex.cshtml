@@ -1,4 +1,4 @@
-﻿@model CMSProject.Models.OrderClients
+﻿@*@model CMSProject.Models.OrderClients*@
 
 @{
     ViewBag.Title = "ClientCartIndex";
@@ -49,7 +49,7 @@
                     Không có sản phẩm nào trong giỏ hàng của bạn.
                 </div>
                 <div>
-                    <a href="/Clients/ProductIndex" class="btn btn-warning">Tiep tuc mua sam</a>
+                    <a href="/Clients/ProductIndex" class="btn btn-warning">Tiếp tục mua sắm</a>
                 </div>
             </div>
         </text>
@@ -74,7 +74,7 @@
                         } VND
                     </th>
                     <td>
-                        <button onclick="SaveToOrderDetail(@Model.OrderID)" class="btn btn-success">Đặt hàng</button>
+                        <button onclick="SaveToOrderDetail()" class="btn btn-success">Đặt hàng</button>
                     </td>
                 </tr>
             </table>
@@ -82,7 +82,7 @@
     }
 </div>
 <script>
-    function SaveToOrderDetail(id) {
-        window.location.href = "/Clients/SaveToOrder/" + id;
+    function SaveToOrderDetail() {
+        window.location.href = "/Clients/SaveToOrder";
     }
 </script>

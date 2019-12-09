@@ -205,29 +205,24 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Client\Controllers\ListBlogsController.cs" />
+    <Compile Include="Controllers\ChinhsachClientController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Configuration\AppConfigurations.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\BlogsController.cs" />
-    <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\GoodsReceiptDetailsController.cs" />
     <Compile Include="Controllers\GoodsReceiptsController.cs" />
     <Compile Include="Controllers\GrossController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HuongDanClientController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\OrderDetailsController.cs" />
-    <Compile Include="Controllers\OrderReportsController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\PromotionsController.cs" />
-    <Compile Include="Controllers\ReceiptsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\WareHouseController.cs" />
     <Compile Include="Crypto.cs" />
@@ -275,9 +270,21 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata\Account_Metadata.cs" />
+    <Compile Include="Models\Metadata\Blog_Metadata.cs" />
     <Compile Include="Models\Metadata\Carts.cs" />
+    <Compile Include="Models\Metadata\Category_Metadata.cs" />
+    <Compile Include="Models\Metadata\Customer_Metadata.cs" />
+    <Compile Include="Models\Metadata\Feedback_Metadata.cs" />
+    <Compile Include="Models\Metadata\GoodsReceiptDetail_Metadata.cs" />
+    <Compile Include="Models\Metadata\GoodsReceipt_Metadata.cs" />
     <Compile Include="Models\Metadata\OrderClients.cs" />
+    <Compile Include="Models\Metadata\OrderDetail_Metadata.cs" />
+    <Compile Include="Models\Metadata\Order_Metadata.cs" />
+    <Compile Include="Models\Metadata\Product_Metadata.cs" />
+    <Compile Include="Models\Metadata\spud_DoanhThuSPTheoThang_Result_Metadata.cs" />
     <Compile Include="Models\Metadata\Storage.cs" />
+    <Compile Include="Models\Metadata\Supplier_Metadata.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>CMS.tt</DependentUpon>
     </Compile>
@@ -285,13 +292,7 @@
     <Compile Include="Models\OrderDetail.cs">
       <DependentUpon>CMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderReport.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Product.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Receipt.cs">
       <DependentUpon>CMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShoppingCart.cs" />
@@ -310,36 +311,6 @@
       <DependentUpon>CMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_1.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_aspnet_Applications.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_aspnet_MembershipUsers.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_aspnet_Profiles.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_aspnet_Roles.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_aspnet_Users.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_aspnet_UsersInRoles.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_aspnet_WebPartState_Paths.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_aspnet_WebPartState_Shared.cs">
-      <DependentUpon>CMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_aspnet_WebPartState_User.cs">
       <DependentUpon>CMS.tt</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -4519,9 +4490,12 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\backg1.png" />
+    <Content Include="Image\backg2.jpg" />
+    <Content Include="Image\backgroud.jpg" />
     <Content Include="Image\bg.jpg" />
-    <Content Include="Image\files\600597838094794762.png" />
-    <Content Include="Image\files\Capture.JPG" />
+    <Content Include="Image\Done.jpg" />
+    <Content Include="Image\layout.jpg" />
     <Content Include="Image\_thumbs\Files\600597838094794762.png" />
     <Content Include="Image\_thumbs\Files\Capture.JPG" />
     <Content Include="Models\CMS.Context.tt">
@@ -5651,13 +5625,6 @@
     <Content Include="Scripts\ckfinder\skins\v1\skin.js" />
     <Content Include="Scripts\ckfinder\skins\v1\uipanel.css" />
     <Content Include="Scripts\ckfinder\translations.txt" />
-    <EntityDeploy Include="Models\CMS.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CMS.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\CMS.edmx.diagram">
-      <DependentUpon>CMS.edmx</DependentUpon>
-    </Content>
     <Content Include="Scripts\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="Scripts\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.ttf" />
@@ -6379,6 +6346,13 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <EntityDeploy Include="Models\CMS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CMS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CMS.edmx.diagram">
+      <DependentUpon>CMS.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -6462,11 +6436,6 @@
     <Content Include="Views\Feedbacks\Details.cshtml" />
     <Content Include="Views\Feedbacks\Edit.cshtml" />
     <Content Include="Views\Feedbacks\Index.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Delete.cshtml" />
-    <Content Include="Views\Orders\Details.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\OrderDetails\Create.cshtml" />
     <Content Include="Views\OrderDetails\Delete.cshtml" />
     <Content Include="Views\OrderDetails\Details.cshtml" />
@@ -6552,7 +6521,6 @@
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\WareHouse\Index.cshtml" />
     <Content Include="Views\Clients\ClientCartIndex.cshtml" />
     <Content Include="Views\Clients\_ListCartClient.cshtml" />
@@ -6562,9 +6530,6 @@
     <Content Include="Views\Clients\ClientDetail.cshtml" />
     <Content Include="Views\Clients\ClientEdit.cshtml" />
     <Content Include="Views\Clients\Contact.cshtml" />
-    <Content Include="Views\Products\ProductPaging.cshtml" />
-    <Content Include="Views\Products\_PartialViewProduct.cshtml" />
-    <Content Include="Views\Products\PagedIndex.cshtml" />
     <Content Include="Views\Clients\GetPaging.cshtml" />
     <Content Include="Views\Clients\ProductPagedIndex.cshtml" />
     <Content Include="Views\Gross\Index.cshtml" />
@@ -6574,12 +6539,21 @@
     <Content Include="Views\Clients\_Index.cshtml" />
     <Content Include="Views\Clients\_ProductIndex.cshtml" />
     <Content Include="Views\Clients\HienThiDonHang.cshtml" />
+    <Content Include="Views\ChinhsachClient\ChinhSachDoiHang.cshtml" />
+    <Content Include="Views\ChinhsachClient\ChinhSachBaoMat.cshtml" />
+    <Content Include="Views\ChinhsachClient\ChinhSachTraHang.cshtml" />
+    <Content Include="Views\ChinhsachClient\ChinhSachBaoHanh.cshtml" />
+    <Content Include="Views\HuongDanClient\HuongDanMuaHang.cshtml" />
+    <Content Include="Views\HuongDanClient\HuongDanThanhToan.cshtml" />
+    <Content Include="Views\WareHouse\_Index.cshtml" />
+    <Content Include="Views\Blogs\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Client\View\" />
     <Folder Include="Content\customer\img\blog\latest-post\" />
     <Folder Include="Content\customer\img\product\blog\latest-post\" />
+    <Folder Include="Image\files\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="Views\ListBlogs\" />
   </ItemGroup>
@@ -6591,8 +6565,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Content\admin1\vendors\popper.js\packages\popper\src\index.d.ts" />
-    <TypeScriptCompile Include="Content\admin1\vendors\popper.js\packages\tooltip\index.d.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <PropertyGroup>

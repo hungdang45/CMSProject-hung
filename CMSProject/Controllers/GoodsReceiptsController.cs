@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CMSProject.Models;
+using PagedList;
 
 namespace CMSProject.Controllers
 {
@@ -15,12 +16,7 @@ namespace CMSProject.Controllers
         private CMSEntities db = new CMSEntities();
         List<Storage> LstStorage = new List<Storage>(); //Khởi tạo Class Storage lên
 
-        // GET: GoodsReceipts
-        //public ActionResult Index()
-        //{
-        //    var goodsReceipts = db.GoodsReceipts.Include(g => g.Supplier);
-        //    return View(goodsReceipts.ToList());
-        //}
+        
         public ActionResult Index()
         {
             var goodsReceipts = db.GoodsReceipts;
@@ -45,6 +41,14 @@ namespace CMSProject.Controllers
             ViewBag.lstGoodsReceiptDetail = db.GoodsReceiptDetails.Where(x => x.GoodsReceiptID == id).ToList();
             return View(goodsReceipt);
         }
+        public PartialViewResult _Index(int? page)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var model = db.GoodsReceipts.OrderBy(n => n.GoodsReceiptID).ToPagedList(pageNumber, pageSize);
+            return PartialView(model);
+        }
+
 
         // GET: GoodsReceipts/Create
         public ActionResult Create()
@@ -168,13 +172,26 @@ namespace CMSProject.Controllers
         }
 
         //Show ra danh sách product
-        public ActionResult LstPro(int id)
+        public ActionResult LstPro()
         {
             ViewBag.idGoodsReceipt = TempData["idGoodsReceipt"];
             var dataPro = db.Products.ToList();
             return View(dataPro);
         }
 
+        [HttpPost]
+        public ActionResult LstPro(string maSP)
+        {
+            var result = from p in db.Products
+                         select p;
+            if (!String.IsNullOrEmpty(maSP))
+            {
+                result = result.Where(n => n.ProductCode.Contains(maSP));
+            }
+            ViewBag.idGoodsReceipt = TempData["idGoodsReceipt"];
+            return View(result);
+        }
+        
         public ActionResult LstGoodsReceipt()
         {
             if (Session["Storage"] == null)
@@ -212,6 +229,7 @@ namespace CMSProject.Controllers
                     {
                         flag = true;
                         item.Quantity += 1;
+                        item.Total = item.Quantity * item.UnitPrice;
                         break;
                     }
                 }
@@ -314,6 +332,7 @@ namespace CMSProject.Controllers
             }
             GoodsReceipt goodsReceipt = db.GoodsReceipts.Where(n => n.GoodsReceiptID == id).FirstOrDefault();
             goodsReceipt.AddedDate = DateTime.Now;
+            goodsReceipt.Status = 1;
             goodsReceipt.Total = Convert.ToDecimal(TempData["TotalGoodsReceipt"]);
             db.Entry(goodsReceipt).State = EntityState.Modified;
             db.SaveChanges();

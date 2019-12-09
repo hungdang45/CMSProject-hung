@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -21,7 +21,6 @@
           </Key>
           <Property Name="BlogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BlogTitle" Type="nchar" MaxLength="100" />
-          <Property Name="CategoryID" Type="int" />
           <Property Name="BlogContent" Type="nvarchar(max)" />
           <Property Name="Author" Type="nchar" MaxLength="50" />
           <Property Name="DateCreated" Type="date" />
@@ -32,8 +31,6 @@
           </Key>
           <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="nvarchar" MaxLength="70" />
-          <Property Name="Desciption" Type="nvarchar" MaxLength="200" />
-          <Property Name="SubCategory" Type="nvarchar" MaxLength="70" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -94,15 +91,6 @@
           <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Total" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
-        <EntityType Name="OrderReport">
-          <Key>
-            <PropertyRef Name="OrderReportID" />
-          </Key>
-          <Property Name="OrderReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CustomerID" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedDay" Type="date" />
-          <Property Name="Interest" Type="float" />
-        </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -146,18 +134,6 @@
           <Property Name="Unit" Type="nvarchar" MaxLength="255" />
           <Property Name="Quantity" Type="int" />
         </EntityType>
-        <EntityType Name="Receipt">
-          <Key>
-            <PropertyRef Name="ReceiptID" />
-          </Key>
-          <Property Name="ReceiptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ReceiptName" Type="nvarchar" MaxLength="50" />
-          <Property Name="CustomerID" Type="int" />
-          <Property Name="CreatedDate" Type="date" />
-          <Property Name="TotalPrice" Type="float" />
-          <Property Name="OrderID" Type="int" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Supplier">
           <Key>
             <PropertyRef Name="SupplierID" />
@@ -182,179 +158,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.View_1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="View_1">
-          <Key>
-            <PropertyRef Name="BrandID" />
-            <PropertyRef Name="Expr2" />
-          </Key>
-          <Property Name="BrandID" Type="int" Nullable="false" />
-          <Property Name="Expr1" Type="int" />
-          <Property Name="OrderID" Type="int" />
-          <Property Name="Expr2" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.vw_aspnet_Applications' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_aspnet_Applications">
-          <Key>
-            <PropertyRef Name="ApplicationName" />
-            <PropertyRef Name="LoweredApplicationName" />
-            <PropertyRef Name="ApplicationId" />
-          </Key>
-          <Property Name="ApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="LoweredApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="256" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.vw_aspnet_MembershipUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_aspnet_MembershipUsers">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="PasswordFormat" />
-            <PropertyRef Name="IsApproved" />
-            <PropertyRef Name="IsLockedOut" />
-            <PropertyRef Name="CreateDate" />
-            <PropertyRef Name="LastLoginDate" />
-            <PropertyRef Name="LastPasswordChangedDate" />
-            <PropertyRef Name="LastLockoutDate" />
-            <PropertyRef Name="FailedPasswordAttemptCount" />
-            <PropertyRef Name="FailedPasswordAttemptWindowStart" />
-            <PropertyRef Name="FailedPasswordAnswerAttemptCount" />
-            <PropertyRef Name="FailedPasswordAnswerAttemptWindowStart" />
-            <PropertyRef Name="ApplicationId" />
-            <PropertyRef Name="UserName" />
-            <PropertyRef Name="IsAnonymous" />
-            <PropertyRef Name="LastActivityDate" />
-          </Key>
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="PasswordFormat" Type="int" Nullable="false" />
-          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
-          <Property Name="Email" Type="nvarchar" MaxLength="256" />
-          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
-          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
-          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
-          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
-          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
-          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
-          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
-          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
-          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
-          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
-          <Property Name="Comment" Type="ntext" />
-          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
-          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
-          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.vw_aspnet_Profiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_aspnet_Profiles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LastUpdatedDate" />
-          </Key>
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
-          <Property Name="DataSize" Type="int" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.vw_aspnet_Roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_aspnet_Roles">
-          <Key>
-            <PropertyRef Name="ApplicationId" />
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="RoleName" />
-            <PropertyRef Name="LoweredRoleName" />
-          </Key>
-          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="LoweredRoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="256" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.vw_aspnet_Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_aspnet_Users">
-          <Key>
-            <PropertyRef Name="ApplicationId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="UserName" />
-            <PropertyRef Name="LoweredUserName" />
-            <PropertyRef Name="IsAnonymous" />
-            <PropertyRef Name="LastActivityDate" />
-          </Key>
-          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="LoweredUserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
-          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
-          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.vw_aspnet_UsersInRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_aspnet_UsersInRoles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_Paths' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_aspnet_WebPartState_Paths">
-          <Key>
-            <PropertyRef Name="ApplicationId" />
-            <PropertyRef Name="PathId" />
-            <PropertyRef Name="Path" />
-            <PropertyRef Name="LoweredPath" />
-          </Key>
-          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Path" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="LoweredPath" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_Shared' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_aspnet_WebPartState_Shared">
-          <Key>
-            <PropertyRef Name="PathId" />
-            <PropertyRef Name="LastUpdatedDate" />
-          </Key>
-          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="DataSize" Type="int" />
-          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_aspnet_WebPartState_User">
-          <Key>
-            <PropertyRef Name="LastUpdatedDate" />
-          </Key>
-          <Property Name="PathId" Type="uniqueidentifier" />
-          <Property Name="UserId" Type="uniqueidentifier" />
-          <Property Name="DataSize" Type="int" />
-          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Blog_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="Blog">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Feedback_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
@@ -448,18 +251,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Receipt_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Receipt" Type="Self.Receipt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Receipt">
-              <PropertyRef Name="CustomerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -838,115 +629,10 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <EntitySet Name="GoodsReceipt" EntityType="Self.GoodsReceipt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GoodsReceiptDetail" EntityType="Self.GoodsReceiptDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderReport" EntityType="Self.OrderReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Receipt" EntityType="Self.Receipt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="View_1" EntityType="Self.View_1" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [View_1].[BrandID] AS [BrandID], 
-    [View_1].[Expr1] AS [Expr1], 
-    [View_1].[OrderID] AS [OrderID], 
-    [View_1].[Expr2] AS [Expr2]
-    FROM [dbo].[View_1] AS [View_1]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_aspnet_Applications" EntityType="Self.vw_aspnet_Applications" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_aspnet_Applications].[ApplicationName] AS [ApplicationName], 
-    [vw_aspnet_Applications].[LoweredApplicationName] AS [LoweredApplicationName], 
-    [vw_aspnet_Applications].[ApplicationId] AS [ApplicationId], 
-    [vw_aspnet_Applications].[Description] AS [Description]
-    FROM [dbo].[vw_aspnet_Applications] AS [vw_aspnet_Applications]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_aspnet_MembershipUsers" EntityType="Self.vw_aspnet_MembershipUsers" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_aspnet_MembershipUsers].[UserId] AS [UserId], 
-    [vw_aspnet_MembershipUsers].[PasswordFormat] AS [PasswordFormat], 
-    [vw_aspnet_MembershipUsers].[MobilePIN] AS [MobilePIN], 
-    [vw_aspnet_MembershipUsers].[Email] AS [Email], 
-    [vw_aspnet_MembershipUsers].[LoweredEmail] AS [LoweredEmail], 
-    [vw_aspnet_MembershipUsers].[PasswordQuestion] AS [PasswordQuestion], 
-    [vw_aspnet_MembershipUsers].[PasswordAnswer] AS [PasswordAnswer], 
-    [vw_aspnet_MembershipUsers].[IsApproved] AS [IsApproved], 
-    [vw_aspnet_MembershipUsers].[IsLockedOut] AS [IsLockedOut], 
-    [vw_aspnet_MembershipUsers].[CreateDate] AS [CreateDate], 
-    [vw_aspnet_MembershipUsers].[LastLoginDate] AS [LastLoginDate], 
-    [vw_aspnet_MembershipUsers].[LastPasswordChangedDate] AS [LastPasswordChangedDate], 
-    [vw_aspnet_MembershipUsers].[LastLockoutDate] AS [LastLockoutDate], 
-    [vw_aspnet_MembershipUsers].[FailedPasswordAttemptCount] AS [FailedPasswordAttemptCount], 
-    [vw_aspnet_MembershipUsers].[FailedPasswordAttemptWindowStart] AS [FailedPasswordAttemptWindowStart], 
-    [vw_aspnet_MembershipUsers].[FailedPasswordAnswerAttemptCount] AS [FailedPasswordAnswerAttemptCount], 
-    [vw_aspnet_MembershipUsers].[FailedPasswordAnswerAttemptWindowStart] AS [FailedPasswordAnswerAttemptWindowStart], 
-    [vw_aspnet_MembershipUsers].[Comment] AS [Comment], 
-    [vw_aspnet_MembershipUsers].[ApplicationId] AS [ApplicationId], 
-    [vw_aspnet_MembershipUsers].[UserName] AS [UserName], 
-    [vw_aspnet_MembershipUsers].[MobileAlias] AS [MobileAlias], 
-    [vw_aspnet_MembershipUsers].[IsAnonymous] AS [IsAnonymous], 
-    [vw_aspnet_MembershipUsers].[LastActivityDate] AS [LastActivityDate]
-    FROM [dbo].[vw_aspnet_MembershipUsers] AS [vw_aspnet_MembershipUsers]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_aspnet_Profiles" EntityType="Self.vw_aspnet_Profiles" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_aspnet_Profiles].[UserId] AS [UserId], 
-    [vw_aspnet_Profiles].[LastUpdatedDate] AS [LastUpdatedDate], 
-    [vw_aspnet_Profiles].[DataSize] AS [DataSize]
-    FROM [dbo].[vw_aspnet_Profiles] AS [vw_aspnet_Profiles]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_aspnet_Roles" EntityType="Self.vw_aspnet_Roles" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_aspnet_Roles].[ApplicationId] AS [ApplicationId], 
-    [vw_aspnet_Roles].[RoleId] AS [RoleId], 
-    [vw_aspnet_Roles].[RoleName] AS [RoleName], 
-    [vw_aspnet_Roles].[LoweredRoleName] AS [LoweredRoleName], 
-    [vw_aspnet_Roles].[Description] AS [Description]
-    FROM [dbo].[vw_aspnet_Roles] AS [vw_aspnet_Roles]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_aspnet_Users" EntityType="Self.vw_aspnet_Users" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_aspnet_Users].[ApplicationId] AS [ApplicationId], 
-    [vw_aspnet_Users].[UserId] AS [UserId], 
-    [vw_aspnet_Users].[UserName] AS [UserName], 
-    [vw_aspnet_Users].[LoweredUserName] AS [LoweredUserName], 
-    [vw_aspnet_Users].[MobileAlias] AS [MobileAlias], 
-    [vw_aspnet_Users].[IsAnonymous] AS [IsAnonymous], 
-    [vw_aspnet_Users].[LastActivityDate] AS [LastActivityDate]
-    FROM [dbo].[vw_aspnet_Users] AS [vw_aspnet_Users]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_aspnet_UsersInRoles" EntityType="Self.vw_aspnet_UsersInRoles" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_aspnet_UsersInRoles].[UserId] AS [UserId], 
-    [vw_aspnet_UsersInRoles].[RoleId] AS [RoleId]
-    FROM [dbo].[vw_aspnet_UsersInRoles] AS [vw_aspnet_UsersInRoles]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_aspnet_WebPartState_Paths" EntityType="Self.vw_aspnet_WebPartState_Paths" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_aspnet_WebPartState_Paths].[ApplicationId] AS [ApplicationId], 
-    [vw_aspnet_WebPartState_Paths].[PathId] AS [PathId], 
-    [vw_aspnet_WebPartState_Paths].[Path] AS [Path], 
-    [vw_aspnet_WebPartState_Paths].[LoweredPath] AS [LoweredPath]
-    FROM [dbo].[vw_aspnet_WebPartState_Paths] AS [vw_aspnet_WebPartState_Paths]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_aspnet_WebPartState_Shared" EntityType="Self.vw_aspnet_WebPartState_Shared" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_aspnet_WebPartState_Shared].[PathId] AS [PathId], 
-    [vw_aspnet_WebPartState_Shared].[DataSize] AS [DataSize], 
-    [vw_aspnet_WebPartState_Shared].[LastUpdatedDate] AS [LastUpdatedDate]
-    FROM [dbo].[vw_aspnet_WebPartState_Shared] AS [vw_aspnet_WebPartState_Shared]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vw_aspnet_WebPartState_User" EntityType="Self.vw_aspnet_WebPartState_User" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_aspnet_WebPartState_User].[PathId] AS [PathId], 
-    [vw_aspnet_WebPartState_User].[UserId] AS [UserId], 
-    [vw_aspnet_WebPartState_User].[DataSize] AS [DataSize], 
-    [vw_aspnet_WebPartState_User].[LastUpdatedDate] AS [LastUpdatedDate]
-    FROM [dbo].[vw_aspnet_WebPartState_User] AS [vw_aspnet_WebPartState_User]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Blog_Category" Association="Self.FK_Blog_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Blog" EntitySet="Blog" />
-          </AssociationSet>
           <AssociationSet Name="FK_Feedback_Customer" Association="Self.FK_Feedback_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Feedback" EntitySet="Feedback" />
@@ -979,12 +665,9 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK_Receipt_Customer" Association="Self.FK_Receipt_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Receipt" EntitySet="Receipt" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1004,11 +687,9 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           </Key>
           <Property Name="BlogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BlogTitle" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="CategoryID" Type="Int32" />
           <Property Name="BlogContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Author" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Blog_Category" FromRole="Blog" ToRole="Category" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -1016,10 +697,7 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           </Key>
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="Desciption" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SubCategory" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Blogs" Relationship="Self.FK_Blog_Category" FromRole="Category" ToRole="Blog" />
-          <NavigationProperty Name="Products" Relationship="CMSModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -1035,31 +713,107 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <Property Name="Country" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsEmailVerified" Type="Boolean" />
           <Property Name="ActivationCode" Type="Guid" />
-          <NavigationProperty Name="Receipts" Relationship="Self.FK_Receipt_Customer" FromRole="Customer" ToRole="Receipt" />
-          <NavigationProperty Name="Orders" Relationship="CMSModel.FK_Orders_Customer1" FromRole="Customer" ToRole="Order" />
-          <NavigationProperty Name="Feedbacks" Relationship="CMSModel.FK_Feedback_Customer" FromRole="Customer" ToRole="Feedback" />
+          <NavigationProperty Name="Feedbacks" Relationship="Self.FK_Feedback_Customer" FromRole="Customer" ToRole="Feedback" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customer1" FromRole="Customer" ToRole="Orders" />
         </EntityType>
-        <EntityType Name="OrderReport">
+        <EntityType Name="Feedback">
           <Key>
-            <PropertyRef Name="OrderReportID" />
+            <PropertyRef Name="FeedbackID" />
           </Key>
-          <Property Name="OrderReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDay" Type="DateTime" Precision="0" />
-          <Property Name="Interest" Type="Double" />
-        </EntityType>
-        <EntityType Name="Receipt">
-          <Key>
-            <PropertyRef Name="ReceiptID" />
-          </Key>
-          <Property Name="ReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReceiptName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FeedbackID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerID" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-          <Property Name="TotalPrice" Type="Double" />
+          <Property Name="FeedbackContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Feedback_Customer" FromRole="Feedback" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="GoodsReceipt">
+          <Key>
+            <PropertyRef Name="GoodsReceiptID" />
+          </Key>
+          <Property Name="GoodsReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="GoodsReceiptName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Precision="3" />
+          <Property Name="Creator" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_GoodsReceipt_Supplier" FromRole="GoodsReceipt" ToRole="Supplier" />
+          <NavigationProperty Name="GoodsReceiptDetails" Relationship="Self.FK_GoodsReceiptDetail_GoodsReceipt" FromRole="GoodsReceipt" ToRole="GoodsReceiptDetail" />
+        </EntityType>
+        <EntityType Name="GoodsReceiptDetail">
+          <Key>
+            <PropertyRef Name="GoodsReceiptDetailID" />
+          </Key>
+          <Property Name="GoodsReceiptDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoodsReceiptID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="GoodsReceipt" Relationship="Self.FK_GoodsReceiptDetail_GoodsReceipt" FromRole="GoodsReceiptDetail" ToRole="GoodsReceipt" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_GoodsReceiptDetail_Product" FromRole="GoodsReceiptDetail" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetail_ID" />
+          </Key>
+          <Property Name="OrderDetail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderID" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Receipt_Customer" FromRole="Receipt" ToRole="Customer" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_Orders" FromRole="OrderDetails" ToRole="Orders" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_OrderDetails_Product" FromRole="OrderDetails" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderName" Type="Byte" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="Byte" />
+          <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OrderCreate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Shipper" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ShipDate" Type="DateTime" Precision="3" />
+          <Property Name="Receiver" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PayDate" Type="DateTime" Precision="3" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Orders_Customer1" FromRole="Orders" ToRole="Customer" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Brand" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProductCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" />
+          <Property Name="ImageUpload" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="GoodsReceiptDetails" Relationship="Self.FK_GoodsReceiptDetail_Product" FromRole="Product" ToRole="GoodsReceiptDetail" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Product" FromRole="Product" ToRole="OrderDetails" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -1074,7 +828,7 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <Property Name="AddedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Byte" />
-          <NavigationProperty Name="GoodsReceipts" Relationship="CMSModel.FK_GoodsReceipt_Supplier" FromRole="Supplier" ToRole="GoodsReceipt" />
+          <NavigationProperty Name="GoodsReceipts" Relationship="Self.FK_GoodsReceipt_Supplier" FromRole="Supplier" ToRole="GoodsReceipt" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1086,168 +840,99 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="View_1">
-          <Key>
-            <PropertyRef Name="BrandID" />
-            <PropertyRef Name="Expr2" />
-          </Key>
-          <Property Name="BrandID" Type="Int32" Nullable="false" />
-          <Property Name="Expr1" Type="Int32" />
-          <Property Name="OrderID" Type="Int32" />
-          <Property Name="Expr2" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="vw_aspnet_Applications">
-          <Key>
-            <PropertyRef Name="ApplicationName" />
-            <PropertyRef Name="LoweredApplicationName" />
-            <PropertyRef Name="ApplicationId" />
-          </Key>
-          <Property Name="ApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LoweredApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="vw_aspnet_MembershipUsers">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="PasswordFormat" />
-            <PropertyRef Name="IsApproved" />
-            <PropertyRef Name="IsLockedOut" />
-            <PropertyRef Name="CreateDate" />
-            <PropertyRef Name="LastLoginDate" />
-            <PropertyRef Name="LastPasswordChangedDate" />
-            <PropertyRef Name="LastLockoutDate" />
-            <PropertyRef Name="FailedPasswordAttemptCount" />
-            <PropertyRef Name="FailedPasswordAttemptWindowStart" />
-            <PropertyRef Name="FailedPasswordAnswerAttemptCount" />
-            <PropertyRef Name="FailedPasswordAnswerAttemptWindowStart" />
-            <PropertyRef Name="ApplicationId" />
-            <PropertyRef Name="UserName" />
-            <PropertyRef Name="IsAnonymous" />
-            <PropertyRef Name="LastActivityDate" />
-          </Key>
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
-          <Property Name="MobilePIN" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="LoweredEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordQuestion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordAnswer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
-          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
-          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
-          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MobileAlias" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
-          <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
-          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="vw_aspnet_Profiles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LastUpdatedDate" />
-          </Key>
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DataSize" Type="Int32" />
-        </EntityType>
-        <EntityType Name="vw_aspnet_Roles">
-          <Key>
-            <PropertyRef Name="ApplicationId" />
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="RoleName" />
-            <PropertyRef Name="LoweredRoleName" />
-          </Key>
-          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
-          <Property Name="RoleId" Type="Guid" Nullable="false" />
-          <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LoweredRoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="vw_aspnet_Users">
-          <Key>
-            <PropertyRef Name="ApplicationId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="UserName" />
-            <PropertyRef Name="LoweredUserName" />
-            <PropertyRef Name="IsAnonymous" />
-            <PropertyRef Name="LastActivityDate" />
-          </Key>
-          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LoweredUserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MobileAlias" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
-          <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
-          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="vw_aspnet_UsersInRoles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="RoleId" Type="Guid" Nullable="false" />
-        </EntityType>
-        <EntityType Name="vw_aspnet_WebPartState_Paths">
-          <Key>
-            <PropertyRef Name="ApplicationId" />
-            <PropertyRef Name="PathId" />
-            <PropertyRef Name="Path" />
-            <PropertyRef Name="LoweredPath" />
-          </Key>
-          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
-          <Property Name="PathId" Type="Guid" Nullable="false" />
-          <Property Name="Path" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LoweredPath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="vw_aspnet_WebPartState_Shared">
-          <Key>
-            <PropertyRef Name="PathId" />
-            <PropertyRef Name="LastUpdatedDate" />
-          </Key>
-          <Property Name="PathId" Type="Guid" Nullable="false" />
-          <Property Name="DataSize" Type="Int32" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="vw_aspnet_WebPartState_User">
-          <Key>
-            <PropertyRef Name="LastUpdatedDate" />
-          </Key>
-          <Property Name="PathId" Type="Guid" />
-          <Property Name="UserId" Type="Guid" />
-          <Property Name="DataSize" Type="Int32" />
-          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <Association Name="FK_Blog_Category">
+        <Association Name="FK_Product_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Blog" Type="Self.Blog" Multiplicity="*" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="CategoryID" />
             </Principal>
-            <Dependent Role="Blog">
+            <Dependent Role="Product">
               <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Receipt_Customer">
+        <Association Name="FK_Feedback_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Receipt" Type="Self.Receipt" Multiplicity="*" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="CustomerID" />
             </Principal>
-            <Dependent Role="Receipt">
+            <Dependent Role="Feedback">
               <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Customer1">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsReceipt_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="GoodsReceipt" Type="Self.GoodsReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="GoodsReceipt">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsReceiptDetail_GoodsReceipt">
+          <End Role="GoodsReceipt" Type="Self.GoodsReceipt" Multiplicity="0..1" />
+          <End Role="GoodsReceiptDetail" Type="Self.GoodsReceiptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoodsReceipt">
+              <PropertyRef Name="GoodsReceiptID" />
+            </Principal>
+            <Dependent Role="GoodsReceiptDetail">
+              <PropertyRef Name="GoodsReceiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoodsReceiptDetail_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="GoodsReceiptDetail" Type="Self.GoodsReceiptDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="GoodsReceiptDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Orders">
+          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1256,30 +941,48 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <EntitySet Name="Blogs" EntityType="Self.Blog" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="OrderReports" EntityType="Self.OrderReport" />
-          <EntitySet Name="Receipts" EntityType="Self.Receipt" />
+          <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
+          <EntitySet Name="GoodsReceipts" EntityType="Self.GoodsReceipt" />
+          <EntitySet Name="GoodsReceiptDetails" EntityType="Self.GoodsReceiptDetail" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="View_1" EntityType="Self.View_1" />
-          <EntitySet Name="vw_aspnet_Applications" EntityType="Self.vw_aspnet_Applications" />
-          <EntitySet Name="vw_aspnet_MembershipUsers" EntityType="Self.vw_aspnet_MembershipUsers" />
-          <EntitySet Name="vw_aspnet_Profiles" EntityType="Self.vw_aspnet_Profiles" />
-          <EntitySet Name="vw_aspnet_Roles" EntityType="Self.vw_aspnet_Roles" />
-          <EntitySet Name="vw_aspnet_Users" EntityType="Self.vw_aspnet_Users" />
-          <EntitySet Name="vw_aspnet_UsersInRoles" EntityType="Self.vw_aspnet_UsersInRoles" />
-          <EntitySet Name="vw_aspnet_WebPartState_Paths" EntityType="Self.vw_aspnet_WebPartState_Paths" />
-          <EntitySet Name="vw_aspnet_WebPartState_Shared" EntityType="Self.vw_aspnet_WebPartState_Shared" />
-          <EntitySet Name="vw_aspnet_WebPartState_User" EntityType="Self.vw_aspnet_WebPartState_User" />
-          <AssociationSet Name="FK_Blog_Category" Association="Self.FK_Blog_Category">
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
             <End Role="Category" EntitySet="Categories" />
-            <End Role="Blog" EntitySet="Blogs" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_Receipt_Customer" Association="Self.FK_Receipt_Customer">
+          <AssociationSet Name="FK_Feedback_Customer" Association="Self.FK_Feedback_Customer">
             <End Role="Customer" EntitySet="Customers" />
-            <End Role="Receipt" EntitySet="Receipts" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Customer1" Association="Self.FK_Orders_Customer1">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsReceipt_Supplier" Association="Self.FK_GoodsReceipt_Supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsReceiptDetail_GoodsReceipt" Association="Self.FK_GoodsReceiptDetail_GoodsReceipt">
+            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
+            <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoodsReceiptDetail_Product" Association="Self.FK_GoodsReceiptDetail_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Product" Association="Self.FK_OrderDetails_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
           <FunctionImport Name="aspnet_AnyDataInTables">
-          <Parameter Name="TablesToCheck" Mode="In" Type="Int32" />
+            <Parameter Name="TablesToCheck" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="aspnet_Applications_CreateApplication">
             <Parameter Name="ApplicationName" Mode="In" Type="String" />
@@ -1534,17 +1237,17 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             <Parameter Name="DeleteOnlyIfRoleIsEmpty" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="aspnet_Roles_GetAllRoles">
-          <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="aspnet_Roles_RoleExists">
             <Parameter Name="ApplicationName" Mode="In" Type="String" />
             <Parameter Name="RoleName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="aspnet_Setup_RemoveAllRoleMembers">
-          <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="aspnet_Setup_RestorePermissions">
-          <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="aspnet_UnRegisterSchemaVersion">
             <Parameter Name="Feature" Mode="In" Type="String" />
@@ -1639,48 +1342,10 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="OrderDetails" EntityType="CMSModel.OrderDetail" />
-          <EntitySet Name="Orders" EntityType="CMSModel.Order" />
-          <EntitySet Name="GoodsReceipts" EntityType="CMSModel.GoodsReceipt" />
-          <AssociationSet Name="FK_Orders_Customer1" Association="CMSModel.FK_Orders_Customer1">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GoodsReceipt_Supplier" Association="CMSModel.FK_GoodsReceipt_Supplier">
-            <End Role="Supplier" EntitySet="Suppliers" />
-            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Orders" Association="CMSModel.FK_OrderDetails_Orders">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <EntitySet Name="GoodsReceiptDetails" EntityType="CMSModel.GoodsReceiptDetail" />
-          <AssociationSet Name="FK_GoodsReceiptDetail_GoodsReceipt" Association="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt">
-            <End Role="GoodsReceipt" EntitySet="GoodsReceipts" />
-            <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
-          </AssociationSet>
-          <EntitySet Name="Feedbacks" EntityType="CMSModel.Feedback" />
-          <AssociationSet Name="FK_Feedback_Customer" Association="CMSModel.FK_Feedback_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Feedback" EntitySet="Feedbacks" />
-          </AssociationSet>
           <FunctionImport Name="spud_DoanhThuSPTheoThang" ReturnType="Collection(CMSModel.spud_DoanhThuSPTheoThang_Result)">
             <Parameter Name="Thang" Mode="In" Type="Int32" />
             <Parameter Name="Nam" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Products" EntityType="CMSModel.Product" />
-          <AssociationSet Name="FK_Product_Category" Association="CMSModel.FK_Product_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GoodsReceiptDetail_Product" Association="CMSModel.FK_GoodsReceiptDetail_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="GoodsReceiptDetail" EntitySet="GoodsReceiptDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetails_Product" Association="CMSModel.FK_OrderDetails_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1693,141 +1358,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="OrderDetail">
-          <Key>
-            <PropertyRef Name="OrderDetail_ID" />
-          </Key>
-          <Property Name="OrderDetail_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int32" />
-          <Property Name="ProductID" Type="Int32" />
-          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="Order" Relationship="CMSModel.FK_OrderDetails_Orders" FromRole="OrderDetail" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="CMSModel.FK_OrderDetails_Product" FromRole="OrderDetail" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderName" Type="Byte" />
-          <Property Name="CustomerID" Type="Int32" />
-          <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Gender" Type="Byte" />
-          <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ShipAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="OrderCreate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="Shipper" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ShipDate" Type="DateTime" Precision="3" />
-          <Property Name="Receiver" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="PayDate" Type="DateTime" Precision="3" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Byte" />
-          <NavigationProperty Name="Customer" Relationship="CMSModel.FK_Orders_Customer1" FromRole="Order" ToRole="Customer" />
-          <NavigationProperty Name="OrderDetails" Relationship="CMSModel.FK_OrderDetails_Orders" FromRole="Order" ToRole="OrderDetail" />
-        </EntityType>
-        <EntityType Name="GoodsReceipt">
-          <Key>
-            <PropertyRef Name="GoodsReceiptID" />
-          </Key>
-          <Property Name="GoodsReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SupplierID" Type="Int32" />
-          <Property Name="GoodsReceiptName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="AddedDate" Type="DateTime" Precision="3" />
-          <Property Name="Creator" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Byte" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Supplier" Relationship="CMSModel.FK_GoodsReceipt_Supplier" FromRole="GoodsReceipt" ToRole="Supplier" />
-          <NavigationProperty Name="GoodsReceiptDetails" Relationship="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt" FromRole="GoodsReceipt" ToRole="GoodsReceiptDetail" />
-        </EntityType>
-        <Association Name="FK_Orders_Customer1">
-          <End Type="CMSModel.Customer" Role="Customer" Multiplicity="0..1" />
-          <End Type="CMSModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsReceipt_Supplier">
-          <End Type="CMSModel.Supplier" Role="Supplier" Multiplicity="0..1" />
-          <End Type="CMSModel.GoodsReceipt" Role="GoodsReceipt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Supplier">
-              <PropertyRef Name="SupplierID" />
-            </Principal>
-            <Dependent Role="GoodsReceipt">
-              <PropertyRef Name="SupplierID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetails_Orders">
-          <End Type="CMSModel.Order" Role="Order" Multiplicity="0..1" />
-          <End Type="CMSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="GoodsReceiptDetail">
-          <Key>
-            <PropertyRef Name="GoodsReceiptDetailID" />
-          </Key>
-          <Property Name="GoodsReceiptDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GoodsReceiptID" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ProductID" Type="Int32" />
-          <NavigationProperty Name="GoodsReceipt" Relationship="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt" FromRole="GoodsReceiptDetail" ToRole="GoodsReceipt" />
-          <NavigationProperty Name="Product" Relationship="CMSModel.FK_GoodsReceiptDetail_Product" FromRole="GoodsReceiptDetail" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK_GoodsReceiptDetail_GoodsReceipt">
-          <End Type="CMSModel.GoodsReceipt" Role="GoodsReceipt" Multiplicity="0..1" />
-          <End Type="CMSModel.GoodsReceiptDetail" Role="GoodsReceiptDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoodsReceipt">
-              <PropertyRef Name="GoodsReceiptID" />
-            </Principal>
-            <Dependent Role="GoodsReceiptDetail">
-              <PropertyRef Name="GoodsReceiptID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Feedback">
-          <Key>
-            <PropertyRef Name="FeedbackID" />
-          </Key>
-          <Property Name="FeedbackID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="Int32" />
-          <Property Name="FeedbackContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Customer" Relationship="CMSModel.FK_Feedback_Customer" FromRole="Feedback" ToRole="Customer" />
-        </EntityType>
-        <Association Name="FK_Feedback_Customer">
-          <End Type="CMSModel.Customer" Role="Customer" Multiplicity="0..1" />
-          <End Type="CMSModel.Feedback" Role="Feedback" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Feedback">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="spud_DoanhThuSPTheoThang_Result">
           <Property Type="String" Name="NamThang" Nullable="true" MaxLength="7" />
           <Property Type="String" Name="productName" Nullable="true" MaxLength="255" />
@@ -1837,66 +1367,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           <Property Type="Decimal" Name="TongTriGiaNhap" Nullable="true" Precision="38" Scale="2" />
           <Property Type="Decimal" Name="TongTriGiaXuat" Nullable="true" Precision="38" Scale="0" />
         </ComplexType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Brand" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Size" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ProductCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Byte" />
-          <Property Name="ImageUpload" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="CategoryID" Type="Int32" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="UpdateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="CMSModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="GoodsReceiptDetails" Relationship="CMSModel.FK_GoodsReceiptDetail_Product" FromRole="Product" ToRole="GoodsReceiptDetail" />
-          <NavigationProperty Name="OrderDetails" Relationship="CMSModel.FK_OrderDetails_Product" FromRole="Product" ToRole="OrderDetail" />
-        </EntityType>
-        <Association Name="FK_Product_Category">
-          <End Type="CMSModel.Category" Role="Category" Multiplicity="0..1" />
-          <End Type="CMSModel.Product" Role="Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GoodsReceiptDetail_Product">
-          <End Type="CMSModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="CMSModel.GoodsReceiptDetail" Role="GoodsReceiptDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="GoodsReceiptDetail">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetails_Product">
-          <End Type="CMSModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="CMSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1919,7 +1389,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
               <MappingFragment StoreEntitySet="Blog">
                 <ScalarProperty Name="BlogID" ColumnName="BlogID" />
                 <ScalarProperty Name="BlogTitle" ColumnName="BlogTitle" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="BlogContent" ColumnName="BlogContent" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -1931,8 +1400,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="Desciption" ColumnName="Desciption" />
-                <ScalarProperty Name="SubCategory" ColumnName="SubCategory" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1952,41 +1419,111 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderReports">
-            <EntityTypeMapping TypeName="CMSModel.OrderReport">
-              <MappingFragment StoreEntitySet="OrderReport">
-                <ScalarProperty Name="OrderReportID" ColumnName="OrderReportID" />
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="CMSModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="CreatedDay" ColumnName="CreatedDay" />
-                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Receipts">
-            <EntityTypeMapping TypeName="CMSModel.Receipt">
-              <MappingFragment StoreEntitySet="Receipt">
-                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
-                <ScalarProperty Name="ReceiptName" ColumnName="ReceiptName" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <EntitySetMapping Name="GoodsReceipts">
+            <EntityTypeMapping TypeName="CMSModel.GoodsReceipt">
+              <MappingFragment StoreEntitySet="GoodsReceipt">
+                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="GoodsReceiptName" ColumnName="GoodsReceiptName" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoodsReceiptDetails">
+            <EntityTypeMapping TypeName="CMSModel.GoodsReceiptDetail">
+              <MappingFragment StoreEntitySet="GoodsReceiptDetail">
+                <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
+                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="CMSModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="OrderDetail_ID" ColumnName="OrderDetail_ID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="CMSModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+                <ScalarProperty Name="OrderCreate" ColumnName="OrderCreate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="CMSModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ImageUpload" ColumnName="ImageUpload" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="CMSModel.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
                 <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
                 <ScalarProperty Name="OtherDetails" ColumnName="OtherDetails" />
                 <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
                 <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
                 <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1998,125 +1535,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="View_1">
-            <EntityTypeMapping TypeName="CMSModel.View_1">
-              <MappingFragment StoreEntitySet="View_1">
-                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
-                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Expr2" ColumnName="Expr2" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_aspnet_Applications">
-            <EntityTypeMapping TypeName="CMSModel.vw_aspnet_Applications">
-              <MappingFragment StoreEntitySet="vw_aspnet_Applications">
-                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
-                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
-                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_aspnet_MembershipUsers">
-            <EntityTypeMapping TypeName="CMSModel.vw_aspnet_MembershipUsers">
-              <MappingFragment StoreEntitySet="vw_aspnet_MembershipUsers">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
-                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
-                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
-                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
-                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
-                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
-                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
-                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
-                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
-                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
-                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
-                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_aspnet_Profiles">
-            <EntityTypeMapping TypeName="CMSModel.vw_aspnet_Profiles">
-              <MappingFragment StoreEntitySet="vw_aspnet_Profiles">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-                <ScalarProperty Name="DataSize" ColumnName="DataSize" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_aspnet_Roles">
-            <EntityTypeMapping TypeName="CMSModel.vw_aspnet_Roles">
-              <MappingFragment StoreEntitySet="vw_aspnet_Roles">
-                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_aspnet_Users">
-            <EntityTypeMapping TypeName="CMSModel.vw_aspnet_Users">
-              <MappingFragment StoreEntitySet="vw_aspnet_Users">
-                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
-                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
-                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
-                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_aspnet_UsersInRoles">
-            <EntityTypeMapping TypeName="CMSModel.vw_aspnet_UsersInRoles">
-              <MappingFragment StoreEntitySet="vw_aspnet_UsersInRoles">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_aspnet_WebPartState_Paths">
-            <EntityTypeMapping TypeName="CMSModel.vw_aspnet_WebPartState_Paths">
-              <MappingFragment StoreEntitySet="vw_aspnet_WebPartState_Paths">
-                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
-                <ScalarProperty Name="PathId" ColumnName="PathId" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
-                <ScalarProperty Name="LoweredPath" ColumnName="LoweredPath" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_aspnet_WebPartState_Shared">
-            <EntityTypeMapping TypeName="CMSModel.vw_aspnet_WebPartState_Shared">
-              <MappingFragment StoreEntitySet="vw_aspnet_WebPartState_Shared">
-                <ScalarProperty Name="PathId" ColumnName="PathId" />
-                <ScalarProperty Name="DataSize" ColumnName="DataSize" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_aspnet_WebPartState_User">
-            <EntityTypeMapping TypeName="CMSModel.vw_aspnet_WebPartState_User">
-              <MappingFragment StoreEntitySet="vw_aspnet_WebPartState_User">
-                <ScalarProperty Name="PathId" ColumnName="PathId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="DataSize" ColumnName="DataSize" />
-                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2199,77 +1617,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CMSModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CMSModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="CMSModel.OrderDetail">
-              <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="OrderDetail_ID" ColumnName="OrderDetail_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="CMSModel.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
-                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
-                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
-                <ScalarProperty Name="Shipper" ColumnName="Shipper" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="OrderCreate" ColumnName="OrderCreate" />
-                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="OrderName" ColumnName="OrderName" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GoodsReceipts">
-            <EntityTypeMapping TypeName="CMSModel.GoodsReceipt">
-              <MappingFragment StoreEntitySet="GoodsReceipt">
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
-                <ScalarProperty Name="GoodsReceiptName" ColumnName="GoodsReceiptName" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GoodsReceiptDetails">
-            <EntityTypeMapping TypeName="CMSModel.GoodsReceiptDetail">
-              <MappingFragment StoreEntitySet="GoodsReceiptDetail">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="GoodsReceiptID" ColumnName="GoodsReceiptID" />
-                <ScalarProperty Name="GoodsReceiptDetailID" ColumnName="GoodsReceiptDetailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Feedbacks">
-            <EntityTypeMapping TypeName="CMSModel.Feedback">
-              <MappingFragment StoreEntitySet="Feedback">
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="FeedbackContent" ColumnName="FeedbackContent" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spud_DoanhThuSPTheoThang" FunctionName="CMSModel.Store.spud_DoanhThuSPTheoThang">
             <ResultMapping>
               <ComplexTypeMapping TypeName="CMSModel.spud_DoanhThuSPTheoThang_Result">
@@ -2283,28 +1630,6 @@ warning 6002: The table/view 'CMS.dbo.vw_aspnet_WebPartState_User' does not have
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="CMSModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="ImageUpload" ColumnName="ImageUpload" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

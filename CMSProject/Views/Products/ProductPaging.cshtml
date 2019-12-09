@@ -1,6 +1,0 @@
-﻿@model PagedList.IPagedList<CMSProject.Models.Product>
-@using PagedList.Mvc
-
-<div id="product_area">
-    @{Html.RenderAction("GetPaging", "Products", new { Page = 1 }); }
-</div>

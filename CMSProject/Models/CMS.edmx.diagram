@@ -4,41 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ee2e7953b51441f983fca354527a25f2" Name="Diagram1" ZoomLevel="75">
-        <EntityTypeShape EntityType="CMSModel.Account" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.Blog" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.Category" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.Customer" Width="1.5" PointX="6.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.OrderReport" Width="1.5" PointX="6.75" PointY="19.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.Receipt" Width="1.5" PointX="9" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.Supplier" Width="1.5" PointX="3.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.sysdiagram" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.View_1" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.vw_aspnet_Applications" Width="1.5" PointX="2.75" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.vw_aspnet_MembershipUsers" Width="1.5" PointX="11.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.vw_aspnet_Profiles" Width="1.5" PointX="2.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.vw_aspnet_Roles" Width="1.5" PointX="11.75" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.vw_aspnet_Users" Width="1.5" PointX="4.75" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.vw_aspnet_UsersInRoles" Width="1.5" PointX="13.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.vw_aspnet_WebPartState_Paths" Width="1.5" PointX="0.75" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.vw_aspnet_WebPartState_Shared" Width="1.5" PointX="13.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CMSModel.vw_aspnet_WebPartState_User" Width="1.5" PointX="13.75" PointY="9.25" IsExpanded="true" />
-        <AssociationConnector Association="CMSModel.FK_Blog_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="CMSModel.FK_Receipt_Customer" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CMSModel.OrderDetail" Width="1.5" PointX="10.375" PointY="9.75" />
-        <EntityTypeShape EntityType="CMSModel.Order" Width="1.5" PointX="14.375" PointY="12.75" />
-        <EntityTypeShape EntityType="CMSModel.GoodsReceipt" Width="1.5" PointX="7" PointY="22.5" />
-        <AssociationConnector Association="CMSModel.FK_Orders_Customer1" />
-        <AssociationConnector Association="CMSModel.FK_GoodsReceipt_Supplier" />
-        <AssociationConnector Association="CMSModel.FK_OrderDetails_Orders" />
-        <EntityTypeShape EntityType="CMSModel.GoodsReceiptDetail" Width="1.5" PointX="11.25" PointY="17" />
-        <AssociationConnector Association="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt" />
-        <EntityTypeShape EntityType="CMSModel.Feedback" Width="1.5" PointX="9" PointY="2.875" />
-        <AssociationConnector Association="CMSModel.FK_Feedback_Customer" />
-        <EntityTypeShape EntityType="CMSModel.Product" Width="1.5" PointX="3" PointY="18.5" />
-        <AssociationConnector Association="CMSModel.FK_Product_Category" />
-        <AssociationConnector Association="CMSModel.FK_GoodsReceiptDetail_Product" />
-        <AssociationConnector Association="CMSModel.FK_OrderDetails_Product" />
+      <Diagram DiagramId="121965db10684286beecc4558398235c" Name="Diagram1">
+        <EntityTypeShape EntityType="CMSModel.Account" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.Blog" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.Category" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.Customer" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.Feedback" Width="1.5" PointX="6" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.GoodsReceipt" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.GoodsReceiptDetail" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.OrderDetail" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.Order" Width="1.5" PointX="6" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.Product" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.Supplier" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSModel.sysdiagram" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="CMSModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSModel.FK_Feedback_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSModel.FK_Orders_Customer1" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSModel.FK_GoodsReceipt_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSModel.FK_GoodsReceiptDetail_GoodsReceipt" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSModel.FK_GoodsReceiptDetail_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSModel.FK_OrderDetails_Product" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

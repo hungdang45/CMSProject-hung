@@ -132,6 +132,24 @@ namespace CMSProject.Controllers
                 Session["Roles"] = chkRole.Roles;
                 return RedirectToAction("Index", "Gross");
             }
+            else
+            {
+                if (db.Accounts.Where(n => n.UserName == account.UserName && n.Password != account.Password && n.Status == 1).FirstOrDefault() != null)
+                {
+                    ViewBag.Error = "mật khẩu không đúng";
+                }
+                else
+                {
+                    if (db.Accounts.Where(n => n.UserName == account.UserName && n.Password == account.Password && n.Status != 1).FirstOrDefault() != null)
+                    {
+                        ViewBag.Error = "Rất tiếc, tài khoản của bạn đã hết hạn sử dụng";
+                    }
+                    else
+                    {
+                        ViewBag.Error = "Bạn chưa có tài khoản";
+                    }
+                }
+            }
             return View();
         }
 

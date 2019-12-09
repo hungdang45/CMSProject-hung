@@ -66,11 +66,19 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6" style="margin-top:20px;height:500px;border:1px solid #808080; overflow-y:auto;">
+        <div class="row search-par">
+            <div class="col-md-6 search-child" style="margin-top:20px;">
+                <div class="search-zone" style="float:right;border:1px solid #000000;margin-bottom: 13px;">
+                    <input type="text" name="maSP" placeholder="Mã sản phẩm ..." /> <button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true" style="font-weight:bold;"></i></button>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+        <div class="row page-product">
+            <div class="col-md-6 my-product" style="height:500px;border:1px solid #808080; overflow-y:auto;">
                 @Html.Action("listProduct", "Order")
             </div>
-            <div class="col-md-6" style="margin-top:20px;height:500px;border:1px solid #808080; overflow-y:auto;">
+            <div class="col-md-6" style="height:500px;border:1px solid #808080; overflow-y:auto;">
                 @Html.Action("lstOrderProduct", "Order")
             </div>
         </div>
@@ -102,6 +110,42 @@
 <div class="modal-footer">
     <a href="/Order/Index" class="btn btn-primary"> << Quay lại</a>
 </div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.search-zone > input').on('keydown', function (e) {
+            let val;
+            let getData = $(this).closest('.search-zone').parent('.search-child').parent('.search-par').siblings('.page-product').children('.my-product')/*siblings('.page-product').children('.my-product');*/
+            if (event.keyCode == 8) {
+                val = $(this).val();
+                val = val.substr(0, val.length - 1);
+            }
+            else if (event.keyCode >= 8 && event.keyCode <= 90) {
+                val = $(this).val() + String.fromCharCode(event.keyCode);
+            }
+            else {
+                return;
+            }
+            val = val.toLowerCase();
+            $.ajax({
+                url: '/Order/listProduct',
+                type: 'POST',
+                dataType: 'html',
+                data: { maSP: val },
+            })
+                .done(function (data) {
+                    getData.html(data);
+                    //console.log("success");
+                })
+                .fail(function () {
+                    //console.log("error");
+                })
+                .always(function () {
+                    //console.log("complete");
+                });
+        })
+    })
+</script>
 <script>
     function save(id) {
         var f = confirm("Xác nhận đặt hàng");

@@ -8,10 +8,10 @@
         ViewBag.Title = "_Index";
         Layout = "~/Views/Shared/admin.cshtml";
     }*@
+@{ 
+    var productCode = ViewBag.productCode;
+}
 
-<p>
-    <a href="/Products/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
-</p>
 <table class="table">
     <tr>
         <th>
@@ -132,21 +132,17 @@
                 @Html.DisplayFor(modelItem => item.Category.CategoryName)
             </td>
             <td>
-
-                @*@Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.ProductID }, new { @class = "fa fa-pencil" }) |*@
-
-                <a href="/Products/Edit/@item.ProductID" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                @*@Html.ActionLink("  ", "Edit", new { id = item.ProductID }, new { @class = "btn btn-warning fa fa-pencil" })*@
+                <a href="/Products/Edit/@item.ProductID" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                 @Html.ActionLink("  ", "Details", new { id = item.ProductID }, new { @class = "btn btn-info fa fa-info-circle" })
-                @*@Html.ActionLink("  ", "Delete", new { id = item.ProductID }, new { @class = "btn btn-danger fa fa-times" })*@
+                <button onclick="deldeteProduct(@item.ProductID)" class="btn btn-primary">X</button>
             </td>
         </tr>
     }
 
 </table>
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("_Index", new { page}),
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("_Index", new { page, productCode }),
     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
         new AjaxOptions()
         {
@@ -154,3 +150,11 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
         }
         )
     )
+<script>
+    function deldeteProduct(id) {
+        var f = confirm("Bạn có muốn xóa sản phẩm này không?");
+        if (f == true) {
+            window.location.href = "/Products/deleteProducts/" + id;
+        }
+    }
+</script>

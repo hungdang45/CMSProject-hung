@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CMSProject.Models;
+using PagedList;
 
 namespace CMSProject.Controllers
 {
@@ -36,6 +37,40 @@ namespace CMSProject.Controllers
                 }
             }
         }
+        //public PartialViewResult _Index(int? page)
+        //{
+        //    int pageNumber = page ?? 1;
+        //    int pageSize = 10;
+        //    var model = db.Blogs.OrderBy(n => n.BlogID).ToPagedList(pageNumber, pageSize);
+        //    return PartialView(model);
+        //}
+
+        public ActionResult _Index(int? page, string blogTitle)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var result = from p in db.Blogs
+                         select p;
+            if (!String.IsNullOrEmpty(blogTitle))
+            {
+                result = result.Where(n => n.BlogTitle.Contains(blogTitle));
+            }
+            ViewBag.customerName = blogTitle;
+            return PartialView(result.OrderBy(n => n.BlogID).ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult _Index(int? page, string blogTitle, int pageNumber, int pageSize)
+        {
+            var result = from p in db.Blogs
+                         select p;
+            if (!String.IsNullOrEmpty(blogTitle))
+            {
+                result = result.Where(n => n.BlogTitle.Contains(blogTitle));
+            }
+            ViewBag.customerName = blogTitle;
+            return View(result.OrderBy(n => n.BlogID).ToPagedList(pageNumber, pageSize));
+        }
 
         // GET: Blogs/Details/5
         public ActionResult Details(int? id)
@@ -55,7 +90,6 @@ namespace CMSProject.Controllers
         // GET: Blogs/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             return View();
             //return RedirectToAction("Index");
         }
@@ -65,7 +99,7 @@ namespace CMSProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BlogID,BlogTitle,CategoryID,BlogContent,Author,DateCreated")] Blog blog)
+        public ActionResult Create([Bind(Include = "BlogID,BlogTitle,BlogContent,Author,DateCreated")] Blog blog)
         {
             //CMSEntities entities = new CMSEntities();
             //entities.Blogs.Add(new Blog
@@ -86,8 +120,7 @@ namespace CMSProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", blog.CategoryID);
+            
             return View(blog);
         }
 
@@ -103,7 +136,6 @@ namespace CMSProject.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", blog.CategoryID);
             return View(blog);
         }
 
@@ -112,15 +144,15 @@ namespace CMSProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BlogID,BlogTitle,CategoryID,BlogContent,Author,DateCreated")] Blog blog)
+        public ActionResult Edit([Bind(Include = "BlogID,BlogTitle,BlogContent,Author,DateCreated")] Blog blog)
         {
             if (ModelState.IsValid)
             {
+                blog.DateCreated = DateTime.Now;
                 db.Entry(blog).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", blog.CategoryID);
             return View(blog);
         }
 

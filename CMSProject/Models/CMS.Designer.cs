@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\HungDang\Downloads\CMSProject-hung\CMSProject-hung\CMSProject\Models\CMS.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\HungDang\Downloads\CapStone (2)\CapStone\CMSProject-hung\CMSProject\Models\CMS.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

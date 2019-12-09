@@ -25,7 +25,6 @@
         </dt>
 
         <dd>
-            @*@Html.DisplayFor(model => model.BlogContent)*@
             @Html.Raw(Model.BlogContent)
         </dd>
 
@@ -45,17 +44,9 @@
             @Html.DisplayFor(model => model.DateCreated)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
-
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.BlogID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("<< Quay lại danh sách", "Index")
 </p>

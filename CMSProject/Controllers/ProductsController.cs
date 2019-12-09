@@ -16,35 +16,6 @@ namespace CMSProject.Controllers
     {
         private CMSEntities db = new CMSEntities();
 
-        
-
-        //public PartialViewResult GetPaging(int? page)
-        //{
-        //    List<Product> lstproduct = new List<Product>();
-        //    lstproduct = db.Products.ToList();
-        //    int pageSize = 3;
-        //    int pageNumber = (page ?? 1);
-        //    return PartialView("_PartialViewProduct", lstproduct.ToPagedList(pageNumber, pageSize));
-        //}
-
-        //public ActionResult PagedIndex()
-        //{
-        //    return View();
-        //}
-
-
-        //public ActionResult Index1()
-        //{
-        //    return View();
-        //}
-        public PartialViewResult _Index(int? page)
-        {
-            int pageNumber = page ?? 1;
-            int pageSize = 10;
-            var model = db.Products.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize);
-            return PartialView(model);
-        }
-
         public ActionResult Index1()
         {
             if (Session["ID"] == null)
@@ -53,20 +24,42 @@ namespace CMSProject.Controllers
             }
             return View();
         }
-
-        // GET: Products
-        //public ActionResult Index()
+        //public PartialViewResult _Index(int? page)
         //{
-        //    //var products = db.Products.Include(p => p.Category);
-        //    //return View(products.ToList());
-
-        //    if (Session["ID"] == null)
-        //    {
-        //        return RedirectToAction("Login", "Accounts");
-        //    }
-        //    var products = db.Products;
-        //    return View(products.ToList());
+        //    int pageNumber = page ?? 1;
+        //    int pageSize = 10;
+        //    var model = db.Products.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize);
+        //    return PartialView(model);
         //}
+
+        public ActionResult _Index(int? page, string productCode)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var result = from p in db.Products
+                         select p;
+            if (!String.IsNullOrEmpty(productCode))
+            {
+                result = result.Where(n => n.ProductCode.Contains(productCode));
+            }
+            ViewBag.productCode = productCode;
+            return PartialView(result.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult _Index(int? page, string productCode, int pageNumber, int pageSize)
+        {
+            var result = from p in db.Products
+                         select p;
+            if (!String.IsNullOrEmpty(productCode))
+            {
+                result = result.Where(n => n.ProductCode.Contains(productCode));
+            }
+            ViewBag.productCode = productCode;
+            return View(result.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize));
+        }
+
+
   
 
         // GET: Products/Details/5
@@ -297,6 +290,13 @@ namespace CMSProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult deleteProducts(int id)
+        {
+            Product product = db.Products.Find(id);
+            db.Products.Remove(product);
+            db.SaveChanges();
+            return RedirectToAction("Index1");
         }
     }
 }

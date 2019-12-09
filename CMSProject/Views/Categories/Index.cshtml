@@ -5,28 +5,15 @@
     Layout = "~/Views/Shared/admin.cshtml";
 }
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
-@*<a href="/tao-moi-danh-muc" class="elements">Tạo mới danh mục</a>*@
 <p>
     <a href="/Categories/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
 </p>
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CategoryName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Desciption)
-        </th>
-        <th>
-          Tùy chọn
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.SubCategory)
-        </th>*@
-        <th></th>
+        <th>Cập nhật</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -35,20 +22,8 @@
                 @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Desciption)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.SubCategory)
-            </td>*@
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }) |*@
-                @*<a href="/Categories/Edit/@item.CategoryID" class="btn btn-danger">Chỉnh sửa</a>|
-                    <a href="/chi-tiet-danh-muc/@item.CategoryID" )" class="elements">Chi tiết</a>|*@
-                @*@Html.ActionLink("Details", "Details", new { id = item.CategoryID }) |*@
-                @*@Html.ActionLink("Delete", "Delete", new { id = item.CategoryID })*@
                 @Html.ActionLink("  ", "Edit", new { id = item.CategoryID }, new { @class = "btn btn-warning fa fa-pencil" })
-                @Html.ActionLink("  ", "Details", new { id = item.CategoryID }, new { @class = "btn btn-info fa fa-info-circle" })
-                @*@Html.ActionLink("  ", "Delete", new { id = item.CategoryID }, new { @class = "btn btn-danger fa fa-times" })*@
+                @*@Html.ActionLink("  ", "Details", new { id = item.CategoryID }, new { @class = "btn btn-info fa fa-info-circle" })*@
             </td>
         </tr>
     }

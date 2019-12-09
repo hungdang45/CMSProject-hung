@@ -61,13 +61,32 @@
         .left_widgets p_filter_widgets {
             border: 1px solid red;
         }
+
+        .owl-carousel .owl-item img {
+            display: block;
+            width: 79% !important;
+        }
+
+        .banner_part {
+            background-color: antiquewhite !important;
+        }
+
+        .footer_part {
+            background-color: antiquewhite !important;
+        }
+        .editmenu {
+            position: fixed;
+            background-color: antiquewhite !important;
+            width: 100%;
+            margin-left: -225px;
+        }
     </style>
 </head>
 <body>
     <!--::header part start::-->
     <header class="main_menu home_menu">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center editmenu">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <!--Để logo ở đây -->
@@ -80,7 +99,7 @@
                         <div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.html">Trang chủ</a>
+                                    <a class="nav-link" href="/Clients/ProductIndex">Trang chủ</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
@@ -100,12 +119,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
                                         <a class="dropdown-item" href="#"> Giới thiệu cửa hàng </a>
-                                        @*<a class="dropdown-item" href="login.html"> login</a>
-                                                                            <a class="dropdown-item" href="tracking.html">tracking</a>
-                                            <a class="dropdown-item" href="checkout.html">product checkout</a>
-                                            <a class="dropdown-item" href="cart.html">shopping cart</a>
-                                            <a class="dropdown-item" href="confirmation.html">confirmation</a>
-                                            <a class="dropdown-item" href="elements.html">elements</a>*@
+
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -128,18 +142,38 @@
 
                                     @if (Session["CustomerID"] != null)
                                     {
-                                        <a class="nav-link" href="/Clients/HienThiDonHang/@Session["CustomerID"]">Quan ly don hang</a>
+                                        <a class="nav-link" href="/Clients/HienThiDonHang/@Session["CustomerID"]">Quản Lý Đơn Hàng</a>
                                     }
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/Clients/ClientCartIndex/@Session["CustomerID"]" class="nav-link">
-                                        <i class="fas fa-cart-plus">Giỏ hàng</i>
+                                    <a href="/Clients/ClientCartIndex" class="nav-link">
+                                        <i class="fas fa-cart-plus">
+                                            <sup>
+                                                @if (Session["CountCart"] == null)
+                                                {
+                                                    <text>0</text>
+                                                }
+                                                else
+                                                {
+                                                    <text>
+                                                        @Session["CountCart"]
+                                                    </text>
+                                                }
+                                            </sup>
+                                            Giỏ hàng
+                                        </i>
+
                                     </a>
+
                                 </li>
+
                             </ul>
+
                         </div>
+
                         <!--Giỏ hàng-->
-                        <div class="hearer_icon d-flex">
+
+                        <div class="hearer_icon ifflex">
 
                             @*<div class="collapse navbar-collapse main-menu-item" id="navbarSupportedContent">*@
                             @if (Session["Customers"] == null)
@@ -157,13 +191,16 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                             <a class="dropdown-item" href="/Clients/ClientDetail/@Session["CustomerID"]">Trang cá nhân</a>
-                                            <a class="dropdown-item" href="/Customers/Login">Đăng xuất</a>
+                                            <form action="/Customers/Logout" method="post">
+                                                <button type="submit" class="dropdown-item">Logout</button>
+                                            </form>
+                                            @*<a class="dropdown-item" href="">Đăng xuất</a>*@
                                         </div>
                                     </li>
                                 </ul>
-                                @*</div>*@
+
                             }
-                            @*</div>*@
+
                         </div>
 
                     </nav>
@@ -191,42 +228,23 @@
                             <div class="row">
                                 <div class="col-lg-5 col-md-8">
                                     <div class="banner_text">
-                                        <div class="banner_text_iner">
-                                            <h1>
-                                                Wood & Cloth
-                                                Sofa
-                                            </h1>
-                                            <p>
-                                                Incididunt ut labore et dolore magna aliqua quis ipsum
-                                                suspendisse ultrices gravida. Risus commodo viverra
-                                            </p>
-                                            <a href="#" class="btn_2">buy now</a>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="banner_img d-none d-lg-block">
-                                    <img src="~/Content/customer/img/banner_img.png" alt="">
+                                    <img src="~/Image/backg1.png" alt="" />
                                 </div>
                             </div>
                         </div><div class="single_banner_slider">
                             <div class="row">
                                 <div class="col-lg-5 col-md-8">
                                     <div class="banner_text">
-                                        <div class="banner_text_iner">
-                                            <h1>
-                                                Cloth & Wood
-                                                Sofa
-                                            </h1>
-                                            <p>
-                                                Incididunt ut labore et dolore magna aliqua quis ipsum
-                                                suspendisse ultrices gravida. Risus commodo viverra
-                                            </p>
-                                            <a href="#" class="btn_2">buy now</a>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="banner_img d-none d-lg-block">
-                                    <img src="~/Content/customer/img/banner/banner-bg.jpg" />
+
+                                    <img src="~/Image/layout.jpg" style="width: 1700px !important;" />
                                     @*<img src="img/banner_img.png" alt="">*@
                                 </div>
                             </div>
@@ -236,378 +254,31 @@
                                     <div class="banner_text">
                                         <div class="banner_text_iner">
                                             <h1>
-                                                Wood & Cloth
-                                                Sofa
+                                                SHOWROOM</br> TINH CHUP
                                             </h1>
                                             <p>
-                                                Incididunt ut labore et dolore magna aliqua quis ipsum
-                                                suspendisse ultrices gravida. Risus commodo viverra
+                                                Cửa hàng Tính Chụp với những sản phẩm vô cùng chất lượng , sản phẩm đẹp uy tín sẽ giúp bạn có những trải nghiệm đẹp.
                                             </p>
-                                            <a href="#" class="btn_2">buy now</a>
+                                            @* <a href="#" class="btn btn-primary">Click Buy</a>*@
                                         </div>
                                     </div>
                                 </div>
                                 <div class="banner_img d-none d-lg-block">
-                                    <img src="~/Content/customer/img/banner_img.png" alt="">
+                                    <img src="~/Image/backg2.jpg" style=" width: 700px !important;" />
+                                    @*<img src="~/Content/customer/img/banner_img.png" alt="">*@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="single_banner_slider">
-                            <div class="row">
-                                <div class="col-lg-5 col-md-8">
-                                    <div class="banner_text">
-                                        <div class="banner_text_iner">
-                                            <h1>Cloth $ Wood Sofa</h1>
-                                            <p>Incididunt ut labore et dolore magna aliqua quis ipsum
-                                                suspendisse ultrices gravida. Risus commodo viverra</p>
-                                            <a href="#" class="btn_2">buy now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="banner_img d-none d-lg-block">
-                                    <img src="img/banner_img.png" alt="">
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                     <div class="slider-counter"></div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- banner part start-->
-    <!-- feature_part start-->
-    @*<section class="feature_part padding_top">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="section_tittle text-center">
-                            <h2>Featured Category</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-lg-7 col-sm-6">
-                        <div class="single_feature_post_text">
-                            <p>Premium Quality</p>
-                            <h3>Latest foam Sofa</h3>
-                            <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                            <img src="~/Content/customer/img/feature/feature_1.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-sm-6">
-                        <div class="single_feature_post_text">
-                            <p>Premium Quality</p>
-                            <h3>Latest foam Sofa</h3>
-                            <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                            <img src="~/Content/customer/img/feature/feature_2.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-sm-6">
-                        <div class="single_feature_post_text">
-                            <p>Premium Quality</p>
-                            <h3>Latest foam Sofa</h3>
-                            <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                            <img src="~/Content/customer/img/feature/feature_3.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-7 col-sm-6">
-                        <div class="single_feature_post_text">
-                            <p>Premium Quality</p>
-                            <h3>Latest foam Sofa</h3>
-                            <a href="#" class="feature_btn">EXPLORE NOW <i class="fas fa-play"></i></a>
-                            <img src="~/Content/customer/img/feature/feature_4.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>*@
-
-    <!-- upcoming_event part start-->
-    <!-- product_list start-->
-    @*<section class="product_list section_padding">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <div class="section_tittle text-center">
-                            <h2>awesome <span>shop</span></h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="product_list_slider owl-carousel">
-                            <div class="single_product_list_slider">
-                                <div class="row align-items-center justify-content-between">
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_1.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_2.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_3.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_4.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_5.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_6.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_7.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_8.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_product_list_slider">
-                                <div class="row align-items-center justify-content-between">
-
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_5.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_6.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_7.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6">
-                                        <div class="single_product_item">
-                                            <img src="~/Content/customer/img/product/product_8.png" alt="">
-                                            <div class="single_product_text">
-                                                <h4>Quartz Belt Watch</h4>
-                                                <h3>$150.00</h3>
-                                                <a href="#" class="add_cart">+ add to cart<i class="ti-heart"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>*@
-
-    <!-- product_list part start-->
-    <!-- awesome_shop start-->
-    @*<section class="our_offer section_padding">
-            <div class="container">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="offer_img">
-                            <img src="~/Content/customer/img/offer_img.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="offer_text">
-                            <h2>
-                                Weekly Sale on
-                                60% Off All Products
-                            </h2>
-                            <div class="date_countdown">
-                                <div id="timer">
-                                    <div id="days" class="date"></div>
-                                    <div id="hours" class="date"></div>
-                                    <div id="minutes" class="date"></div>
-                                    <div id="seconds" class="date"></div>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="enter email address"
-                                       aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <a href="#" class="input-group-text btn_2" id="basic-addon2">book now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>*@
-    <!-- awesome_shop part start-->
-    <!-- product_list part start-->
-    @*<section class="product_list best_seller section_padding">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <div class="section_tittle text-center">
-                            <h2>Best Sellers <span>shop</span></h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-lg-12">
-                        <div class="best_product_slider owl-carousel">
-                            <div class="single_product_item">
-                                <img src="~/Content/customer/img/product/product_1.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                </div>
-                            </div>
-                            <div class="single_product_item">
-                                <img src="~/Content/customer/img/product/product_2.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                </div>
-                            </div>
-                            <div class="single_product_item">
-                                <img src="~/Content/customer/img/product/product_3.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                </div>
-                            </div>
-                            <div class="single_product_item">
-                                <img src="~/Content/customer/img/product/product_4.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                </div>
-                            </div>
-                            <div class="single_product_item">
-                                <img src="~/Content/customer/img/product/product_5.png" alt="">
-                                <div class="single_product_text">
-                                    <h4>Quartz Belt Watch</h4>
-                                    <h3>$150.00</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>*@
-    <!-- product_list part end-->
-    <!-- subscribe_area part start-->
-    @*<section class="subscribe_area section_padding">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-7">
-                        <div class="subscribe_area_text text-center">
-                            <h5>Join Our Newsletter</h5>
-                            <h2>
-                                Subscribe to get Updated
-                                with new offers
-                            </h2>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="enter email address"
-                                       aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <a href="#" class="input-group-text btn_2" id="basic-addon2">subscribe now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>*@
-    <!--::subscribe_area part end::-->
-    <!-- subscribe_area part start-->
-    @*<section class="client_logo padding_top">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-12">
-                    <div class="single_client_logo">
-                        @*<img src="img/client_logo/client_logo_1.png" alt="">*@
-    @*<img src="~/Content/customer/img/client_logo/client_logo_1.png" alt="">
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </section>*@
-    <!--::subscribe_area part end::-->
 
 
     <div class="container body-content">
         @RenderBody()
-        @*@RenderSection("scripts")*@
     </div>
 
     <!--::footer_part start::-->
@@ -616,91 +287,50 @@
             <div class="row justify-content-around">
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Liên hệ</h4>
+                        <h3><strong>Liên hệ</strong></h3>
                         <ul class="list-unstyled">
-                            <li><a class="fa fa-home" href="">Hạ Đình - Thanh Xuân - Hà Nội</a></li>
-                            <li><a class="fa fa-phone" href=""> 0971.958.991 - 0243.200.9829</a></li>
-                            <li><a class="fa fa-mail-bulk" href=""> vatlieuxd@gmail.com</a></li>
+                            <li><a class="fa fa-home" href="/Clients/Contact">Xóm Cẩm Lũy - Xã Cẩm La - TX.Quảng Yên - Quảng Ninh</a></li>
+                            <li><a class="fa fa-phone" href="/Clients/ProductIndex"> 0987237158 - 03684640128</a></li>
+                            <li><a class="fa fa-mail-bulk" href="/Clients/ProductIndex"> duongdung2211@gmail.com</a></li>
+                            <li><a class="fa fa-mail-bulk" href="/Clients/ProductIndex" style="margin-top:8px;"> STK : 01000842001</br>Tiên Phong Bank Hà Nội</br>Chủ TK : DUONG VAN DUNG</a></li>
 
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Chính sách</h4>
+                        <h3><strong>Chính sách</strong></h3>
                         <ul class="list-unstyled">
-                            <li><a class="fa fa-file-text-o" href="">Chính sách bảo hành</a></li>
-                            <li><a class="fa fa-file-text-o" href="">Chính sách đổi hàng</a></li>
-                            <li><a class="fa fa-file-text-o" href="">Chính sách trả hàng</a></li>
-                            <li><a class="fa fa-file-text-o" href="">Chính sách bảo mật</a></li>
+                            <li><a class="fa fa-file-text-o" href="/ChinhsachClient/ChinhSachBaoHanh">Chính sách bảo hành</a></li>
+                            <li><a class="fa fa-file-text-o" href="/ChinhsachClient/ChinhSachDoiHang" style="margin-top:21px;">Chính sách đổi hàng</a></li>
+                            <li><a class="fa fa-file-text-o" href="/ChinhsachClient/ChinhSachTraHang" style="margin-top:18px;">Chính sách trả hàng</a></li>
+                            <li><a class="fa fa-file-text-o" href="/ChinhsachClient/ChinhSachBaoMat" style="margin-top:18px;"> Chính sách bảo mật</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-2">
                     <div class="single_footer_part">
-                        <h4>Hướng dẫn</h4>
+                        <h3><strong>Hướng dẫn</strong></h3>
                         <ul class="list-unstyled">
-                            <li><a href="#">Hướng dẫn mua hàng</a></li>
-                            <li><a href="#">Hướng dẫn thanh toán</a></li>
+                            <li><a href="/HuongDanClient/HuongDanMuaHang">Hướng dẫn mua hàng</a></li>
+                            <li><a href="/HuongDanClient/HuongDanThanhToan">Hướng dẫn thanh toán</a></li>
 
                         </ul>
                     </div>
                 </div>
 
-                @*<div class="col-sm-6 col-lg-4">
-                        <div class="single_footer_part">
-                            <h4>Newsletter</h4>
-                            <p>
-                                Heaven fruitful doesn't over lesser in days. Appear creeping
-                            </p>
-                            <div id="mc_embed_signup">
-                                <form target="_blank"
-                                      action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                      method="get" class="subscribe_form relative mail_part">
-                                    <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address"
-                                           class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
-                                           onblur="this.placeholder = ' Email Address '">
-                                    <button type="submit" name="submit" id="newsletter-submit"
-                                            class="email_icon newsletter-submit button-contactForm">
-                                        subscribe
-                                    </button>
-                                    <div class="mt-10 info"></div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>*@
+
             </div>
         </div>
         <div class="copyright_part">
             <div class="container">
                 <div class="row">
-                    @*<div class="col-lg-8">
-                            <div class="copyright_text">
-                                <P>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                </P>
-                            </div>
-                        </div>*@
-                    @*<div class="col-lg-4">
-                            <div class="footer_icon social_icon">
-                                <ul class="list-unstyled">
-                                    <li><a href="#" class="single_social_icon"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#" class="single_social_icon"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#" class="single_social_icon"><i class="fas fa-globe"></i></a></li>
-                                    <li><a href="#" class="single_social_icon"><i class="fab fa-behance"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>*@
+
                 </div>
             </div>
         </div>
     </footer>
-    <!--::footer_part end::-->
-    <!-- jquery plugins here-->
-    @*<script src="js/jquery-1.12.1.min.js"></script>*@
+
     <script src="~/Content/customer/js/jquery-1.12.1.min.js"></script>
     <script src="~/Content/customer/js/jquery.magnific-popup.js"></script>
     <script src="~/Content/customer/js/jquery.nice-select.min.js"></script>
@@ -709,41 +339,24 @@
     <script src="~/Content/customer/js/jquery.ajaxchimp.min.js"></script>
     <script src="~/Content/customer/js/jquery.form.js"></script>
     <script src="~/Content/customer/js/jquery.validate.min.js"></script>
-    <!-- popper js -->
-    @*<script src="js/popper.min.js"></script>*@
+
     <script src="~/Content/customer/js/popper.min.js"></script>
-    <!-- bootstrap js -->
-    @*<script src="js/bootstrap.min.js"></script>*@
+
     <script src="~/Content/customer/js/bootstrap.min.js"></script>
-    <!-- easing js -->
-    @*<script src="js/jquery.magnific-popup.js"></script>*@
-    <!-- swiper js -->
-    @*<script src="js/swiper.min.js"></script>*@
+
     <script src="~/Content/customer/js/swiper.min.js"></script>
-    <!-- swiper js -->
-    @*<script src="js/masonry.pkgd.js"></script>*@
+
     <script src="~/Content/customer/js/masonry.pkgd.js"></script>
-    <!-- particles js -->
-    @*<script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>*@
+
     <script src="~/Content/customer/js/owl.carousel.min.js"></script>
-    <!-- slick js -->
-    @*<script src="js/slick.min.js"></script>
-        <script src="js/jquery.counterup.min.js"></script>
-        <script src="js/waypoints.min.js"></script>
-        <script src="js/contact.js"></script>
-        <script src="js/jquery.ajaxchimp.min.js"></script>
-        <script src="js/jquery.form.js"></script>
-        <script src="js/jquery.validate.min.js"></script>
-        <script src="js/mail-script.js"></script>*@
+
 
 
     <script src="~/Content/customer/js/slick.min.js"></script>
     <script src="~/Content/customer/js/waypoints.min.js"></script>
     <script src="~/Content/customer/js/contact.js"></script>
     <script src="~/Content/customer/js/mail-script.js"></script>
-    <!-- custom js -->
-    @*<script src="js/custom.js"></script>*@
+
     <script src="~/Content/customer/js/custom.js"></script>
 
 

@@ -1,17 +1,60 @@
 ﻿@model IEnumerable<CMSProject.Models.Blog>
 
 @{
-   
+
     Layout = "~/Views/Shared/admin.cshtml";
 }
-@*<h2>Index</h2>*@
-
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+<div class="search-par" style="margin-bottom:10px;">
     <p>
         <a href="/Blogs/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
     </p>
+    <div class="search-child" style="float:right;">
+        <input type="text" name="blogTitle" style="width:250px;height:40px; border-radius:8px; padding-left:5px;" placeholder="Search blog title . . ." /> <button class="btn btn-primary"> <i class="fa fa-search" aria-hidden="true"></i></button>
+    </div>
+</div>
+<div id="table-view" class="table-view">
+    @{ Html.RenderAction("_Index", new { page = 1 });}
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.search-child > input').on('keydown', function (e) {
+            let val;
+            let getData = $(this).closest('.search-child').parent('.search-par').siblings('.table-view');
+            if (event.keyCode == 8) {
+                val = $(this).val();
+                val = val.substr(0, val.length - 1);
+            }
+            else if (event.keyCode >= 8 && event.keyCode <= 90 && event.keyCode != 13) {
+                val = $(this).val() + String.fromCharCode(event.keyCode);
+            }
+            else if (event.keyCode == 13) {
+                val = $(this).val() + String.fromCharCode(event.keyCode);
+                val = val.substr(0, val.length - 1);
+            }
+            else {
+                return;
+            }
+            val = val.toLowerCase();
+            $.ajax({
+                url: '/Blogs/_Index',
+                type: 'POST',
+                dataType: 'html',
+                data: { page: 1, productCode: val, pageNumber: 1, pageSize:10 },
+            })
+                .done(function (data) {
+                    getData.html(data);
+                    //console.log("success");
+                })
+                .fail(function () {
+                    //console.log("error");
+                })
+                .always(function () {
+                    //console.log("complete");
+                });
+        })
+    })
+</script>
 
 <table class="table">
     <tr>
@@ -19,49 +62,43 @@
             @Html.DisplayNameFor(model => model.BlogTitle)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.BlogContent)
-        </th>*@
+                @Html.DisplayNameFor(model => model.BlogContent)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Author)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DateCreated)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
         <th>Tùy chọn</th>
     </tr>
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            <a href="/Blogs/Details/@item.BlogID" style="color:blue;">@item.BlogTitle</a>
-            @*@Html.DisplayFor(modelItem => item.BlogTitle)*@
-        </td>
-        @*<td>
-           
-         @Html.Raw(item.BlogContent)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id = item.BlogID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.BlogID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.BlogID })*@
-            @Html.ActionLink("  ", "Edit", new { id = item.BlogID }, new { @class = "btn btn-warning fa fa-pencil" })
-            @Html.ActionLink("  ", "Details", new { id = item.BlogID }, new { @class = "btn btn-info fa fa-info-circle" })
-            @Html.ActionLink("  ", "Delete", new { id = item.BlogID }, new { @class = "btn btn-danger fa fa-times" })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                <a href="/Blogs/Details/@item.BlogID" style="color:blue;">@item.BlogTitle</a>
+                @*@Html.DisplayFor(modelItem => item.BlogTitle)*@
+            </td>
+            @*<td>
+
+                 @Html.Raw(item.BlogContent)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.BlogID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.BlogID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BlogID })*@
+                @Html.ActionLink("  ", "Edit", new { id = item.BlogID }, new { @class = "btn btn-warning fa fa-pencil" })
+                @Html.ActionLink("  ", "Details", new { id = item.BlogID }, new { @class = "btn btn-info fa fa-info-circle" })
+                @Html.ActionLink("  ", "Delete", new { id = item.BlogID }, new { @class = "btn btn-danger fa fa-times" })
+            </td>
+        </tr>
     }
 
 </table>

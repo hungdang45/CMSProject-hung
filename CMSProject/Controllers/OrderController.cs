@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CMSProject.Models;
+using PagedList;
 
 namespace CMSProject.Controllers
 {
@@ -37,6 +38,13 @@ namespace CMSProject.Controllers
                 return HttpNotFound();
             }
             return View(order);
+        }
+        public PartialViewResult _Index(int? page)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var model = db.Orders.OrderBy(n => n.OrderID).ToPagedList(pageNumber, pageSize);
+            return PartialView(model);
         }
 
         // GET: Order/Create
@@ -161,6 +169,7 @@ namespace CMSProject.Controllers
         [HttpPost]
         public ActionResult CreateProduct(int? id, int? ordId)
         {
+            bool flag = false;
             if (Session["Carts"] == null)
             {
                 lstCarts = new List<Carts>();
@@ -168,17 +177,31 @@ namespace CMSProject.Controllers
             else
             {
                 lstCarts = Session["Carts"] as List<Carts>;
+                var listCarts = lstCarts.Where(n => n.OrderID == ordId).ToList();
+                foreach(var item in listCarts)
+                {
+                    if (item.ProductID == id)
+                    {
+                        flag = true;
+                        item.Quantity += 1;
+                        item.Total = item.Quantity * item.UnitPrice;
+                        break;
+                    }
+                }
             }
             Product pro = db.Products.Where(n => n.ProductID == id).FirstOrDefault();
-            Carts c = new Carts();
             int IdOrd = ordId.Value;
-            c.OrderID = IdOrd;
-            c.ProductID = id.Value;
-            c.ProductName = pro.ProductName;
-            c.Quantity = 1;
-            c.UnitPrice = Convert.ToDecimal(pro.Price);
-            c.Total = c.Quantity * c.UnitPrice;
-            lstCarts.Add(c);
+            if (flag == false)
+            {
+                Carts c = new Carts();
+                c.OrderID = IdOrd;
+                c.ProductID = id.Value;
+                c.ProductName = pro.ProductName;
+                c.Quantity = 1;
+                c.UnitPrice = Convert.ToDecimal(pro.Price);
+                c.Total = c.Quantity * c.UnitPrice;
+                lstCarts.Add(c);
+            }
             Session["Carts"] = lstCarts;
             return RedirectToAction("/CreateProduct/" + IdOrd);
         }
@@ -246,6 +269,20 @@ namespace CMSProject.Controllers
             return View(ProductData);
         }
 
+        [HttpPost]
+        public ActionResult listProduct(string maSP)
+        {
+            var result = from p in db.Products
+                         select p;
+            if (!String.IsNullOrEmpty(maSP))
+            {
+                result = result.Where(n => n.ProductCode.Contains(maSP));
+            }
+            ViewBag.IdO = TempData["IdOrder"];
+            //var ProductData = db.Products.ToList();
+            return View(result);
+        }
+
         public ActionResult lstOrderProduct()
         {
             if (Session["Carts"] == null)
@@ -288,6 +325,9 @@ namespace CMSProject.Controllers
                         pro.Quantity -= item.Quantity;
                         db.Entry(pro).State = EntityState.Modified;
                         db.SaveChanges();
+                        //Xóa sản phẩm vừa save vào OrderDetail đi
+                        Carts c = lstCartting.Where(n => n.ProductID == item.ProductID).FirstOrDefault();
+                        lstCarts.Remove(c);
                     }
                 }
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CMSProject.Models;
+using PagedList;
 
 namespace CMSProject.Controllers
 {
@@ -13,8 +14,14 @@ namespace CMSProject.Controllers
         // GET: WareHouse
         public ActionResult Index()
         {
-            var dataWareHouse = db.Products.ToList();
-            return View(dataWareHouse);
+            return View();
+        }
+        public PartialViewResult _Index(int? page)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var model = db.Products.OrderBy(n => n.ProductID).ToPagedList(pageNumber, pageSize);
+            return PartialView(model);
         }
     }
 }

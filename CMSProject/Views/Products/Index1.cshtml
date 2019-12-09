@@ -4,6 +4,54 @@
     Layout = "~/Views/Shared/admin.cshtml";
 }
 
-<div id="table-view">
+<div class="search-par" style="margin-bottom:10px;">
+    <p>
+        <a href="/Products/Create" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    </p>
+    <div class="search-child" style="float:right;">
+        <input type="text" name="productCode" style="width:250px;height:40px; border-radius:8px; padding-left:5px;" placeholder="Search product code . . ." /> <button class="btn btn-primary"> <i class="fa fa-search" aria-hidden="true"></i></button>
+    </div>
+</div>
+<div id="table-view" class="table-view">
     @{ Html.RenderAction("_Index", new { page = 1 });}
 </div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.search-child > input').on('keydown', function (e) {
+            let val;
+            let getData = $(this).closest('.search-child').parent('.search-par').siblings('.table-view');
+            if (event.keyCode == 8) {
+                val = $(this).val();
+                val = val.substr(0, val.length - 1);
+            }
+            else if (event.keyCode >= 8 && event.keyCode <= 90 && event.keyCode != 13) {
+                val = $(this).val() + String.fromCharCode(event.keyCode);
+            }
+            else if (event.keyCode == 13) {
+                val = $(this).val() + String.fromCharCode(event.keyCode);
+                val = val.substr(0, val.length - 1);
+            }
+            else {
+                return;
+            }
+            val = val.toLowerCase();
+            $.ajax({
+                url: '/Products/_Index',
+                type: 'POST',
+                dataType: 'html',
+                data: { page: 1, productCode: val, pageNumber: 1, pageSize:10 },
+            })
+                .done(function (data) {
+                    getData.html(data);
+                    //console.log("success");
+                })
+                .fail(function () {
+                    //console.log("error");
+                })
+                .always(function () {
+                    //console.log("complete");
+                });
+        })
+    })
+</script>

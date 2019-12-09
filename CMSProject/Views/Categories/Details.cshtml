@@ -19,25 +19,9 @@
             @Html.DisplayFor(model => model.CategoryName)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Desciption)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Desciption)
-        </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.SubCategory)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SubCategory)
-        </dd>*@
-
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("<< Quay lại danh sách", "Index")
 </p>
