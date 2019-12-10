@@ -121,6 +121,14 @@ namespace CMSProject.Controllers
         {
             return View();
         }
+
+        //Xem trang cá nhân
+        public ActionResult AccountDetail(int? id)
+        {
+            var account = db.Accounts.Find(id);
+            return View(account);
+        }
+
         [HttpPost]
         public ActionResult Login(Account account)
         {

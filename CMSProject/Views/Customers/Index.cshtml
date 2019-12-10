@@ -4,67 +4,56 @@
 
     Layout = "~/Views/Shared/admin.cshtml";
 }
+<div class="search-par" style="margin-bottom:10px;">
 
+    <div class="search-child" style="float:right;">
+        <input type="text" name="blogTitle" style="width:250px;height:40px; border-radius:8px; padding-left:5px;" placeholder="Search customer name . . ." /> <button class="btn btn-primary"> <i class="fa fa-search" aria-hidden="true"></i></button>
+    </div>
+</div>
+<div id="table-view" class="table-view">
+    @{ Html.RenderAction("_Index", new { page = 1 });}
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.search-child > input').on('keydown', function (e) {
+            let val;
+            let getData = $(this).closest('.search-child').parent('.search-par').siblings('.table-view');
+            if (event.keyCode == 8) {
+                val = $(this).val();
+                val = val.substr(0, val.length - 1);
+            }
+            else if (event.keyCode >= 8 && event.keyCode <= 90 && event.keyCode != 13) {
+                val = $(this).val() + String.fromCharCode(event.keyCode);
+            }
+            else if (event.keyCode == 13) {
+                val = $(this).val() + String.fromCharCode(event.keyCode);
+                val = val.substr(0, val.length - 1);
+            }
+            else {
+                return;
+            }
+            val = val.toLowerCase();
+            $.ajax({
+                url: '/Customers/_Index',
+                type: 'POST',
+                dataType: 'html',
+                data: { page: 1, customerName: val, pageNumber: 1, pageSize:10 },
+            })
+                .done(function (data) {
+                    getData.html(data);
+                    //console.log("success");
+                })
+                .fail(function () {
+                    //console.log("error");
+                })
+                .always(function () {
+                    //console.log("complete");
+                });
+        })
+    })
+</script>
 @*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country)
-        </th>
-        <th></th>
-    </tr>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            @*<td>
-                <div class="glyphicon glyphicon-pencil">  @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID })</div>
-               |
-                @Html.ActionLink("Details", "Details", new { id = item.CustomerID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID })
-            </td>*@
-        </tr>
-    }
-
-</table>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CMSProject.Models;
+using PagedList;
 
 namespace CMSProject.Controllers
 {
@@ -34,6 +35,33 @@ namespace CMSProject.Controllers
                     return RedirectToAction("Error", "Home");
                 }
             }
+        }
+
+        public ActionResult _Index(int? page, string supplierName)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var result = from p in db.Suppliers
+                         select p;
+            if (!String.IsNullOrEmpty(supplierName))
+            {
+                result = result.Where(n => n.SupplierName.Contains(supplierName));
+            }
+            ViewBag.supplierName = supplierName;
+            return PartialView(result.OrderBy(n => n.SupplierID).ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult _Index(int? page, string supplierName, int pageNumber, int pageSize)
+        {
+            var result = from p in db.Suppliers
+                         select p;
+            if (!String.IsNullOrEmpty(supplierName))
+            {
+                result = result.Where(n => n.SupplierName.Contains(supplierName));
+            }
+            ViewBag.supplierName = supplierName;
+            return View(result.OrderBy(n => n.SupplierID).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Suppliers/Details/5

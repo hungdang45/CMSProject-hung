@@ -204,8 +204,9 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             @*<h6 class="collapse-header">Custom Components:</h6>*@
                             @*<a class="collapse-item" href="buttons.html">Buttons</a>
-                                <a class="collapse-item" href="cards.html">Cards</a>*@
-                            <a href="/tai-khoan" )" class="collapse-item">Thông tin tài khoản</a>
+        <a class="collapse-item" href="cards.html">Cards</a>*@
+                            <a href="/tai-khoan" )" class="collapse-item">Thông tin tài khoản</a>                         
+
                             <a href="/dang-nhap" )" class="collapse-item">Đăng xuất</a>
 
                         </div>
@@ -235,7 +236,22 @@
                         <ul class="navbar-nav ml-auto" style="width:140px;">
                             <li>
                                 <!--Viet xem thong tin ca nhan va chinh sua thong tin ca nhan(Giong ben client)-->
-                                Hello @Session["AdminName"]
+                                @*Hello @Session["AdminName"]*@
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @Session["AdminName"]
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                            <a class="dropdown-item" href="/Accounts/Details/@Session["ID"]">Trang cá nhân</a>
+                                            <form action="/Accounts/Logout" method="post">
+                                                <button type="submit" class="dropdown-item">Logout</button>
+                                            </form>
+                                            @*<a class="dropdown-item" href="">Đăng xuất</a>*@
+                                        </div>
+                                    </li>
+                                </ul>
                             </li>
 
                             <div class="topbar-divider d-none d-sm-block"></div>

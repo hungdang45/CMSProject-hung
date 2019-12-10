@@ -1,0 +1,71 @@
+﻿
+@using PagedList
+@using PagedList.Mvc;
+
+@model IPagedList<CMSProject.Models.Supplier>
+
+@*@{
+        ViewBag.Title = "_Index";
+        Layout = "~/Views/Shared/admin.cshtml";
+    }*@
+@{
+    var supplierName = ViewBag.supplierName;
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().SupplierName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().OtherDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ContactAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ContactEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ContactPhone)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactPhone)
+            </td>
+            <td>
+                @Html.ActionLink("  ", "Edit", new { id = item.SupplierID }, new { @class = "btn btn-warning fa fa-pencil" })
+                @Html.ActionLink("  ", "Details", new { id = item.SupplierID }, new { @class = "btn btn-info fa fa-info-circle" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("_Index", new { page, supplierName }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+        new AjaxOptions()
+        {
+            UpdateTargetId= "table-view"
+        }
+        )
+    )

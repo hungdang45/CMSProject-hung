@@ -1,0 +1,180 @@
+﻿
+
+@using PagedList
+@using PagedList.Mvc;
+
+@model IPagedList<CMSProject.Models.Order>
+
+@*@{
+        ViewBag.Title = "_Index";
+        Layout = "~/Views/Shared/admin.cshtml";
+    }*@
+@{
+    var customerName = ViewBag.customerName;
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().OrderName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ShipAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().OrderCreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Shipper)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ShipDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Receiver)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().PayDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Status)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.OrderName == 1)
+                {
+                    <text>Hóa đơn trực tiếp</text>
+                }
+                else
+                {
+                    <text>Hóa đơn online</text>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderCreate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shipper)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Receiver)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayDate)
+            </td>
+            <td>
+                @if (item.Total > 0)
+                {
+                    @item.Total.Value.ToString("#,###")
+                }
+                else
+                {
+                    <text>0</text>
+                }
+                VND
+            </td>
+            <td>
+                @if (item.Status == 3)
+                {
+                    <text>Đã thanh toán</text>
+                }
+                else
+                {
+                    <text>Chưa thanh toán</text>
+                }
+            </td>
+            <td>
+                @if (item.Shipper != null && item.Total > 0 && item.Status != 3 && item.Receiver == null)
+                {
+                    <form action="/Order/DaThanhToan/@item.OrderID" method="post">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    if (item.Total > 0 && item.Status != 3)
+                    {
+                        <form action="/Order/DaThanhToan/@item.OrderID" method="post">
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fa fa-money" aria-hidden="true"></i>
+                            </button>
+                        </form>
+
+                        <form action="/Order/NhanShipper/@item.OrderID" method="post">
+                            <button class="btn btn-success">
+                                <i class="fa fa-truck" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        if (item.Total > 0 && item.Shipper == null && item.Receiver != null)
+                        {
+                            <form action="/Order/NhanShipper/@item.OrderID" method="post">
+                                <button class="btn btn-success">
+                                    <i class="fa fa-truck" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            if (item.Total == null)
+                            {
+                                <a href="/Order/CreateProduct/@item.OrderID" class="btn btn-primary"><i class="fa fa-product-hunt" aria-hidden="true"></i></a>
+                            }
+                            else
+                            {
+                                <a style="color:red;"><i class="fa fa-check" aria-hidden="true"></i></a>
+                            }
+                        }
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("_Index", new { page, customerName }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+        new AjaxOptions()
+        {
+            UpdateTargetId= "table-view"
+        }
+        )
+    )

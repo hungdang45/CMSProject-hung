@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using CMSProject.Models;
-
+using PagedList;
 
 
 namespace CMSProject.Controllers
@@ -21,6 +21,33 @@ namespace CMSProject.Controllers
         public ActionResult Index()
         {
             return View(db.Customers.ToList());
+        }
+
+        public ActionResult _Index(int? page, string customerName)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var result = from p in db.Customers
+                         select p;
+            if (!String.IsNullOrEmpty(customerName))
+            {
+                result = result.Where(n => n.CustomerName.Contains(customerName));
+            }
+            ViewBag.customerName = customerName;
+            return PartialView(result.OrderBy(n => n.CustomerID).ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult _Index(int? page, string customerName, int pageNumber, int pageSize)
+        {
+            var result = from p in db.Customers
+                         select p;
+            if (!String.IsNullOrEmpty(customerName))
+            {
+                result = result.Where(n => n.CustomerName.Contains(customerName));
+            }
+            ViewBag.customerName = customerName;
+            return View(result.OrderBy(n => n.CustomerID).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Customers/Details/5

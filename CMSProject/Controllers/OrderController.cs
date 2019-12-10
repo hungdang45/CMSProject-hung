@@ -25,6 +25,41 @@ namespace CMSProject.Controllers
             return View(db.Orders.ToList());
         }
 
+        //public PartialViewResult _Index(int? page)
+        //{
+        //    int pageNumber = page ?? 1;
+        //    int pageSize = 10;
+        //    var model = db.Orders.OrderBy(n => n.OrderID).ToPagedList(pageNumber, pageSize);
+        //    return PartialView(model);
+        //}
+
+        public ActionResult _Index(int? page, string customerName)
+        {
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+            var result = from p in db.Orders
+                         select p;
+            if (!String.IsNullOrEmpty(customerName))
+            {
+                result = result.Where(n => n.CustomerName.Contains(customerName));
+            }
+            ViewBag.customerName = customerName;
+            return PartialView(result.OrderBy(n => n.OrderID).ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult _Index(int? page, string customerName, int pageNumber, int pageSize)
+        {
+            var result = from p in db.Orders
+                         select p;
+            if (!String.IsNullOrEmpty(customerName))
+            {
+                result = result.Where(n => n.CustomerName.Contains(customerName));
+            }
+            ViewBag.customerName = customerName;
+            return View(result.OrderBy(n => n.OrderID).ToPagedList(pageNumber, pageSize));
+        }
+
         // GET: Order/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,13 +74,7 @@ namespace CMSProject.Controllers
             }
             return View(order);
         }
-        public PartialViewResult _Index(int? page)
-        {
-            int pageNumber = page ?? 1;
-            int pageSize = 10;
-            var model = db.Orders.OrderBy(n => n.OrderID).ToPagedList(pageNumber, pageSize);
-            return PartialView(model);
-        }
+
 
         // GET: Order/Create
         public ActionResult Create()

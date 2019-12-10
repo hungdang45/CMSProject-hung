@@ -17,13 +17,15 @@
         <th>
             @Html.DisplayNameFor(model => model.First().BlogTitle)
         </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.BlogContent)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().Author)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.First().DateCreated)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().Author)
-        </th>   
-      
         <th>Tùy chọn</th>
     </tr>
 
@@ -31,24 +33,27 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.BlogTitle)
+                <a href="/Blogs/Details/@item.BlogID" style="color:blue;">@item.BlogTitle</a>
+                @*@Html.DisplayFor(modelItem => item.BlogTitle)*@
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
+            @*<td>
+
+                 @Html.Raw(item.BlogContent)
+                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
             </td>
-    
             <td>
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
-           
-            @*<td>
-                <a href="/Products/Edit/@item.ProductID" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                @Html.ActionLink("  ", "Details", new { id = item.ProductID }, new { @class = "btn btn-info fa fa-info-circle" })
-                <button onclick="deldeteProduct(@item.ProductID)" class="btn btn-primary">X</button>
-            </td>*@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.BlogID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.BlogID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BlogID })*@
+                @Html.ActionLink("  ", "Edit", new { id = item.BlogID }, new { @class = "btn btn-warning fa fa-pencil" })
+                @Html.ActionLink("  ", "Details", new { id = item.BlogID }, new { @class = "btn btn-info fa fa-info-circle" })
+                @Html.ActionLink("  ", "Delete", new { id = item.BlogID }, new { @class = "btn btn-danger fa fa-times" })
+            </td>
         </tr>
     }
 
